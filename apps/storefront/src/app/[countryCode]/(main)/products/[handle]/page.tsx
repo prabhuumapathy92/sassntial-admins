@@ -5,6 +5,10 @@ import { getRegion, listRegions } from "@lib/data/regions"
 import ProductTemplate from "@modules/products/templates"
 import { HttpTypes } from "@medusajs/types"
 
+// Catalog pages are prerendered; this lets Medusa Admin edits appear without
+// a rebuild. /api/revalidate publishes changes immediately.
+export const revalidate = 60
+
 type Props = {
   params: Promise<{ countryCode: string; handle: string }>
   searchParams: Promise<{ v_id?: string }>
@@ -55,18 +59,22 @@ export async function generateStaticParams() {
 function getImagesForVariant(
   product: HttpTypes.StoreProduct,
   selectedVariantId?: string
-) {
+): HttpTypes.StoreProductImage[] {
+  const productImages = product.images ?? []
+
   if (!selectedVariantId || !product.variants) {
-    return product.images
+    return productImages
   }
 
-  const variant = product.variants!.find((v) => v.id === selectedVariantId)
-  if (!variant || !variant.images?.length) {
-    return product.images
+  const variant = product.variants.find((v) => v.id === selectedVariantId)
+  const variantImages = variant?.images ?? []
+
+  if (!variantImages.length) {
+    return productImages
   }
 
-  const imageIdsMap = new Map(variant.images!.map((i) => [i.id, true]))
-  return product.images?.filter((i) => imageIdsMap.has(i.id)) ?? null
+  const imageIdsMap = new Map(variantImages.map((i) => [i.id, true]))
+  return productImages.filter((i) => imageIdsMap.has(i.id))
 }
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
@@ -125,7 +133,7 @@ export default async function ProductPage(props: Props) {
       product={pricedProduct}
       region={region}
       countryCode={params.countryCode}
-      images={images ?? []}
+      images={images}
     />
   )
 }

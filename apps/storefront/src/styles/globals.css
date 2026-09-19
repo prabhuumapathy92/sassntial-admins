@@ -2,6 +2,32 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
+@layer base {
+  :root {
+    --brand-ink: #0f172a;
+    --brand-muted: #475569;
+    --brand-surface: #f8fafc;
+    --brand-accent: #7dd3fc;
+    --brand-accent-soft: #e0f2fe;
+    --font-display-condensed: "Arial Narrow", "Roboto Condensed",
+      "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --font-sans: "Segoe UI", SegoeUI, "Helvetica Neue", Helvetica, Arial,
+      sans-serif;
+    --font-brand: var(--font-sans);
+    --font-tech: var(--font-sans);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: linear-gradient(180deg, #f8fafc 0%, #ffffff 24%);
+    color: var(--brand-ink);
+    font-family: var(--font-sans);
+  }
+}
+
 @layer utilities {
   /* Chrome, Safari and Opera */
   .no-scrollbar::-webkit-scrollbar {
@@ -51,7 +77,136 @@
 
 @layer components {
   .content-container {
-    @apply max-w-[1440px] w-full mx-auto px-6;
+    @apply max-w-[1320px] w-full mx-auto px-5 small:px-6;
+  }
+
+  .marketing-hero {
+    background:
+      radial-gradient(circle at top left, rgba(245, 158, 11, 0.16), transparent 24%),
+      radial-gradient(circle at top right, rgba(96, 165, 250, 0.12), transparent 22%),
+      linear-gradient(180deg, #eef4fb 0%, #f7fbff 24%, #ffffff 100%);
+  }
+
+  .marketing-hero-panel {
+    position: relative;
+    background:
+      linear-gradient(104deg, rgba(8, 21, 35, 0.98) 0%, rgba(12, 28, 46, 0.96) 41%, rgba(12, 28, 46, 0.66) 66%, rgba(12, 28, 46, 0.18) 100%),
+      linear-gradient(145deg, #081523 0%, #10233b 44%, #173555 100%);
+    box-shadow: 0 38px 72px -42px rgba(15, 23, 42, 0.9);
+  }
+
+  .marketing-hero-panel::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at top left, rgba(255, 255, 255, 0.08), transparent 22%),
+      linear-gradient(105deg, rgba(8, 21, 35, 0.98) 0%, rgba(8, 21, 35, 0.9) 38%, rgba(8, 21, 35, 0.45) 70%, rgba(8, 21, 35, 0.08) 100%);
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .marketing-hero-panel-immersive {
+    background: #10233b;
+    box-shadow: none;
+    isolation: isolate;
+  }
+
+  .marketing-hero-panel-immersive::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(92deg, rgba(8, 21, 35, 0.98) 0%, rgba(8, 21, 35, 0.94) 19%, rgba(8, 21, 35, 0.92) 33%, rgba(8, 21, 35, 0.78) 46%, rgba(8, 21, 35, 0.42) 63%, rgba(8, 21, 35, 0.16) 79%, rgba(8, 21, 35, 0.04) 100%);
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .marketing-hero-panel-immersive::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 12% 30%, rgba(255,255,255,0.07), transparent 0 22%),
+      radial-gradient(circle at 78% 18%, rgba(242,181,68,0.16), transparent 0 20%),
+      linear-gradient(180deg, rgba(9, 18, 28, 0.18) 0%, rgba(9, 18, 28, 0.32) 100%);
+    mix-blend-mode: screen;
+    opacity: 0.58;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .marketing-hero-media {
+    position: relative;
+    min-height: 100%;
+  }
+
+  .marketing-hero-media::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(90deg, rgba(8, 21, 35, 0.28) 0%, rgba(8, 21, 35, 0.06) 34%, rgba(8, 21, 35, 0) 100%);
+    pointer-events: none;
+  }
+
+  .marketing-hero-media-immersive::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(90deg, rgba(13, 24, 35, 0.4) 0%, rgba(13, 24, 35, 0.14) 42%, rgba(13, 24, 35, 0.03) 60%, rgba(13, 24, 35, 0) 74%);
+    pointer-events: none;
+  }
+
+  .marketing-hero-placeholder {
+    background:
+      radial-gradient(circle at 20% 26%, rgba(245, 158, 11, 0.34), transparent 0 18%),
+      radial-gradient(circle at 78% 32%, rgba(255, 255, 255, 0.18), transparent 0 24%),
+      linear-gradient(145deg, #0f2942 0%, #1e4468 48%, #6a86a0 100%);
+  }
+
+.marketing-immersive-copy {
+  max-width: 760px;
+}
+
+.marketing-immersive-breadcrumbs {
+  font-size: 0.9rem;
+  letter-spacing: 0;
+  font-weight: 700;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.22);
+}
+
+.marketing-immersive-title {
+  max-width: 860px;
+  font-family: var(--font-display-condensed);
+  font-size: clamp(2.6rem, 4.9vw, 4.9rem);
+  line-height: 1.02;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-shadow: 0 3px 14px rgba(0, 0, 0, 0.2);
+}
+
+.marketing-immersive-body {
+  max-width: 760px;
+  font-family: inherit;
+  font-size: clamp(1rem, 1.42vw, 1.28rem);
+  line-height: 1.75;
+  letter-spacing: -0.018em;
+  font-weight: 500;
+  text-transform: none;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.18);
+}
+
+  .marketing-pattern-surface {
+    background-color: #ffffff;
+    background-image:
+      radial-gradient(circle at 0% 18%, rgba(245, 158, 11, 0.12), transparent 120px),
+      radial-gradient(circle at 100% 18%, rgba(96, 165, 250, 0.12), transparent 120px),
+      url("/bg-sth-new.jpg");
+    background-size: auto, auto, min(1680px, 100%) auto;
+    background-position: left 18% top 12%, right 18% top 12%, center top 28px;
+    background-repeat: no-repeat, no-repeat, no-repeat;
   }
 
   .contrast-btn {
@@ -109,4 +264,267 @@
   .text-3xl-semi {
     @apply text-[32px] leading-[44px] font-semibold;
   }
+}
+
+@media (min-width: 1024px) {
+  .marketing-immersive-copy {
+    max-width: 46%;
+  }
+
+  .marketing-immersive-title {
+    max-width: 100%;
+    font-size: 4rem;
+    line-height: 1.02;
+  }
+
+  .marketing-immersive-body {
+    max-width: 100%;
+  }
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes marquee-reverse {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+.animate-marquee {
+  animation: marquee 40s linear infinite;
+}
+
+
+.animate-marquee-reverse {
+  animation: marquee-reverse 40s linear infinite;
+}
+
+/* Rich Text Description Styles */
+.product-description {
+  color: #475569;
+}
+
+.product-description > :first-child {
+  margin-top: 0 !important;
+}
+
+.product-description > :last-child {
+  margin-bottom: 0 !important;
+}
+
+.product-description p {
+  margin: 0 0 1rem;
+}
+
+.product-description p + p {
+  margin-top: 0.25rem;
+}
+
+.product-description ul {
+  list-style-type: disc !important;
+  padding-left: 1.5rem !important;
+  margin: 0 0 1rem !important;
+}
+
+.product-description ol {
+  list-style-type: decimal !important;
+  padding-left: 1.5rem !important;
+  margin: 0 0 1rem !important;
+}
+
+.product-description li {
+  margin: 0.35rem 0;
+}
+
+.product-description h1 {
+  font-size: 1.875rem !important;
+  line-height: 1.2 !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.03em !important;
+  margin: 1.75rem 0 0.9rem !important;
+  color: #0f172a !important;
+}
+
+.product-description h2 {
+  font-size: 1.5rem !important;
+  line-height: 1.25 !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.02em !important;
+  margin: 1.5rem 0 0.75rem !important;
+  color: #0f172a !important;
+}
+
+.product-description h3 {
+  font-size: 1.125rem !important;
+  line-height: 1.35 !important;
+  font-weight: 700 !important;
+  margin: 1.25rem 0 0.65rem !important;
+  color: #0f172a !important;
+}
+
+.product-description strong {
+  color: #0f172a !important;
+}
+
+.product-description a {
+  color: #0284c7 !important;
+  text-decoration: underline !important;
+  text-underline-offset: 0.15em !important;
+}
+
+.product-description blockquote {
+  margin: 1.5rem 0 !important;
+  padding: 1rem 1.25rem !important;
+  border-left: 4px solid #7dd3fc !important;
+  border-radius: 0 1rem 1rem 0 !important;
+  background: #f8fafc !important;
+  color: #334155 !important;
+}
+
+.product-description hr {
+  margin: 1.5rem 0 !important;
+  border-color: #e2e8f0 !important;
+}
+
+.product-description img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 1.5rem 0 !important;
+  border-radius: 1rem;
+}
+
+.product-description table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0 !important;
+  overflow: hidden;
+  border-radius: 1rem;
+}
+
+.product-description th,
+.product-description td {
+  border: 1px solid #e2e8f0 !important;
+  padding: 0.75rem 1rem !important;
+  text-align: left !important;
+}
+
+.product-description th {
+  background: #f8fafc !important;
+  color: #0f172a !important;
+}
+
+/* Webinar detail: admin-authored block content */
+.webinar-block-content > :first-child {
+  margin-top: 0 !important;
+}
+
+.webinar-block-content > :last-child {
+  margin-bottom: 0 !important;
+}
+
+.webinar-block-content p {
+  margin: 0 0 0.65rem;
+}
+
+.webinar-block-content p:empty {
+  display: none;
+}
+
+.webinar-block-content strong {
+  color: #0b2450;
+}
+
+.webinar-block-content a {
+  color: #3b6c82;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.webinar-block-content ul,
+.webinar-block-content ol {
+  margin: 0 0 0.75rem;
+  padding: 0;
+  list-style: none;
+}
+
+.webinar-block-content ol {
+  counter-reset: webinar-step;
+}
+
+.webinar-block-content li {
+  position: relative;
+  margin: 0.25rem 0;
+  padding-left: 1.5rem;
+}
+
+/* The check mark replaces the default marker, matching the webinar layout. */
+.webinar-block-content ul > li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 0.72rem;
+  height: 0.42rem;
+  border-left: 2px solid #d97348;
+  border-bottom: 2px solid #d97348;
+  transform: rotate(-45deg);
+}
+
+.webinar-block-content ol > li::before {
+  counter-increment: webinar-step;
+  content: counter(webinar-step) ".";
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-weight: 600;
+  color: #0b2450;
+}
+
+.webinar-block-content li > p {
+  margin: 0;
+}
+
+.webinar-block-content li > ul,
+.webinar-block-content li > ol {
+  margin: 0.25rem 0 0;
+}
+
+.webinar-block-content hr {
+  margin: 0.85rem 0;
+  border: 0;
+  border-top: 1px solid #d8e4eb;
+}
+
+.webinar-block-content h1,
+.webinar-block-content h2,
+.webinar-block-content h3,
+.webinar-block-content h4 {
+  margin: 1rem 0 0.5rem;
+  font-weight: 600;
+  color: #0b2450;
+  font-size: 1rem;
+}
+
+.webinar-block-content img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 0.75rem 0;
+  border-radius: 3px;
+}
+
+.webinar-block-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0.75rem 0;
+}
+
+.webinar-block-content th,
+.webinar-block-content td {
+  border: 1px solid #d8e4eb;
+  padding: 0.5rem 0.65rem;
+  text-align: left;
 }

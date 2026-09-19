@@ -8,19 +8,26 @@ import {
 } from "@headlessui/react"
 import { convertToLocale } from "@lib/util/money"
 import { HttpTypes } from "@medusajs/types"
-import { Button } from "@modules/common/components/ui"
+import { Button, clx } from "@medusajs/ui"
 import DeleteButton from "@modules/common/components/delete-button"
 import LineItemOptions from "@modules/common/components/line-item-options"
 import LineItemPrice from "@modules/common/components/line-item-price"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import Thumbnail from "@modules/products/components/thumbnail"
+import { ShoppingBag } from "@medusajs/icons"
 import { usePathname } from "next/navigation"
 import { Fragment, useEffect, useRef, useState } from "react"
 
 const CartDropdown = ({
   cart: cartState,
+  linkClassName,
+  panelClassName,
+  iconOnly = false,
 }: {
   cart?: HttpTypes.StoreCart | null
+  linkClassName?: string
+  panelClassName?: string
+  iconOnly?: boolean
 }) => {
   const [activeTimer, setActiveTimer] = useState<NodeJS.Timer | undefined>(
     undefined
@@ -82,10 +89,26 @@ const CartDropdown = ({
       <Popover className="relative h-full">
         <PopoverButton className="h-full">
           <LocalizedClientLink
-            className="hover:text-ui-fg-base"
+            className={clx(
+              "hover:text-ui-fg-base transition-colors duration-200",
+              linkClassName
+            )}
             href="/cart"
             data-testid="nav-cart-link"
-          >{`Cart (${totalItems})`}</LocalizedClientLink>
+          >
+            {iconOnly ? (
+              <>
+                <ShoppingBag className="h-5 w-5" />
+                {totalItems > 0 ? (
+                  <span className="absolute right-0 top-0 inline-flex min-h-4 min-w-4 items-center justify-center rounded-full bg-[#d97348] px-1 text-[10px] font-bold leading-none text-white">
+                    {totalItems > 99 ? "99+" : totalItems}
+                  </span>
+                ) : null}
+              </>
+            ) : (
+              `Cart (${totalItems})`
+            )}
+          </LocalizedClientLink>
         </PopoverButton>
         <Transition
           show={cartDropdownOpen}
@@ -99,7 +122,10 @@ const CartDropdown = ({
         >
           <PopoverPanel
             static
-            className="hidden small:block absolute top-[calc(100%+1px)] right-0 bg-white border-x border-b border-gray-200 w-[420px] text-ui-fg-base"
+            className={clx(
+              "absolute right-0 top-[calc(100%+1px)] hidden w-[420px] border border-ui-border-base bg-white text-ui-fg-base small:block",
+              panelClassName
+            )}
             data-testid="nav-cart-dropdown"
           >
             <div className="p-4 flex items-center justify-center">
@@ -210,7 +236,7 @@ const CartDropdown = ({
                   </div>
                   <span>Your shopping bag is empty.</span>
                   <div>
-                    <LocalizedClientLink href="/store">
+                    <LocalizedClientLink href="/training">
                       <>
                         <span className="sr-only">Go to all products page</span>
                         <Button onClick={close}>Explore products</Button>

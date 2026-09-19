@@ -1,39 +1,70 @@
 import { Metadata } from "next"
+import { redirect } from "next/navigation"
 
-import { parseOptionValueIds } from "@lib/util/product-option-filters"
 import { SortOptions } from "@modules/store/components/refinement-list/sort-products"
-import StoreTemplate from "@modules/store/templates"
+
+// Catalog pages are prerendered; this lets Medusa Admin edits appear without
+// a rebuild. /api/revalidate publishes changes immediately.
+export const revalidate = 60
 
 export const metadata: Metadata = {
   title: "Store",
   description: "Explore all of our products.",
 }
 
-type StorePageSearchParams = Record<string, string | string[] | undefined> & {
-  sortBy?: SortOptions
-  page?: string
-  optionValueIds?: string | string[]
-}
-
 type Params = {
-  searchParams: Promise<StorePageSearchParams>
+  searchParams: Promise<{
+    sortBy?: SortOptions
+    page?: string
+    limit?: string
+    q?: string
+    category?: string
+    speaker?: string
+    month?: string
+  }>
   params: Promise<{
     countryCode: string
   }>
 }
 
 export default async function StorePage(props: Params) {
-  const params = await props.params;
-  const searchParams = await props.searchParams;
-  const { sortBy, page } = searchParams
-  const optionValueIds = parseOptionValueIds(searchParams)
+  const params = await props.params
+  const searchParams = await props.searchParams
+  const { sortBy, page, limit, q, category, speaker, month } = searchParams
 
-  return (
-    <StoreTemplate
-      sortBy={sortBy}
-      page={page}
-      countryCode={params.countryCode}
-      optionValueIds={optionValueIds}
-    />
+  const nextSearchParams = new URLSearchParams()
+
+  if (sortBy) {
+    nextSearchParams.set("sortBy", sortBy)
+  }
+
+  if (page) {
+    nextSearchParams.set("page", page)
+  }
+
+  if (limit) {
+    nextSearchParams.set("limit", limit)
+  }
+
+  if (q) {
+    nextSearchParams.set("q", q)
+  }
+
+  if (category) {
+    nextSearchParams.set("category", category)
+  }
+
+  if (speaker) {
+    nextSearchParams.set("speaker", speaker)
+  }
+
+  if (month) {
+    nextSearchParams.set("month", month)
+  }
+
+  const queryString = nextSearchParams.toString()
+
+  redirect(
+    `/${params.countryCode}/training${queryString ? `?${queryString}` : ""}`
   )
 }

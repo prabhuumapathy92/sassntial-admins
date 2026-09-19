@@ -1,6 +1,6 @@
 "use client"
 
-import { IconBadge, clx } from "@modules/common/components/ui"
+import { clx } from "@medusajs/ui"
 import {
   SelectHTMLAttributes,
   forwardRef,
@@ -37,32 +37,30 @@ const CartItemSelect = forwardRef<HTMLSelectElement, NativeSelectProps>(
     }, [innerRef.current?.value])
 
     return (
-      <div>
-        <IconBadge
-          onFocus={() => innerRef.current?.focus()}
-          onBlur={() => innerRef.current?.blur()}
-          className={clx(
-            "relative flex items-center txt-compact-small border text-ui-fg-base group",
-            className,
-            {
-              "text-ui-fg-subtle": isPlaceholder,
-            }
-          )}
+      <div
+        onFocus={() => innerRef.current?.focus()}
+        onBlur={() => innerRef.current?.blur()}
+        className={clx(
+          "group relative flex items-center overflow-hidden border border-[#d7dce5] bg-white text-sm font-medium text-slate-900 shadow-[inset_0_1px_0_rgba(255,255,255,0.7)] transition duration-150 focus-within:border-[#2c7cf7] focus-within:ring-2 focus-within:ring-[#bfdbfe]",
+          className,
+          {
+            "text-slate-400": isPlaceholder,
+          }
+        )}
+      >
+        <select
+          ref={innerRef}
+          {...props}
+          className="h-full min-h-[44px] w-full appearance-none bg-transparent px-4 pr-10 outline-none"
         >
-          <select
-            ref={innerRef}
-            {...props}
-            className="appearance-none bg-transparent border-none px-4 transition-colors duration-150 focus:border-gray-700 outline-none w-16 h-16 items-center justify-center"
-          >
-            <option disabled value="">
-              {placeholder}
-            </option>
-            {children}
-          </select>
-          <span className="absolute flex pointer-events-none justify-end w-8 group-hover:animate-pulse">
-            <ChevronDown />
-          </span>
-        </IconBadge>
+          <option disabled value="">
+            {placeholder}
+          </option>
+          {children}
+        </select>
+        <span className="pointer-events-none absolute right-3 text-slate-500 transition-transform duration-150 group-hover:translate-y-[1px]">
+          <ChevronDown />
+        </span>
       </div>
     )
   }

@@ -2,7 +2,7 @@ import "server-only"
 import { cookies as nextCookies } from "next/headers"
 
 export const getAuthHeaders = async (): Promise<
-  { authorization: string } | Record<string, never>
+  { authorization: string } | {}
 > => {
   try {
     const cookies = await nextCookies()
@@ -28,39 +28,33 @@ export const getCacheTag = async (tag: string): Promise<string> => {
     }
 
     return `${tag}-${cacheId}`
-  } catch {
+  } catch (error) {
     return ""
   }
 }
 
 export const getCacheOptions = async (
   tag: string
-): Promise<{ tags: string[] } | Record<string, never>> => {
+): Promise<{ tags: string[] } | {}> => {
   if (typeof window !== "undefined") {
     return {}
   }
 
   const cacheTag = await getCacheTag(tag)
 
-  if (!cacheTag) {
-    return {}
-  }
-
-  return { tags: [`${cacheTag}`] }
+  // The per-visitor tag (`products-<cacheId>`) can only be invalidated for the
+  // visitor who triggered it, which makes admin edits impossible to publish
+  // globally. The plain tag is emitted alongside it so a single
+  // revalidateTag("products") from /api/revalidate clears every visitor.
+  return { tags: cacheTag ? [tag, cacheTag] : [tag] }
 }
 
-// `sameSite: "lax"` rather than `"strict"`: the customer returns from a
-// redirect-based payment method (iDEAL, Bancontact, ...) via a cross-site
-// top-level navigation. A "strict" cookie is withheld on that navigation, so
-// the storefront would see a logged-out, cartless visitor and render a 404 for
-// the checkout page instead of resuming the order. "lax" is sent on top-level
-// GET navigations while still blocking cross-site subrequests.
 export const setAuthToken = async (token: string) => {
   const cookies = await nextCookies()
   cookies.set("_medusa_jwt", token, {
     maxAge: 60 * 60 * 24 * 7,
     httpOnly: true,
-    sameSite: "lax",
+    sameSite: "strict",
     secure: process.env.NODE_ENV === "production",
   })
 }
@@ -72,62 +66,17 @@ export const removeAuthToken = async () => {
   })
 }
 
-export type PendingCustomer = {
-  email: string
-  first_name?: string
-  last_name?: string
-  phone?: string
-}
-
-// During the email verification flow the customer record isn't created until
-// the customer verifies their email and logs in. We temporarily persist the
-// extra signup fields in a cookie so they survive the customer leaving to open
-// their inbox, and read them back when creating the customer at login.
-export const setPendingCustomer = async (customer: PendingCustomer) => {
-  const cookies = await nextCookies()
-  cookies.set("_medusa_pending_customer", JSON.stringify(customer), {
-    maxAge: 60 * 60 * 24,
-    httpOnly: true,
-    sameSite: "strict",
-    secure: process.env.NODE_ENV === "production",
-  })
-}
-
-export const getPendingCustomer = async (): Promise<PendingCustomer | null> => {
-  const cookies = await nextCookies()
-  const value = cookies.get("_medusa_pending_customer")?.value
-
-  if (!value) {
-    return null
-  }
-
-  try {
-    return JSON.parse(value) as PendingCustomer
-  } catch {
-    return null
-  }
-}
-
-export const removePendingCustomer = async () => {
-  const cookies = await nextCookies()
-  cookies.set("_medusa_pending_customer", "", {
-    maxAge: -1,
-  })
-}
-
 export const getCartId = async () => {
   const cookies = await nextCookies()
   return cookies.get("_medusa_cart_id")?.value
 }
 
-// See the note on `setAuthToken`: `sameSite: "lax"` so the cart cookie survives
-// the cross-site return navigation from a redirect-based payment method.
 export const setCartId = async (cartId: string) => {
   const cookies = await nextCookies()
   cookies.set("_medusa_cart_id", cartId, {
     maxAge: 60 * 60 * 24 * 7,
     httpOnly: true,
-    sameSite: "lax",
+    sameSite: "strict",
     secure: process.env.NODE_ENV === "production",
   })
 }

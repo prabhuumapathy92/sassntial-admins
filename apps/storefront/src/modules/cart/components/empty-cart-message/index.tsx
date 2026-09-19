@@ -1,22 +1,28 @@
-import { Heading, Text } from "@modules/common/components/ui"
+import { Heading, Text } from "@medusajs/ui"
 
 import InteractiveLink from "@modules/common/components/interactive-link"
 
 const EmptyCartMessage = () => {
   return (
-    <div className="py-48 px-2 flex flex-col justify-center items-start" data-testid="empty-cart-message">
+    <div
+      className="overflow-hidden border border-slate-200/80 bg-white px-6 py-14 shadow-[0_18px_45px_rgba(15,23,42,0.06)] small:px-10 small:py-16"
+      data-testid="empty-cart-message"
+    >
+      <p className="font-[family-name:var(--font-tech)] text-xs uppercase tracking-[0.28em] text-sky-700">
+        Cart
+      </p>
       <Heading
         level="h1"
-        className="flex flex-row text-3xl-regular gap-x-2 items-baseline"
+        className="mt-3 font-[family-name:var(--font-brand)] text-[2.4rem] font-semibold leading-none tracking-[0.01em] text-slate-950"
       >
-        Cart
+        Your cart is empty.
       </Heading>
-      <Text className="text-base-regular mt-4 mb-6 max-w-[32rem]">
-        You don&apos;t have anything in your cart. Let&apos;s change that, use
-        the link below to start browsing our products.
+      <Text className="mt-4 mb-6 max-w-[36rem] text-base leading-8 text-slate-600">
+        You don&apos;t have anything in your cart yet. Explore the catalog and
+        add products when you&apos;re ready to continue.
       </Text>
-      <div>
-        <InteractiveLink href="/store">Explore products</InteractiveLink>
+      <div className="inline-flex border border-slate-200 bg-slate-50 px-4 py-3">
+        <InteractiveLink href="/training">Explore products</InteractiveLink>
       </div>
     </div>
   )

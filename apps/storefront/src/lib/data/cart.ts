@@ -14,7 +14,7 @@ import {
   setCartId,
 } from "./cookies"
 import { getRegion } from "./regions"
-import { getLocale } from "./locale-actions"
+import { getLocale } from "@lib/data/locale-actions"
 
 /**
  * Retrieves a cart by its ID. If no ID is provided, it will use the cart ID from the cookies.
@@ -155,6 +155,62 @@ export async function addToCart({
       revalidateTag(fulfillmentCacheTag)
     })
     .catch(medusaError)
+}
+
+/**
+ * Adds several variants to the cart in one action.
+ *
+ * Used by purchase panels where a shopper ticks multiple options (recording,
+ * transcript, DVD, ...) before checking out. Medusa's line item endpoint takes a
+ * single variant per call, so the selections are created in sequence against one
+ * cart and the cache is revalidated once at the end rather than per item.
+ */
+export async function addItemsToCart({
+  items,
+  countryCode,
+}: {
+  items: { variantId: string; quantity: number }[]
+  countryCode: string
+}) {
+  const lineItems = items.filter(
+    (item) => !!item.variantId && item.quantity > 0
+  )
+
+  if (!lineItems.length) {
+    throw new Error("Missing variant IDs when adding to cart")
+  }
+
+  const cart = await getOrSetCart(countryCode)
+
+  if (!cart) {
+    throw new Error("Error retrieving or creating cart")
+  }
+
+  const headers = {
+    ...(await getAuthHeaders()),
+  }
+
+  try {
+    for (const item of lineItems) {
+      await sdk.store.cart.createLineItem(
+        cart.id,
+        {
+          variant_id: item.variantId,
+          quantity: item.quantity,
+        },
+        {},
+        headers
+      )
+    }
+  } catch (error) {
+    medusaError(error)
+  }
+
+  const cartCacheTag = await getCacheTag("carts")
+  revalidateTag(cartCacheTag)
+
+  const fulfillmentCacheTag = await getCacheTag("fulfillment")
+  revalidateTag(fulfillmentCacheTag)
 }
 
 export async function updateLineItem({

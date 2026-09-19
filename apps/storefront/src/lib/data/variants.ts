@@ -4,6 +4,7 @@ import { sdk } from "@lib/config"
 import { HttpTypes } from "@medusajs/types"
 
 import { getAuthHeaders, getCacheOptions } from "./cookies"
+import { CATALOG_REVALIDATE_SECONDS } from "@lib/util/cache"
 
 export const retrieveVariant = async (
   variant_id: string
@@ -17,6 +18,7 @@ export const retrieveVariant = async (
   }
 
   const next = {
+    revalidate: CATALOG_REVALIDATE_SECONDS,
     ...(await getCacheOptions("variants")),
   }
 
@@ -30,7 +32,6 @@ export const retrieveVariant = async (
         },
         headers,
         next,
-        cache: "force-cache",
       }
     )
     .then(({ variant }) => variant)

@@ -11,6 +11,8 @@ import { notFound } from "next/navigation"
 import { HttpTypes } from "@medusajs/types"
 
 import ProductActionsWrapper from "./product-actions-wrapper"
+import TrainingProductTemplate from "./training-product-template"
+import { getTrainingFormat } from "@modules/store/lib/training-catalog"
 
 type ProductTemplateProps = {
   product: HttpTypes.StoreProduct
@@ -27,6 +29,19 @@ const ProductTemplate: React.FC<ProductTemplateProps> = ({
 }) => {
   if (!product || !product.id) {
     return notFound()
+  }
+
+  const isTraining = true // !!getTrainingFormat(product)
+
+  if (isTraining) {
+    return (
+      <TrainingProductTemplate
+        product={product}
+        region={region}
+        countryCode={countryCode}
+        images={images}
+      />
+    )
   }
 
   return (

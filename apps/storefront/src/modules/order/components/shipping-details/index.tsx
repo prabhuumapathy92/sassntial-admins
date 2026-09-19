@@ -1,6 +1,6 @@
 import { convertToLocale } from "@lib/util/money"
 import { HttpTypes } from "@medusajs/types"
-import { Heading, Text } from "@modules/common/components/ui"
+import { Heading, Text } from "@medusajs/ui"
 
 import Divider from "@modules/common/components/divider"
 
@@ -11,7 +11,7 @@ type ShippingDetailsProps = {
 const ShippingDetails = ({ order }: ShippingDetailsProps) => {
   return (
     <div>
-      <Heading level="h2" className="flex flex-row text-3xl-regular my-6">
+      <Heading level="h2" className="h1-core font-sans h2-core text-[1.55rem] font-semibold tracking-[-0.03em] text-slate-950">
         Delivery
       </Heading>
       <div className="flex items-start gap-x-8">
@@ -56,9 +56,9 @@ const ShippingDetails = ({ order }: ShippingDetailsProps) => {
         >
           <Text className="txt-medium-plus text-ui-fg-base mb-1">Method</Text>
           <Text className="txt-medium text-ui-fg-subtle">
-            {(order.shipping_methods?.[0] as { name?: string })?.name} (
+            {(order as any).shipping_methods[0]?.name} (
             {convertToLocale({
-              amount: order.shipping_methods?.[0]?.total ?? 0,
+              amount: order.shipping_methods?.[0].total ?? 0,
               currency_code: order.currency_code,
             })}
             )

@@ -1,6 +1,5 @@
 import { listProductsWithSort } from "@lib/data/products"
 import { getRegion } from "@lib/data/regions"
-import { OptionValueIds } from "@lib/util/product-option-filters"
 import ProductPreview from "@modules/products/components/product-preview"
 import { Pagination } from "@modules/store/components/pagination"
 import { SortOptions } from "@modules/store/components/refinement-list/sort-products"
@@ -22,7 +21,6 @@ export default async function PaginatedProducts({
   categoryId,
   productsIds,
   countryCode,
-  optionValueIds,
 }: {
   sortBy?: SortOptions
   page: number
@@ -30,10 +28,9 @@ export default async function PaginatedProducts({
   categoryId?: string
   productsIds?: string[]
   countryCode: string
-  optionValueIds?: OptionValueIds
 }) {
   const queryParams: PaginatedProductsParams = {
-    limit: 12,
+    limit: PRODUCT_LIMIT,
   }
 
   if (collectionId) {
@@ -65,7 +62,6 @@ export default async function PaginatedProducts({
     queryParams,
     sortBy,
     countryCode,
-    optionValueIds,
   })
 
   const totalPages = Math.ceil(count / PRODUCT_LIMIT)
@@ -73,13 +69,13 @@ export default async function PaginatedProducts({
   return (
     <>
       <ul
-        className="grid grid-cols-2 w-full small:grid-cols-3 medium:grid-cols-4 gap-x-6 gap-y-8"
+        className="grid grid-cols-2 w-full gap-x-6 gap-y-8 small:grid-cols-3 medium:grid-cols-4"
         data-testid="products-list"
       >
-        {products.map((p) => {
+        {products.map((product) => {
           return (
-            <li key={p.id}>
-              <ProductPreview product={p} region={region} />
+            <li key={product.id}>
+              <ProductPreview product={product} region={region} />
             </li>
           )
         })}

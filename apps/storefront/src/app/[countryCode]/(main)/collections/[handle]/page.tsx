@@ -6,17 +6,17 @@ import { listRegions } from "@lib/data/regions"
 import { StoreCollection, StoreRegion } from "@medusajs/types"
 import CollectionTemplate from "@modules/collections/templates"
 import { SortOptions } from "@modules/store/components/refinement-list/sort-products"
-import { parseOptionValueIds } from "@lib/util/product-option-filters"
+
+// Catalog pages are prerendered; this lets Medusa Admin edits appear without
+// a rebuild. /api/revalidate publishes changes immediately.
+export const revalidate = 60
 
 type Props = {
   params: Promise<{ handle: string; countryCode: string }>
-  searchParams: Promise<
-    Record<string, string | string[] | undefined> & {
-      page?: string
-      sortBy?: SortOptions
-      optionValueIds?: string | string[]
-    }
-  >
+  searchParams: Promise<{
+    page?: string
+    sortBy?: SortOptions
+  }>
 }
 
 export const PRODUCT_LIMIT = 12
@@ -74,10 +74,9 @@ export default async function CollectionPage(props: Props) {
   const searchParams = await props.searchParams
   const params = await props.params
   const { sortBy, page } = searchParams
-  const optionValueIds = parseOptionValueIds(searchParams)
 
   const collection = await getCollectionByHandle(params.handle).then(
-    (collection) => collection
+    (collection: StoreCollection) => collection
   )
 
   if (!collection) {
@@ -90,7 +89,6 @@ export default async function CollectionPage(props: Props) {
       page={page}
       sortBy={sortBy}
       countryCode={params.countryCode}
-      optionValueIds={optionValueIds}
     />
   )
 }

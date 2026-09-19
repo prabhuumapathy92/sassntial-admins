@@ -4,7 +4,7 @@ import React, { useState } from "react"
 import CountrySelect from "../country-select"
 
 const BillingAddress = ({ cart }: { cart: HttpTypes.StoreCart | null }) => {
-  const [formData, setFormData] = useState<Record<string, string>>({
+  const [formData, setFormData] = useState<any>({
     "billing_address.first_name": cart?.billing_address?.first_name || "",
     "billing_address.last_name": cart?.billing_address?.last_name || "",
     "billing_address.address_1": cart?.billing_address?.address_1 || "",
@@ -29,7 +29,7 @@ const BillingAddress = ({ cart }: { cart: HttpTypes.StoreCart | null }) => {
 
   return (
     <>
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 gap-4 small:grid-cols-2">
         <Input
           label="First name"
           name="billing_address.first_name"

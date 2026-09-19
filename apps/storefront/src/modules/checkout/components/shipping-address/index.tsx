@@ -1,5 +1,5 @@
 import { HttpTypes } from "@medusajs/types"
-import { Container } from "@modules/common/components/ui"
+import { Container } from "@medusajs/ui"
 import Checkbox from "@modules/common/components/checkbox"
 import Input from "@modules/common/components/input"
 import { mapKeys } from "lodash"
@@ -18,7 +18,7 @@ const ShippingAddress = ({
   checked: boolean
   onChange: () => void
 }) => {
-  const [formData, setFormData] = useState<Record<string, string>>({
+  const [formData, setFormData] = useState<Record<string, any>>({
     "shipping_address.first_name": cart?.shipping_address?.first_name || "",
     "shipping_address.last_name": cart?.shipping_address?.last_name || "",
     "shipping_address.address_1": cart?.shipping_address?.address_1 || "",
@@ -49,8 +49,8 @@ const ShippingAddress = ({
     address?: HttpTypes.StoreCartAddress,
     email?: string
   ) => {
-    if (address) {
-      setFormData((prevState: Record<string, string>) => ({
+    address &&
+      setFormData((prevState: Record<string, any>) => ({
         ...prevState,
         "shipping_address.first_name": address?.first_name || "",
         "shipping_address.last_name": address?.last_name || "",
@@ -62,14 +62,12 @@ const ShippingAddress = ({
         "shipping_address.province": address?.province || "",
         "shipping_address.phone": address?.phone || "",
       }))
-    }
 
-    if (email) {
-      setFormData((prevState: Record<string, string>) => ({
+    email &&
+      setFormData((prevState: Record<string, any>) => ({
         ...prevState,
         email: email,
       }))
-    }
   }
 
   useEffect(() => {
@@ -97,8 +95,8 @@ const ShippingAddress = ({
   return (
     <>
       {customer && (addressesInRegion?.length || 0) > 0 && (
-        <Container className="mb-6 flex flex-col gap-y-4 p-5">
-          <p className="text-small-regular">
+        <Container className="mb-6 flex flex-col gap-y-4 border border-slate-200 bg-slate-50/70 p-5 shadow-none">
+          <p className="text-sm leading-7 text-slate-700">
             {`Hi ${customer.first_name}, do you want to use one of your saved addresses?`}
           </p>
           <AddressSelect
@@ -106,13 +104,13 @@ const ShippingAddress = ({
             addressInput={
               mapKeys(formData, (_, key) =>
                 key.replace("shipping_address.", "")
-              ) as unknown as HttpTypes.StoreCartAddress
+              ) as HttpTypes.StoreCartAddress
             }
             onSelect={setFormAddress}
           />
         </Container>
       )}
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 gap-4 small:grid-cols-2">
         <Input
           label="First name"
           name="shipping_address.first_name"
@@ -184,7 +182,7 @@ const ShippingAddress = ({
           data-testid="shipping-province-input"
         />
       </div>
-      <div className="my-8">
+      <div className="my-6 border border-slate-200 bg-slate-50/70 px-4 py-4">
         <Checkbox
           label="Billing address same as shipping address"
           name="same_as_billing"
@@ -193,7 +191,7 @@ const ShippingAddress = ({
           data-testid="billing-address-checkbox"
         />
       </div>
-      <div className="grid grid-cols-2 gap-4 mb-4">
+      <div className="mb-0 grid grid-cols-1 gap-4 small:grid-cols-2">
         <Input
           label="Email"
           name="email"

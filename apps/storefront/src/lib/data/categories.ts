@@ -1,9 +1,11 @@
 import { sdk } from "@lib/config"
 import { HttpTypes } from "@medusajs/types"
 import { getCacheOptions } from "./cookies"
+import { CATALOG_REVALIDATE_SECONDS } from "@lib/util/cache"
 
-export const listCategories = async (query?: Record<string, unknown>) => {
+export const listCategories = async (query?: Record<string, any>) => {
   const next = {
+    revalidate: CATALOG_REVALIDATE_SECONDS,
     ...(await getCacheOptions("categories")),
   }
 
@@ -20,7 +22,6 @@ export const listCategories = async (query?: Record<string, unknown>) => {
           ...query,
         },
         next,
-        cache: "force-cache",
       }
     )
     .then(({ product_categories }) => product_categories)
@@ -30,6 +31,7 @@ export const getCategoryByHandle = async (categoryHandle: string[]) => {
   const handle = `${categoryHandle.join("/")}`
 
   const next = {
+    revalidate: CATALOG_REVALIDATE_SECONDS,
     ...(await getCacheOptions("categories")),
   }
 
@@ -42,7 +44,6 @@ export const getCategoryByHandle = async (categoryHandle: string[]) => {
           handle,
         },
         next,
-        cache: "force-cache",
       }
     )
     .then(({ product_categories }) => product_categories[0])

@@ -8,6 +8,7 @@ module.exports = {
     "./src/pages/**/*.{js,ts,jsx,tsx}",
     "./src/components/**/*.{js,ts,jsx,tsx}",
     "./src/modules/**/*.{js,ts,jsx,tsx}",
+    "./node_modules/@medusajs/ui/dist/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
     extend: {
@@ -20,6 +21,18 @@ module.exports = {
         padding: "padding-top padding-right padding-bottom padding-left",
       },
       colors: {
+        // Storefront brand palette, shared by the nav, footer and product pages.
+        brand: {
+          navy: "#0b2450",
+          ink: "#102735",
+          slate: "#3b6c82",
+          gold: "#e1b24f",
+          amber: "#f8c86f",
+          ember: "#d97348",
+          mist: "#eef5f8",
+          haze: "#f4f8fb",
+          line: "#d8e4eb",
+        },
         grey: {
           0: "#FFFFFF",
           5: "#F9FAFB",
