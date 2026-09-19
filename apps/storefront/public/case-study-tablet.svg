@@ -1,0 +1,84 @@
+<svg width="324" height="560" viewBox="0 0 324 560" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect x="8" y="8" width="308" height="544" rx="34" fill="#F7F8FB" stroke="#F1F4F8" stroke-width="16"/>
+  <rect x="32" y="30" width="260" height="500" rx="20" fill="url(#screen)"/>
+  <rect x="32" y="30" width="260" height="58" rx="20" fill="url(#header)"/>
+  <circle cx="52" cy="59" r="4" fill="#FFFFFF" fill-opacity="0.9"/>
+  <circle cx="68" cy="59" r="4" fill="#FFFFFF" fill-opacity="0.7"/>
+  <circle cx="84" cy="59" r="4" fill="#FFFFFF" fill-opacity="0.5"/>
+  <text x="48" y="78" fill="#FFFFFF" font-size="10" font-family="Arial, Helvetica, sans-serif" font-weight="700" letter-spacing="1.2">CASE STUDY</text>
+  <text x="228" y="78" fill="#FFFFFF" font-size="10" font-family="Arial, Helvetica, sans-serif" font-weight="700" letter-spacing="1.2">IGNITE</text>
+
+  <text x="48" y="138" fill="#245F82" font-size="27" font-family="Arial, Helvetica, sans-serif" font-weight="800" letter-spacing="-1">87% INCREASE IN SALES</text>
+  <text x="48" y="164" fill="#7ED6EF" font-size="10" font-family="Arial, Helvetica, sans-serif" font-weight="700" letter-spacing="1.3">A FRANCHISE DEVELOPMENT CASE STUDY</text>
+
+  <rect x="216" y="110" width="58" height="72" rx="14" fill="#F28753"/>
+  <text x="245" y="133" text-anchor="middle" fill="#FFFFFF" font-size="8" font-family="Arial, Helvetica, sans-serif" font-weight="700">CASE</text>
+  <text x="245" y="145" text-anchor="middle" fill="#FFFFFF" font-size="8" font-family="Arial, Helvetica, sans-serif" font-weight="700">STUDY</text>
+  <text x="245" y="161" text-anchor="middle" fill="#FFFFFF" font-size="15" font-family="Arial, Helvetica, sans-serif" font-weight="800">250+</text>
+  <text x="245" y="174" text-anchor="middle" fill="#FFFFFF" font-size="7" font-family="Arial, Helvetica, sans-serif" font-weight="700" letter-spacing="0.8">REVIEWS</text>
+
+  <g>
+    <text x="48" y="222" fill="#F29655" font-size="14" font-family="Arial, Helvetica, sans-serif" font-weight="800" letter-spacing="0.6">OVERVIEW</text>
+    <rect x="48" y="236" width="124" height="5" rx="2.5" fill="#FFFFFF" fill-opacity="0.55"/>
+    <rect x="48" y="246" width="142" height="5" rx="2.5" fill="#FFFFFF" fill-opacity="0.55"/>
+    <rect x="48" y="256" width="110" height="5" rx="2.5" fill="#FFFFFF" fill-opacity="0.55"/>
+  </g>
+
+  <g>
+    <text x="48" y="288" fill="#F29655" font-size="14" font-family="Arial, Helvetica, sans-serif" font-weight="800" letter-spacing="0.6">OUR CHALLENGES</text>
+    <rect x="48" y="302" width="126" height="5" rx="2.5" fill="#FFFFFF" fill-opacity="0.55"/>
+    <rect x="48" y="312" width="138" height="5" rx="2.5" fill="#FFFFFF" fill-opacity="0.55"/>
+    <rect x="48" y="322" width="102" height="5" rx="2.5" fill="#FFFFFF" fill-opacity="0.55"/>
+  </g>
+
+  <g>
+    <text x="48" y="356" fill="#F29655" font-size="14" font-family="Arial, Helvetica, sans-serif" font-weight="800" letter-spacing="0.6">STRATEGY &amp; TACTICS</text>
+    <rect x="48" y="370" width="134" height="5" rx="2.5" fill="#FFFFFF" fill-opacity="0.55"/>
+    <rect x="48" y="380" width="144" height="5" rx="2.5" fill="#FFFFFF" fill-opacity="0.55"/>
+    <rect x="48" y="390" width="116" height="5" rx="2.5" fill="#FFFFFF" fill-opacity="0.55"/>
+  </g>
+
+  <g>
+    <text x="48" y="424" fill="#F29655" font-size="14" font-family="Arial, Helvetica, sans-serif" font-weight="800" letter-spacing="0.6">RESULTS</text>
+    <rect x="48" y="438" width="118" height="5" rx="2.5" fill="#FFFFFF" fill-opacity="0.55"/>
+    <rect x="48" y="448" width="130" height="5" rx="2.5" fill="#FFFFFF" fill-opacity="0.55"/>
+    <rect x="48" y="458" width="108" height="5" rx="2.5" fill="#FFFFFF" fill-opacity="0.55"/>
+  </g>
+
+  <g>
+    <text x="48" y="494" fill="#F29655" font-size="13" font-family="Arial, Helvetica, sans-serif" font-weight="800" letter-spacing="0.5">WORK WITH IGNITE VISIBILITY</text>
+    <rect x="48" y="506" width="132" height="5" rx="2.5" fill="#FFFFFF" fill-opacity="0.55"/>
+    <rect x="48" y="516" width="146" height="5" rx="2.5" fill="#FFFFFF" fill-opacity="0.55"/>
+  </g>
+
+  <g>
+    <circle cx="238" cy="258" r="28" fill="#2ABFEA"/>
+    <text x="238" y="253" text-anchor="middle" fill="#FFFFFF" font-size="18" font-family="Arial, Helvetica, sans-serif" font-weight="800">13</text>
+    <text x="238" y="266" text-anchor="middle" fill="#FFFFFF" font-size="7" font-family="Arial, Helvetica, sans-serif" font-weight="700" letter-spacing="0.8">LIFT</text>
+  </g>
+
+  <g>
+    <circle cx="252" cy="332" r="28" fill="#2ABFEA"/>
+    <text x="252" y="327" text-anchor="middle" fill="#FFFFFF" font-size="17" font-family="Arial, Helvetica, sans-serif" font-weight="800">71.5%</text>
+    <text x="252" y="340" text-anchor="middle" fill="#FFFFFF" font-size="7" font-family="Arial, Helvetica, sans-serif" font-weight="700" letter-spacing="0.8">LIFT</text>
+  </g>
+
+  <g>
+    <circle cx="236" cy="406" r="28" fill="#2ABFEA"/>
+    <text x="236" y="401" text-anchor="middle" fill="#FFFFFF" font-size="18" font-family="Arial, Helvetica, sans-serif" font-weight="800">24</text>
+    <text x="236" y="414" text-anchor="middle" fill="#FFFFFF" font-size="7" font-family="Arial, Helvetica, sans-serif" font-weight="700" letter-spacing="0.8">LIFT</text>
+  </g>
+
+  <defs>
+    <linearGradient id="header" x1="32" y1="59" x2="292" y2="59" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#EF8354"/>
+      <stop offset="1" stop-color="#F37E4F"/>
+    </linearGradient>
+    <linearGradient id="screen" x1="162" y1="30" x2="162" y2="530" gradientUnits="userSpaceOnUse">
+      <stop offset="0.00" stop-color="#F6FAFC"/>
+      <stop offset="0.15" stop-color="#EAF4F8"/>
+      <stop offset="0.15" stop-color="#0F6F91"/>
+      <stop offset="1.00" stop-color="#075978"/>
+    </linearGradient>
+  </defs>
+</svg>
