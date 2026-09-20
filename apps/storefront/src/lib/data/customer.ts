@@ -143,6 +143,21 @@ export async function signout(countryCode: string) {
   redirect(`/${countryCode}/account`)
 }
 
+// Confirms a customer's email using the token from the verification link.
+//
+// The confirm route doesn't require authentication, so this works even when the
+// customer opens the link on a different device than the one they signed up on.
+export async function confirmEmailVerification(
+  token: string
+): Promise<{ success: boolean; error?: string }> {
+  try {
+    await sdk.auth.verification.confirm({ code: token })
+    return { success: true }
+  } catch (error) {
+    return { success: false, error: String(error) }
+  }
+}
+
 export async function transferCart() {
   const cartId = await getCartId()
 
