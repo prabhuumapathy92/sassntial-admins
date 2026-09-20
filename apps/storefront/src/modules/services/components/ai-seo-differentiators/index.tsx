@@ -32,7 +32,7 @@ const AiSeoDifferentiators = ({
               {column.map((item) => (
                 <div
                   key={item}
-                  className="flex items-center justify-between rounded-[6px] border border-[#edf1f6] bg-[#f3f3f3] px-5 py-3.5"
+                  className="flex items-center justify-between border border-[#edf1f6] bg-[#f3f3f3] px-5 py-3.5"
                 >
                   <span className="pr-4 text-[14px] font-medium text-slate-700">
                     {item}

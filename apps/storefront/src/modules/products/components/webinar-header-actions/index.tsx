@@ -6,20 +6,8 @@ import {
   HeartIcon,
   PlayIcon,
 } from "@modules/products/components/webinar-icons"
+import { readWishlist, toggleWishlistItem } from "@lib/util/wishlist"
 import { useEffect, useState } from "react"
-
-const WISHLIST_KEY = "training-storefront:wishlist"
-
-const readWishlist = (): string[] => {
-  try {
-    const raw = window.localStorage.getItem(WISHLIST_KEY)
-    const parsed = raw ? JSON.parse(raw) : []
-
-    return Array.isArray(parsed) ? parsed : []
-  } catch {
-    return []
-  }
-}
 
 type WebinarHeaderActionsProps = {
   productId: string
@@ -27,10 +15,6 @@ type WebinarHeaderActionsProps = {
   liveSessionLabel?: string | null
 }
 
-/**
- * The wishlist is stored per browser: the storefront has no wishlist API yet,
- * so this keeps the control honest instead of rendering a dead button.
- */
 export default function WebinarHeaderActions({
   productId,
   recordingUrl,
@@ -43,24 +27,13 @@ export default function WebinarHeaderActions({
   }, [productId])
 
   const toggleWishlist = () => {
-    const current = readWishlist()
-    const next = current.includes(productId)
-      ? current.filter((id) => id !== productId)
-      : [...current, productId]
-
-    try {
-      window.localStorage.setItem(WISHLIST_KEY, JSON.stringify(next))
-    } catch {
-      // Storage can be unavailable (private mode); the UI still reflects intent.
-    }
-
-    setIsWishlisted(next.includes(productId))
+    setIsWishlisted(toggleWishlistItem(productId).includes(productId))
   }
 
   // These are secondary to Add To Cart, so they stay in the navy tier and leave
   // the gold gradient to the one primary action on the page.
   const buttonClass =
-    "inline-flex items-center gap-1.5 rounded-full border px-3.5 py-1.5 text-[12px] font-semibold transition-colors"
+    "inline-flex items-center gap-1.5 border px-3.5 py-1.5 text-[12px] font-semibold transition-colors"
 
   const outline =
     "border-brand-navy/25 bg-white text-brand-navy hover:border-brand-navy/50 hover:bg-brand-mist"

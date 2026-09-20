@@ -308,7 +308,7 @@ const WhoWeServeDetailTemplate = ({ item }: { item: WhoWeServeItem }) => {
       />
 
       <article className="relative overflow-hidden px-6 py-7 shadow-[0_28px_60px_-48px_rgba(15,23,42,0.76)] small:px-8 small:py-8">
-        <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[#f59e0b]">
+        <p className="text-[11px] font-semibold uppercase text-[#f59e0b]">
           FAQs
         </p>
         <h3 className="mt-3 text-[2rem] font-black leading-[1.02] text-slate-900 small:text-[2.3rem]">
@@ -320,11 +320,11 @@ const WhoWeServeDetailTemplate = ({ item }: { item: WhoWeServeItem }) => {
             <details
               key={faq.question}
               name={`${item.slug}-faq`}
-              className="group overflow-hidden rounded-[24px] border border-[#dfe8f1] bg-white shadow-[0_16px_30px_-28px_rgba(15,23,42,0.76)]"
+              className="group overflow-hidden border border-[#dfe8f1] bg-white shadow-[0_16px_30px_-28px_rgba(15,23,42,0.76)]"
             >
               <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-5 small:px-6">
                 <div className="flex items-center gap-4">
-                  <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-[16px] bg-[linear-gradient(135deg,#eff6ff_0%,#dbeafe_100%)] text-[11px] font-black uppercase text-[#1d4ed8] shadow-[0_12px_20px_rgba(15,23,42,0.08)]">
+                  <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center bg-[linear-gradient(135deg,#eff6ff_0%,#dbeafe_100%)] text-[11px] font-black uppercase text-[#1d4ed8] shadow-[0_12px_20px_rgba(15,23,42,0.08)]">
                     {String(index + 1).padStart(2, "0")}
                   </span>
                   <h4 className="text-base font-bold text-slate-900 small:text-lg">

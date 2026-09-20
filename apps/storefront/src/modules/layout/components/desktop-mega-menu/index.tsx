@@ -48,7 +48,7 @@ const MegaMenuSection = ({
     <div className="min-w-0">
       <div className="flex items-start gap-2">
         <Icon className="mt-0.5 h-5 w-5 shrink-0 text-white" />
-        <h3 className="text-[1rem] font-black uppercase tracking-[-0.01em] text-white">
+        <h3 className="text-[1rem] font-black uppercase text-white">
           {group.label}
         </h3>
       </div>
@@ -75,12 +75,12 @@ const MegaMenuMediaPanel = ({ media }: { media: MegaMenuMedia }) => {
     <div className="flex h-full min-h-[230px] flex-col justify-between">
       <div>
         {media.eyebrow ? (
-          <p className="text-[0.72rem] font-semibold uppercase tracking-[0.3em] text-white/55">
+          <p className="text-[0.72rem] font-semibold uppercase text-white/55">
             {media.eyebrow}
           </p>
         ) : null}
         {media.title ? (
-          <h3 className="mt-2 text-[1rem] font-black uppercase tracking-[-0.01em] text-white">
+          <h3 className="mt-2 text-[1rem] font-black uppercase text-white">
             {media.title}
           </h3>
         ) : null}
@@ -135,7 +135,7 @@ const MegaMenuPanel = ({
           )}
         >
           <div className="flex items-center justify-center border-r border-white/20 px-6">
-            <span className="text-center text-[1rem] font-black uppercase tracking-[0.12em] text-white">
+            <span className="text-center text-[1rem] font-black uppercase text-white">
               {megaMenu.label ?? item.label}
             </span>
           </div>
@@ -211,7 +211,7 @@ const DesktopMegaMenu = ({ items }: DesktopMegaMenuProps) => {
         <div key={item.label} className="relative flex items-center">
           <LocalizedClientLink
             className={clx(
-              "relative whitespace-nowrap text-[14px] font-semibold tracking-[-0.01em] text-white/90 transition-colors duration-200 hover:text-white after:absolute after:-bottom-4 after:left-0 after:h-px after:w-full after:origin-left after:scale-x-0 after:bg-[#d97348] after:transition-transform after:duration-200 hover:after:scale-x-100",
+              "relative whitespace-nowrap text-[14px] font-semibold text-white/90 transition-colors duration-200 hover:text-white after:absolute after:-bottom-4 after:left-0 after:h-px after:w-full after:origin-left after:scale-x-0 after:bg-[#d97348] after:transition-transform after:duration-200 hover:after:scale-x-100",
               activeItem === item.label && "text-white after:scale-x-100"
             )}
             href={item.href}

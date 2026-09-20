@@ -51,19 +51,19 @@ const freeResourceImages: MegaMenuMediaImage[] = [
     src: blogItem?.blogPosts?.[0]?.imageUrl ?? "/branding-section-01.svg",
     alt: blogItem?.blogPosts?.[0]?.title ?? "Free resources cover one",
     className:
-      "absolute left-0 top-16 w-32 -rotate-6 rounded-[16px] shadow-[0_18px_30px_rgba(1,15,24,0.28)]",
+      "absolute left-0 top-16 w-32 -rotate-6 shadow-[0_18px_30px_rgba(1,15,24,0.28)]",
   },
   {
     src: blogItem?.blogPosts?.[1]?.imageUrl ?? "/branding-section-02.svg",
     alt: blogItem?.blogPosts?.[1]?.title ?? "Free resources cover two",
     className:
-      "absolute left-20 top-0 w-44 rounded-[16px] shadow-[0_18px_30px_rgba(1,15,24,0.28)]",
+      "absolute left-20 top-0 w-44 shadow-[0_18px_30px_rgba(1,15,24,0.28)]",
   },
   {
     src: blogItem?.blogPosts?.[2]?.imageUrl ?? "/branding-section-01.svg",
     alt: blogItem?.blogPosts?.[2]?.title ?? "Free resources cover three",
     className:
-      "absolute right-0 top-16 w-32 rotate-6 rounded-[16px] shadow-[0_18px_30px_rgba(1,15,24,0.28)]",
+      "absolute right-0 top-16 w-32 rotate-6 shadow-[0_18px_30px_rgba(1,15,24,0.28)]",
   },
 ]
 

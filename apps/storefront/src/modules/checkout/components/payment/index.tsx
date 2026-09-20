@@ -17,7 +17,7 @@ const Payment = ({
   availablePaymentMethods,
 }: {
   cart: any
-  availablePaymentMethods: any[]
+  availablePaymentMethods: any[] | null
 }) => {
   const activeSession = cart.payment_collection?.payment_sessions?.find(
     (paymentSession: any) => paymentSession.status === "pending"
@@ -109,7 +109,7 @@ const Payment = ({
         <Heading
           level="h2"
           className={clx(
-            "flex flex-row items-baseline gap-x-2 font-sans text-[1.9rem] font-semibold tracking-[-0.03em] text-slate-950",
+            "flex flex-row items-baseline gap-x-2 font-sans text-[1.9rem] font-semibold text-slate-950",
             {
               "opacity-50 pointer-events-none select-none":
                 !isOpen && !paymentReady,
@@ -133,7 +133,27 @@ const Payment = ({
       </div>
       <div>
         <div className={isOpen ? "block" : "hidden"}>
-          {!paidByGiftcard && availablePaymentMethods?.length && (
+          {!paidByGiftcard && availablePaymentMethods === null && (
+            <Text
+              className="text-sm text-slate-600"
+              data-testid="payment-methods-error"
+            >
+              We could not load the payment methods. Check that the Medusa
+              backend is running and reachable, then reload this page.
+            </Text>
+          )}
+
+          {!paidByGiftcard && availablePaymentMethods?.length === 0 && (
+            <Text
+              className="text-sm text-slate-600"
+              data-testid="payment-methods-empty"
+            >
+              No payment providers are enabled for this region. Enable one for
+              this region in your Medusa Admin.
+            </Text>
+          )}
+
+          {!paidByGiftcard && !!availablePaymentMethods?.length && (
             <>
               <RadioGroup
                 value={selectedPaymentMethod}
@@ -165,7 +185,7 @@ const Payment = ({
 
           {paidByGiftcard && (
             <div className="max-w-md border border-slate-200 bg-slate-50/70 px-4 py-4">
-              <Text className="mb-2 font-[family-name:var(--font-tech)] text-[0.68rem] uppercase tracking-[0.22em] text-slate-500">
+              <Text className="mb-2 font-[family-name:var(--font-tech)] text-[0.68rem] uppercase text-slate-500">
                 Payment method
               </Text>
               <Text
@@ -203,7 +223,7 @@ const Payment = ({
           {cart && paymentReady && activeSession ? (
             <div className="grid gap-4 medium:grid-cols-2">
               <div className="border border-slate-200 bg-slate-50/70 px-4 py-4">
-                <Text className="mb-2 font-[family-name:var(--font-tech)] text-[0.68rem] uppercase tracking-[0.22em] text-slate-500">
+                <Text className="mb-2 font-[family-name:var(--font-tech)] text-[0.68rem] uppercase text-slate-500">
                   Payment method
                 </Text>
                 <Text
@@ -215,7 +235,7 @@ const Payment = ({
                 </Text>
               </div>
               <div className="border border-slate-200 bg-slate-50/70 px-4 py-4">
-                <Text className="mb-2 font-[family-name:var(--font-tech)] text-[0.68rem] uppercase tracking-[0.22em] text-slate-500">
+                <Text className="mb-2 font-[family-name:var(--font-tech)] text-[0.68rem] uppercase text-slate-500">
                   Payment details
                 </Text>
                 <div
@@ -237,7 +257,7 @@ const Payment = ({
             </div>
           ) : paidByGiftcard ? (
             <div className="max-w-md border border-slate-200 bg-slate-50/70 px-4 py-4">
-              <Text className="mb-2 font-[family-name:var(--font-tech)] text-[0.68rem] uppercase tracking-[0.22em] text-slate-500">
+              <Text className="mb-2 font-[family-name:var(--font-tech)] text-[0.68rem] uppercase text-slate-500">
                 Payment method
               </Text>
               <Text

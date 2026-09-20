@@ -1,11 +1,11 @@
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 
 const ToolIcon = ({ gradient }: { gradient: string }) => (
-  <div className={`w-8 h-8 rounded-full ${gradient} flex-shrink-0`} />
+  <div className={`w-8 h-8 ${gradient} flex-shrink-0`} />
 )
 
 const SkillCard = ({ name, gradient }: { name: string, gradient: string }) => (
-  <div className="flex items-center gap-3 bg-white border border-gray-100 rounded-full py-2.5 px-6 shadow-[0_2px_15px_rgba(0,0,0,0.02)] whitespace-nowrap">
+  <div className="flex items-center gap-3 bg-white border border-gray-100 py-2.5 px-6 shadow-[0_2px_15px_rgba(0,0,0,0.02)] whitespace-nowrap">
     <ToolIcon gradient={gradient} />
     <span className="text-[15px] font-medium text-gray-700">{name}</span>
   </div>
@@ -45,7 +45,7 @@ const ToolStack = () => {
   return (
     <section className="py-24 bg-white overflow-hidden">
       <div className="content-container text-center mb-16">
-        <p className="text-[13px] uppercase tracking-[0.2em] text-gray-500 font-medium mb-4">
+        <p className="text-[13px] uppercase text-gray-500 font-medium mb-4">
           Our tools
         </p>
         <h2 className="text-[32px] md:text-[42px] leading-tight font-bold text-[#1F2937] max-w-3xl mx-auto">
@@ -89,7 +89,7 @@ const ToolStack = () => {
         <div className="inline-flex items-center">
           <LocalizedClientLink
             href="/contact"
-            className="bg-gradient-to-r from-[#7DD3FC] to-[#00AEEF] text-white font-bold px-10 py-4 rounded-xl text-[15px] shadow-lg shadow-sky-100 hover:opacity-90 transition-opacity flex items-center gap-2"
+            className="bg-gradient-to-r from-[#7DD3FC] to-[#00AEEF] text-white font-bold px-10 py-4 text-[15px] shadow-lg shadow-sky-100 hover:opacity-90 transition-opacity flex items-center gap-2"
           >
             Request Demo
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">

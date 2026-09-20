@@ -182,8 +182,8 @@ const MarketingDetailShell = ({
           <div
             className={`marketing-hero-panel overflow-hidden border border-white/10 ${
               isImmersiveHero
-                ? "marketing-hero-panel-immersive border-x-0 rounded-none"
-                : "rounded-[36px]"
+                ? "marketing-hero-panel-immersive border-x-0"
+                : ""
             }`}
           >
             <div
@@ -219,7 +219,7 @@ const MarketingDetailShell = ({
                     className={`flex flex-wrap items-center gap-3 ${
                       isImmersiveHero
                         ? "marketing-immersive-breadcrumbs"
-                        : "text-[11px] font-semibold uppercase tracking-[0.2em] text-white/72"
+                        : "text-[11px] font-semibold uppercase text-white/72"
                     }`}
                   >
                     {breadcrumbs.map((item, index) => (
@@ -238,7 +238,7 @@ const MarketingDetailShell = ({
                           isImmersiveHero ? (
                             <span className="text-white/70">/</span>
                           ) : (
-                            <span className="h-1.5 w-1.5 rounded-full bg-[#f2b544]" />
+                            <span className="h-1.5 w-1.5 bg-[#f2b544]" />
                           )
                         )}
                       </div>
@@ -247,10 +247,10 @@ const MarketingDetailShell = ({
 
                   {eyebrow && (
                     <p
-                      className={`mt-6 inline-flex rounded-full border border-white/12 bg-white/[0.08] px-4 py-2 font-semibold uppercase text-[#ffd28d] backdrop-blur-sm ${
+                      className={`mt-6 inline-flex border border-white/12 bg-white/[0.08] px-4 py-2 font-semibold uppercase text-[#ffd28d] backdrop-blur-sm ${
                         isImmersiveHero
-                          ? "text-[0.88rem] tracking-[0.18em]"
-                          : "text-[10px] tracking-[0.22em]"
+                          ? "text-[0.88rem]"
+                          : "text-[10px]"
                       }`}
                     >
                       {eyebrow}
@@ -288,8 +288,8 @@ const MarketingDetailShell = ({
                             href={action.href}
                             className={
                               isSecondary
-                                ? "inline-flex min-h-11 items-center justify-center rounded-full border border-white/18 bg-white/[0.06] px-6 py-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-white transition-colors duration-200 hover:bg-white/10"
-                                : "inline-flex items-center justify-center rounded-[999px] bg-[linear-gradient(90deg,#f2b544_0%,#ee6b4b_100%)] px-[28px] py-3.5 text-[0.88rem] font-bold uppercase tracking-[0.03em] text-white shadow-[0_18px_34px_rgba(238,107,75,0.24)] transition-transform duration-200 hover:-translate-y-0.5"
+                                ? "inline-flex min-h-11 items-center justify-center border border-white/18 bg-white/[0.06] px-6 py-3 text-[11px] font-semibold uppercase text-white transition-colors duration-200 hover:bg-white/10"
+                                : "inline-flex items-center justify-center bg-brand-cta px-[28px] py-3.5 text-[0.88rem] font-bold uppercase text-white shadow-[0_18px_34px_rgba(238,107,75,0.24)] transition-transform duration-200 hover:-translate-y-0.5"
                             }
                           >
                             {action.label}
@@ -304,10 +304,10 @@ const MarketingDetailShell = ({
                       className={`mt-7 ${
                         isImmersiveHero
                           ? "flex items-center gap-4 text-[0.98rem] italic text-white"
-                          : "inline-flex max-w-[30rem] items-center gap-3 rounded-[20px] border border-white/12 bg-white/[0.08] px-4 py-3 text-sm text-slate-200 backdrop-blur-sm"
+                          : "inline-flex max-w-[30rem] items-center gap-3 border border-white/12 bg-white/[0.08] px-4 py-3 text-sm text-slate-200 backdrop-blur-sm"
                       }`}
                     >
-                      <span className="flex h-[50px] w-[50px] items-center justify-center rounded-full bg-[#2494f2] shadow-[0_14px_24px_rgba(36,148,242,0.28)]">
+                      <span className="flex h-[50px] w-[50px] items-center justify-center bg-[#2494f2] shadow-[0_14px_24px_rgba(36,148,242,0.28)]">
                         <svg
                           viewBox="0 0 24 24"
                           className="h-6 w-6"
@@ -333,11 +333,11 @@ const MarketingDetailShell = ({
 
               {!isImmersiveHero && (
                 <div className="relative flex min-h-[300px] items-stretch p-5 small:p-6 large:p-7">
-                  <div className="absolute inset-5 rounded-[28px] border border-white/10 bg-white/[0.04] backdrop-blur-[2px] small:inset-6 large:inset-7" />
-                  <div className="absolute left-8 top-8 h-20 w-20 rounded-[26px] border border-white/10 bg-white/[0.05] backdrop-blur-sm small:left-10" />
-                  <div className="absolute right-10 top-10 h-16 w-28 rounded-full bg-[rgba(242,181,68,0.2)] blur-2xl" />
+                  <div className="absolute inset-5 border border-white/10 bg-white/[0.04] backdrop-blur-[2px] small:inset-6 large:inset-7" />
+                  <div className="absolute left-8 top-8 h-20 w-20 border border-white/10 bg-white/[0.05] backdrop-blur-sm small:left-10" />
+                  <div className="absolute right-10 top-10 h-16 w-28 bg-[rgba(242,181,68,0.2)] blur-2xl" />
                   <div
-                    className={`relative z-[1] flex-1 overflow-hidden rounded-[30px] border border-white/12 shadow-[0_28px_48px_rgba(8,21,35,0.24)] ${
+                    className={`relative z-[1] flex-1 overflow-hidden border border-white/12 shadow-[0_28px_48px_rgba(8,21,35,0.24)] ${
                       heroImageFit === "contain" ? "bg-[#10233b]" : ""
                     }`}
                   >
@@ -373,11 +373,11 @@ const MarketingDetailShell = ({
             {sectionContent ? (
               <div>{sectionContent}</div>
             ) : (
-              <article className="relative overflow-hidden rounded-[36px] border border-[#dbe7f2] bg-[#10233b] px-6 py-7 text-white shadow-[0_28px_60px_-48px_rgba(15,23,42,0.88)] small:px-8 small:py-8">
+              <article className="relative overflow-hidden border border-[#dbe7f2] bg-[#10233b] px-6 py-7 text-white shadow-[0_28px_60px_-48px_rgba(15,23,42,0.88)] small:px-8 small:py-8">
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(242,181,68,0.16),transparent_28%),radial-gradient(circle_at_bottom_left,rgba(96,165,250,0.16),transparent_34%)]" />
                 <div className="relative mx-auto max-w-[920px] text-center">
                   {sectionEyebrow && (
-                    <p className="inline-flex rounded-full border border-white/12 bg-white/[0.08] px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.24em] text-[#ffd28d] backdrop-blur-sm">
+                    <p className="inline-flex border border-white/12 bg-white/[0.08] px-4 py-2 text-[10px] font-semibold uppercase text-[#ffd28d] backdrop-blur-sm">
                       {sectionEyebrow}
                     </p>
                   )}
@@ -410,7 +410,7 @@ const MarketingDetailShell = ({
                     return (
                       <article
                         key={`${card.title}-${index}`}
-                        className="relative overflow-hidden rounded-[36px] border border-[#dbe7f2] bg-white shadow-[0_28px_60px_-48px_rgba(15,23,42,0.76)]"
+                        className="relative overflow-hidden border border-[#dbe7f2] bg-white shadow-[0_28px_60px_-48px_rgba(15,23,42,0.76)]"
                       >
                         <div className={`absolute inset-x-0 top-0 h-1 ${theme.lineClass}`} />
                         <div className="grid large:grid-cols-[minmax(0,0.42fr)_minmax(0,0.58fr)]">
@@ -418,7 +418,7 @@ const MarketingDetailShell = ({
                             <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(96,165,250,0.16),transparent_28%),radial-gradient(circle_at_bottom_right,rgba(242,181,68,0.18),transparent_34%)]" />
                             <div className="relative">
                               <span
-                                className={`inline-flex h-12 w-12 items-center justify-center rounded-[18px] text-[11px] font-black uppercase shadow-[0_14px_24px_rgba(0,0,0,0.18)] ${theme.badgeClass}`}
+                                className={`inline-flex h-12 w-12 items-center justify-center text-[11px] font-black uppercase shadow-[0_14px_24px_rgba(0,0,0,0.18)] ${theme.badgeClass}`}
                               >
                                 01
                               </span>
@@ -432,22 +432,22 @@ const MarketingDetailShell = ({
 
                           <div className={`relative px-5 py-5 small:px-6 small:py-6 ${theme.surfaceClass}`}>
                             <div
-                              className={`absolute right-[-10px] top-5 h-24 w-24 rounded-full blur-2xl ${theme.glowClass}`}
+                              className={`absolute right-[-10px] top-5 h-24 w-24 blur-2xl ${theme.glowClass}`}
                             />
                             {card.bullets && card.bullets.length > 0 ? (
                               <div className="relative grid gap-4 small:grid-cols-2">
                                 {card.bullets.map((bullet, bulletIndex) => (
                                   <article
                                     key={bullet}
-                                    className="rounded-[24px] border border-white/80 bg-white/90 px-5 py-5 shadow-[0_14px_28px_-24px_rgba(15,23,42,0.8)] backdrop-blur-sm"
+                                    className="border border-white/80 bg-white/90 px-5 py-5 shadow-[0_14px_28px_-24px_rgba(15,23,42,0.8)] backdrop-blur-sm"
                                   >
                                     <div className="flex items-center gap-3">
                                       <span
-                                        className={`inline-flex h-11 w-11 items-center justify-center rounded-[16px] text-[11px] font-black uppercase shadow-[0_12px_20px_rgba(15,23,42,0.08)] ${theme.badgeClass}`}
+                                        className={`inline-flex h-11 w-11 items-center justify-center text-[11px] font-black uppercase shadow-[0_12px_20px_rgba(15,23,42,0.08)] ${theme.badgeClass}`}
                                       >
                                         {String(bulletIndex + 1).padStart(2, "0")}
                                       </span>
-                                      <span className="text-[10px] font-semibold uppercase tracking-[0.22em] text-slate-400">
+                                      <span className="text-[10px] font-semibold uppercase text-slate-400">
                                         Service Area
                                       </span>
                                     </div>
@@ -471,21 +471,21 @@ const MarketingDetailShell = ({
                   return (
                     <article
                       key={`${card.title}-${index}`}
-                      className={`group relative overflow-hidden rounded-[28px] border border-[#dfe7f1] shadow-[0_20px_42px_-34px_rgba(15,23,42,0.72)] ${theme.surfaceClass}`}
+                      className={`group relative overflow-hidden border border-[#dfe7f1] shadow-[0_20px_42px_-34px_rgba(15,23,42,0.72)] ${theme.surfaceClass}`}
                     >
                       <div
-                        className={`absolute left-[-16px] top-6 h-20 w-20 rounded-full blur-2xl ${theme.glowClass}`}
+                        className={`absolute left-[-16px] top-6 h-20 w-20 blur-2xl ${theme.glowClass}`}
                       />
                       <div className={`absolute inset-x-0 top-0 h-1 ${theme.lineClass}`} />
 
                       <div className="relative px-5 pt-5">
                         <div className="flex items-center justify-between gap-4">
                           <span
-                            className={`inline-flex h-11 w-11 items-center justify-center rounded-[16px] text-[11px] font-black uppercase shadow-[0_12px_20px_rgba(15,23,42,0.08)] ${theme.badgeClass}`}
+                            className={`inline-flex h-11 w-11 items-center justify-center text-[11px] font-black uppercase shadow-[0_12px_20px_rgba(15,23,42,0.08)] ${theme.badgeClass}`}
                           >
                             {getCardMonogram(card.title, index)}
                           </span>
-                          <span className="text-[10px] font-semibold uppercase tracking-[0.22em] text-slate-400">
+                          <span className="text-[10px] font-semibold uppercase text-slate-400">
                             {String(index + 1).padStart(2, "0")}
                           </span>
                         </div>
@@ -510,7 +510,7 @@ const MarketingDetailShell = ({
                                 className="flex items-start gap-3 text-sm leading-7 text-slate-600"
                               >
                                 <span
-                                  className={`mt-2 inline-flex h-2 w-2 rounded-full ${theme.dotClass}`}
+                                  className={`mt-2 inline-flex h-2 w-2 ${theme.dotClass}`}
                                 />
                                 <span>{bullet}</span>
                               </li>
@@ -531,11 +531,11 @@ const MarketingDetailShell = ({
             )}
 
             {relatedLinks.length > 0 && (
-              <article className="relative overflow-hidden rounded-[36px] border border-[#dbe7f2] bg-[linear-gradient(180deg,#ffffff_0%,#f7fbff_100%)] px-6 py-7 shadow-[0_28px_60px_-48px_rgba(15,23,42,0.76)] small:px-8 small:py-8">
+              <article className="relative overflow-hidden border border-[#dbe7f2] bg-[linear-gradient(180deg,#ffffff_0%,#f7fbff_100%)] px-6 py-7 shadow-[0_28px_60px_-48px_rgba(15,23,42,0.76)] small:px-8 small:py-8">
                 <div className="absolute inset-x-0 top-0 h-1 bg-[linear-gradient(90deg,#60a5fa_0%,#f2b544_52%,#ee6b4b_100%)]" />
                 <div className="flex flex-col gap-4 small:flex-row small:items-end small:justify-between">
                   <div>
-                    <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-slate-400">
+                    <p className="text-[11px] font-semibold uppercase text-slate-400">
                       Keep Exploring
                     </p>
                     <h2 className="mt-3 text-[2rem] font-black uppercase leading-[0.98] text-slate-900 small:text-[2.35rem]">
@@ -546,7 +546,7 @@ const MarketingDetailShell = ({
                   {relatedHref && (
                     <LocalizedClientLink
                       href={relatedHref}
-                      className="inline-flex items-center gap-2 text-[0.9rem] font-semibold uppercase tracking-[0.16em] text-[#0b78b5] transition-colors duration-200 hover:text-slate-900"
+                      className="inline-flex items-center gap-2 text-[0.9rem] font-semibold uppercase text-[#0b78b5] transition-colors duration-200 hover:text-slate-900"
                     >
                       <span>{relatedLabel}</span>
                       <ArrowIcon />
@@ -562,20 +562,20 @@ const MarketingDetailShell = ({
                       <LocalizedClientLink
                         key={`${item.href}-${item.label}`}
                         href={item.href}
-                        className={`group relative overflow-hidden rounded-[28px] border border-[#e1e9f2] px-5 py-5 shadow-[0_16px_34px_-30px_rgba(15,23,42,0.82)] transition-transform duration-200 hover:-translate-y-1 ${theme.surfaceClass}`}
+                        className={`group relative overflow-hidden border border-[#e1e9f2] px-5 py-5 shadow-[0_16px_34px_-30px_rgba(15,23,42,0.82)] transition-transform duration-200 hover:-translate-y-1 ${theme.surfaceClass}`}
                       >
                         <div className={`absolute inset-x-0 top-0 h-1 ${theme.lineClass}`} />
                         <div
-                          className={`absolute right-[-12px] top-5 h-20 w-20 rounded-full blur-2xl ${theme.glowClass}`}
+                          className={`absolute right-[-12px] top-5 h-20 w-20 blur-2xl ${theme.glowClass}`}
                         />
 
                         {item.eyebrow && (
-                          <p className="relative text-[10px] font-semibold uppercase tracking-[0.24em] text-slate-400">
+                          <p className="relative text-[10px] font-semibold uppercase text-slate-400">
                             {item.eyebrow}
                           </p>
                         )}
 
-                        <div className={`relative mt-5 rounded-[22px] px-4 py-4 ${theme.bandClass}`}>
+                        <div className={`relative mt-5 px-4 py-4 ${theme.bandClass}`}>
                           <h3 className="text-[1.08rem] font-black uppercase leading-[1.08] text-white">
                             {item.label}
                           </h3>
@@ -586,7 +586,7 @@ const MarketingDetailShell = ({
                         </p>
 
                         <span
-                          className={`relative mt-6 inline-flex h-11 w-11 items-center justify-center rounded-[16px] shadow-[0_12px_20px_rgba(15,23,42,0.08)] ${theme.badgeClass}`}
+                          className={`relative mt-6 inline-flex h-11 w-11 items-center justify-center shadow-[0_12px_20px_rgba(15,23,42,0.08)] ${theme.badgeClass}`}
                         >
                           <ArrowIcon />
                         </span>

@@ -50,10 +50,10 @@ const AboutReveal = ({ eyebrow, title, description, stats }: AboutRevealProps) =
   }, [])
 
   return (
-    <section className="mt-6 rounded-[32px] bg-black px-8 py-14 text-white shadow-[0_30px_70px_-60px_rgba(15,23,42,0.9)] lg:px-14 lg:py-20">
+    <section className="mt-6 bg-black px-8 py-14 text-white shadow-[0_30px_70px_-60px_rgba(15,23,42,0.9)] lg:px-14 lg:py-20">
       <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.9fr)]">
         <div className="lg:sticky lg:top-24 lg:self-center">
-          <p className="text-xs font-semibold uppercase tracking-[0.35em] text-slate-500">
+          <p className="text-xs font-semibold uppercase text-slate-500">
             {eyebrow}
           </p>
           <h1 className="mt-4 max-w-md text-3xl font-semibold text-white md:text-4xl lg:text-5xl">
@@ -89,7 +89,7 @@ const AboutReveal = ({ eyebrow, title, description, stats }: AboutRevealProps) =
                     isActive ? "opacity-100 scale-105" : "opacity-20 scale-90"
                   }`}
                 >
-                  <p className="text-7xl font-semibold tracking-tight text-white md:text-8xl lg:text-9xl">
+                  <p className="text-7xl font-semibold text-white md:text-8xl lg:text-9xl">
                     {stat.value}
                   </p>
                   <p className="mt-3 text-base text-slate-300">{stat.label}</p>

@@ -19,6 +19,18 @@ const speakerKeys = [
   "facilitator",
 ]
 
+const speakerRoleKeys = [
+  "speaker_role",
+  "speakerRole",
+  "speaker_title",
+  "speakerTitle",
+  "role",
+  "designation",
+  "job_title",
+  "jobTitle",
+  "position",
+]
+
 const monthKeys = [
   "month",
   "session_month",
@@ -225,6 +237,11 @@ export const getTrainingCategory = (product: HttpTypes.StoreProduct) => {
     product.type?.value ??
     "General Training"
   )
+}
+
+/** The speaker's job title, when the product carries one. */
+export const getTrainingSpeakerRole = (product: HttpTypes.StoreProduct) => {
+  return getMetadataValue(product.metadata, speakerRoleKeys)
 }
 
 export const getTrainingSummary = (product: HttpTypes.StoreProduct) => {

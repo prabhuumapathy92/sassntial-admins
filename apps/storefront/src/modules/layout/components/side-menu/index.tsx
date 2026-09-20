@@ -49,10 +49,10 @@ const MegaMenuGroupList = ({
   const Icon = megaMenuIconMap[group.icon]
 
   return (
-    <div className="rounded-[18px] border border-white/10 bg-white/5 px-4 py-4">
+    <div className="border border-white/10 bg-white/5 px-4 py-4">
       <div className="flex items-start gap-2">
         <Icon className="mt-0.5 h-5 w-5 shrink-0 text-white" />
-        <h4 className="text-[0.95rem] font-black uppercase tracking-[0.12em] text-white">
+        <h4 className="text-[0.95rem] font-black uppercase text-white">
           {group.label}
         </h4>
       </div>
@@ -122,7 +122,7 @@ const SideMenu = ({
           <LocalizedClientLink
             href="/account"
             onClick={closeMenu}
-            className="inline-flex h-11 w-11 items-center justify-center rounded-[10px] text-white/85 transition-colors duration-200 hover:bg-white/10 hover:text-white"
+            className="inline-flex h-11 w-11 items-center justify-center text-white/85 transition-colors duration-200 hover:bg-white/10 hover:text-white"
             aria-label="Account"
           >
             <User className="h-5 w-5" />
@@ -132,7 +132,7 @@ const SideMenu = ({
             href="/cart"
             onClick={closeMenu}
             className={clx(
-              "relative inline-flex h-11 w-11 items-center justify-center rounded-[10px] transition-colors duration-200 hover:bg-white/10 hover:text-white",
+              "relative inline-flex h-11 w-11 items-center justify-center transition-colors duration-200 hover:bg-white/10 hover:text-white",
               cartItemCount > 0 ? "text-white" : "text-white/85"
             )}
             aria-label={
@@ -152,7 +152,7 @@ const SideMenu = ({
             type="button"
             data-testid="nav-menu-button"
             onClick={() => setOpen((current) => !current)}
-            className="inline-flex h-11 w-11 items-center justify-center rounded-[10px] text-white transition-colors duration-200 hover:bg-white/10 focus:outline-none"
+            className="inline-flex h-11 w-11 items-center justify-center text-white transition-colors duration-200 hover:bg-white/10 focus:outline-none"
             aria-expanded={open}
             aria-label={open ? "Close menu" : "Open menu"}
           >
@@ -163,7 +163,7 @@ const SideMenu = ({
 
       {open ? (
         <div
-          className="mt-4 rounded-[24px] border border-white/10 bg-[#0c1f29] px-4 py-4 shadow-[0_24px_55px_rgba(1,15,24,0.22)]"
+          className="mt-4 border border-white/10 bg-[#0c1f29] px-4 py-4 shadow-[0_24px_55px_rgba(1,15,24,0.22)]"
           data-testid="nav-menu-popup"
         >
           <ul className="space-y-1">
@@ -180,7 +180,7 @@ const SideMenu = ({
                     <Disclosure>
                       {({ open: sectionOpen }) => (
                         <>
-                          <Disclosure.Button className="flex w-full items-center justify-between py-4 text-left text-[1.05rem] font-semibold tracking-[-0.02em] text-white">
+                          <Disclosure.Button className="flex w-full items-center justify-between py-4 text-left text-[1.05rem] font-semibold text-white">
                             <span>{item.label}</span>
                             <ChevronDown
                               className={clx(
@@ -207,7 +207,7 @@ const SideMenu = ({
                     <Disclosure>
                       {({ open: sectionOpen }) => (
                         <>
-                          <Disclosure.Button className="flex w-full items-center justify-between py-4 text-left text-[1.05rem] font-semibold tracking-[-0.02em] text-white">
+                          <Disclosure.Button className="flex w-full items-center justify-between py-4 text-left text-[1.05rem] font-semibold text-white">
                             <span>{item.label}</span>
                             <ChevronDown
                               className={clx(
@@ -237,7 +237,7 @@ const SideMenu = ({
                   ) : (
                     <LocalizedClientLink
                       href={item.href}
-                      className="block py-4 text-[1.05rem] font-semibold tracking-[-0.02em] text-white transition-colors duration-200 hover:text-[#9fe4ff]"
+                      className="block py-4 text-[1.05rem] font-semibold text-white transition-colors duration-200 hover:text-[#9fe4ff]"
                       onClick={closeMenu}
                       data-testid={`${item.label.toLowerCase()}-link`}
                     >
@@ -252,7 +252,7 @@ const SideMenu = ({
           <div className="mt-4 border-t border-white/10 pt-4">
             <LocalizedClientLink
               href={ctaMenuItem.href}
-              className="mx-auto flex min-h-12 w-full max-w-[185px] items-center justify-center rounded-full bg-gradient-to-r from-[#e1b24f] to-[#d97348] px-4 py-3 text-[0.98rem] font-bold tracking-[0.01em] text-white shadow-[0_16px_32px_rgba(217,115,72,0.22)] transition-transform duration-200 hover:-translate-y-0.5"
+              className="mx-auto flex min-h-12 w-full max-w-[185px] items-center justify-center bg-brand-cta px-4 py-3 text-[0.98rem] font-bold text-white shadow-[0_16px_32px_rgba(217,115,72,0.22)] transition-transform duration-200 hover:-translate-y-0.5"
               onClick={closeMenu}
             >
               {ctaMenuItem.label}

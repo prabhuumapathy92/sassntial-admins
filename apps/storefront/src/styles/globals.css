@@ -9,10 +9,10 @@
     --brand-surface: #f8fafc;
     --brand-accent: #7dd3fc;
     --brand-accent-soft: #e0f2fe;
-    --font-display-condensed: "Arial Narrow", "Roboto Condensed",
-      "Helvetica Neue", Helvetica, Arial, sans-serif;
+    /* The one font for the storefront; every other alias points here. */
     --font-sans: "Segoe UI", SegoeUI, "Helvetica Neue", Helvetica, Arial,
       sans-serif;
+    --font-display-condensed: var(--font-sans);
     --font-brand: var(--font-sans);
     --font-tech: var(--font-sans);
   }
@@ -172,7 +172,6 @@
 
 .marketing-immersive-breadcrumbs {
   font-size: 0.9rem;
-  letter-spacing: 0;
   font-weight: 700;
   text-shadow: 0 2px 6px rgba(0, 0, 0, 0.22);
 }
@@ -192,7 +191,6 @@
   font-family: inherit;
   font-size: clamp(1rem, 1.42vw, 1.28rem);
   line-height: 1.75;
-  letter-spacing: -0.018em;
   font-weight: 500;
   text-transform: none;
   text-shadow: 0 2px 10px rgba(0, 0, 0, 0.18);
@@ -342,7 +340,6 @@
   font-size: 1.875rem !important;
   line-height: 1.2 !important;
   font-weight: 700 !important;
-  letter-spacing: -0.03em !important;
   margin: 1.75rem 0 0.9rem !important;
   color: #0f172a !important;
 }
@@ -351,7 +348,6 @@
   font-size: 1.5rem !important;
   line-height: 1.25 !important;
   font-weight: 700 !important;
-  letter-spacing: -0.02em !important;
   margin: 1.5rem 0 0.75rem !important;
   color: #0f172a !important;
 }
@@ -378,7 +374,6 @@
   margin: 1.5rem 0 !important;
   padding: 1rem 1.25rem !important;
   border-left: 4px solid #7dd3fc !important;
-  border-radius: 0 1rem 1rem 0 !important;
   background: #f8fafc !important;
   color: #334155 !important;
 }
@@ -393,7 +388,6 @@
   max-width: 100%;
   height: auto;
   margin: 1.5rem 0 !important;
-  border-radius: 1rem;
 }
 
 .product-description table {
@@ -401,7 +395,6 @@
   border-collapse: collapse;
   margin: 1.5rem 0 !important;
   overflow: hidden;
-  border-radius: 1rem;
 }
 
 .product-description th,
@@ -513,7 +506,6 @@
   max-width: 100%;
   height: auto;
   margin: 0.75rem 0;
-  border-radius: 3px;
 }
 
 .webinar-block-content table {

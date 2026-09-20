@@ -79,6 +79,12 @@ const Shipping: React.FC<ShippingProps> = ({
 
   const hasPickupOptions = !!_pickupMethods?.length
 
+  // null means the shipping options request failed, an empty list means the
+  // backend answered but has nothing available for this cart.
+  const shippingOptionsFailed = availableShippingMethods === null
+  const hasNoShippingOptions =
+    !shippingOptionsFailed && !_shippingMethods?.length && !hasPickupOptions
+
   useEffect(() => {
     setIsLoadingPrices(true)
 
@@ -153,7 +159,7 @@ const Shipping: React.FC<ShippingProps> = ({
         <Heading
           level="h2"
           className={clx(
-            "flex flex-row items-baseline gap-x-2 font-sans text-[1.9rem] font-semibold tracking-[-0.03em] text-slate-950",
+            "flex flex-row items-baseline gap-x-2 font-sans text-[1.9rem] font-semibold text-slate-950",
             {
               "opacity-50 pointer-events-none select-none":
                 !isOpen && cart.shipping_methods?.length === 0,
@@ -184,7 +190,7 @@ const Shipping: React.FC<ShippingProps> = ({
         <>
           <div className="grid gap-6">
             <div className="flex flex-col">
-              <span className="font-[family-name:var(--font-tech)] text-[0.68rem] uppercase tracking-[0.22em] text-slate-500">
+              <span className="font-[family-name:var(--font-tech)] text-[0.68rem] uppercase text-slate-500">
                 Shipping method
               </span>
               <span className="mt-2 text-sm leading-6 text-slate-600">
@@ -193,6 +199,25 @@ const Shipping: React.FC<ShippingProps> = ({
             </div>
             <div data-testid="delivery-options-container">
               <div className="pb-2 pt-2 md:pt-0">
+                {shippingOptionsFailed && (
+                  <Text
+                    className="text-sm text-slate-600"
+                    data-testid="delivery-options-error"
+                  >
+                    We could not load the delivery options. Check that the
+                    Medusa backend is running and reachable, then reload this
+                    page.
+                  </Text>
+                )}
+                {hasNoShippingOptions && (
+                  <Text
+                    className="text-sm text-slate-600"
+                    data-testid="delivery-options-empty"
+                  >
+                    No delivery options are available for this cart. Add a
+                    shipping option for this region in your Medusa Admin.
+                  </Text>
+                )}
                 {hasPickupOptions && (
                   <RadioGroup
                     value={showPickupOptions}
@@ -297,7 +322,7 @@ const Shipping: React.FC<ShippingProps> = ({
           {showPickupOptions === PICKUP_OPTION_ON && (
             <div className="grid gap-6 border-t border-slate-200 pt-6">
               <div className="flex flex-col">
-                <span className="font-[family-name:var(--font-tech)] text-[0.68rem] uppercase tracking-[0.22em] text-slate-500">
+                <span className="font-[family-name:var(--font-tech)] text-[0.68rem] uppercase text-slate-500">
                   Store
                 </span>
                 <span className="mt-2 text-sm leading-6 text-slate-600">
@@ -384,7 +409,7 @@ const Shipping: React.FC<ShippingProps> = ({
           <div className="text-small-regular">
             {cart && (cart.shipping_methods?.length ?? 0) > 0 && (
               <div className="max-w-md border border-slate-200 bg-slate-50/70 px-4 py-4">
-                <Text className="mb-2 font-[family-name:var(--font-tech)] text-[0.68rem] uppercase tracking-[0.22em] text-slate-500">
+                <Text className="mb-2 font-[family-name:var(--font-tech)] text-[0.68rem] uppercase text-slate-500">
                   Method
                 </Text>
                 <Text className="text-sm leading-7 text-slate-700">

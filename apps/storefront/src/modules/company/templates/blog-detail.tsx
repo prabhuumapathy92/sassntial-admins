@@ -55,9 +55,9 @@ const BlogDetailTemplate = ({ post }: { post: BlogPost }) => {
         eyebrow: `${item.category} | ${item.readTime}`,
       }))}
     >
-      <article className="relative overflow-hidden rounded-[36px] border border-[#dbe7f2] bg-[linear-gradient(180deg,#ffffff_0%,#f7fbff_100%)] px-6 py-7 shadow-[0_28px_60px_-48px_rgba(15,23,42,0.76)] small:px-8 small:py-8">
+      <article className="relative overflow-hidden border border-[#dbe7f2] bg-[linear-gradient(180deg,#ffffff_0%,#f7fbff_100%)] px-6 py-7 shadow-[0_28px_60px_-48px_rgba(15,23,42,0.76)] small:px-8 small:py-8">
         <div className="absolute inset-x-0 top-0 h-1 bg-[linear-gradient(90deg,#60a5fa_0%,#f2b544_52%,#ee6b4b_100%)]" />
-        <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-[#f59e0b]">
+        <p className="text-[11px] font-semibold uppercase text-[#f59e0b]">
           Full Article
         </p>
         <div className="mt-5 space-y-4 text-sm leading-8 text-slate-600 small:text-base">

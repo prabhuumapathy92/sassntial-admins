@@ -612,23 +612,23 @@ const SeoServiceGrid = ({
           return (
           <article
             key={card.title}
-            className="group h-full overflow-hidden rounded-[26px] border border-[#dfebf4] bg-white shadow-[0_20px_42px_-34px_rgba(15,23,42,0.7)] transition-transform duration-200 hover:-translate-y-1"
+            className="group h-full overflow-hidden border border-[#dfebf4] bg-white shadow-[0_20px_42px_-34px_rgba(15,23,42,0.7)] transition-transform duration-200 hover:-translate-y-1"
           >
             <div className={`relative h-[182px] overflow-hidden ${theme.panelClass}`}>
               <div
-                className={`absolute left-[-18px] top-8 h-24 w-24 rounded-full blur-2xl ${theme.orbClass}`}
+                className={`absolute left-[-18px] top-8 h-24 w-24 blur-2xl ${theme.orbClass}`}
               />
               <div
-                className={`absolute right-[-8px] top-4 h-28 w-36 rounded-[44px] blur-2xl ${theme.orbClass}`}
+                className={`absolute right-[-8px] top-4 h-28 w-36 blur-2xl ${theme.orbClass}`}
               />
               <div className="absolute inset-x-5 top-5 flex items-start justify-between">
-                <span className="text-[10px] font-semibold uppercase tracking-[0.22em] text-slate-500">
+                <span className="text-[10px] font-semibold uppercase text-slate-500">
                   {String(index + 1).padStart(2, "0")}
                 </span>
               </div>
               <div className="relative flex h-full items-end px-5 pb-5">
                 <span
-                  className={`inline-flex h-14 w-14 items-center justify-center rounded-[18px] ${theme.iconWrapClass}`}
+                  className={`inline-flex h-14 w-14 items-center justify-center ${theme.iconWrapClass}`}
                 >
                   <SeoServiceIcon icon={card.icon} />
                 </span>
@@ -636,7 +636,7 @@ const SeoServiceGrid = ({
             </div>
 
             <div className={`${theme.bandClass} px-5 py-4`}>
-              <h3 className="max-w-[18ch] font-[Arial_Narrow,Roboto_Condensed,Helvetica_Neue,Arial,sans-serif] text-[0.94rem] font-black uppercase leading-[1.02] tracking-[0.02em] text-white">
+              <h3 className="max-w-[18ch] font-[Arial_Narrow,Roboto_Condensed,Helvetica_Neue,Arial,sans-serif] text-[0.94rem] font-black uppercase leading-[1.02] text-white">
                 {card.title}
               </h3>
             </div>
@@ -661,7 +661,7 @@ const SeoServiceGrid = ({
       <div className="mt-8 flex justify-center">
         <LocalizedClientLink
           href={ctaHref}
-          className="inline-flex items-center justify-center rounded-[999px] bg-[linear-gradient(90deg,#f2b544_0%,#ee6b4b_100%)] px-[28px] py-3.5 text-[0.88rem] font-bold uppercase leading-6 tracking-[0.03em] text-white shadow-[0_18px_34px_rgba(238,107,75,0.24)] transition-transform duration-200 hover:-translate-y-0.5"
+          className="inline-flex items-center justify-center bg-brand-cta px-[28px] py-3.5 text-[0.88rem] font-bold uppercase leading-6 text-white shadow-[0_18px_34px_rgba(238,107,75,0.24)] transition-transform duration-200 hover:-translate-y-0.5"
         >
           {ctaLabel}
         </LocalizedClientLink>

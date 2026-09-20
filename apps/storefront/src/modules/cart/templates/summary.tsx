@@ -36,7 +36,7 @@ const Summary = ({ cart }: SummaryProps) => {
     <div className="overflow-hidden border border-slate-200/80 bg-white">
       <div className="border-b border-slate-200 bg-[linear-gradient(180deg,#f8fbff_0%,#ffffff_100%)] px-5 py-6 small:px-6">
         <div className="flex items-center justify-between gap-4">
-          <Heading className="font-sans h2-core text-[1.55rem] font-semibold tracking-[-0.03em] text-slate-950">
+          <Heading className="font-sans h2-core text-[1.55rem] font-semibold text-slate-950">
             Booking summary
           </Heading>
 
@@ -127,7 +127,7 @@ const Summary = ({ cart }: SummaryProps) => {
           </Button>
         </LocalizedClientLink>
 
-        <p className="mt-3 text-center font-[family-name:var(--font-tech)] text-[0.68rem] uppercase tracking-[0.22em] text-slate-500">
+        <p className="mt-3 text-center font-[family-name:var(--font-tech)] text-[0.68rem] uppercase text-slate-500">
           Secure checkout
         </p>
       </div>

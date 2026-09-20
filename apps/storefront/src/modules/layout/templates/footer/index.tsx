@@ -110,7 +110,7 @@ const FooterLinkColumn = ({
 }) => {
   return (
     <div>
-      <h3 className="text-sm font-bold uppercase tracking-[0.14em] text-white">
+      <h3 className="text-sm font-bold uppercase text-white">
         {title}
       </h3>
       <ul className="mt-5 space-y-2.5">
@@ -142,7 +142,7 @@ const SocialButton = ({
     <a
       href={href}
       aria-label={label}
-      className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/12 bg-white/5 text-white transition-colors duration-200 hover:bg-white/12 hover:text-[#f8c86f]"
+      className="inline-flex h-10 w-10 items-center justify-center border border-white/12 bg-white/5 text-white transition-colors duration-200 hover:bg-white/12 hover:text-[#f8c86f]"
       target="_blank"
       rel="noreferrer"
     >
@@ -181,13 +181,13 @@ export default function Footer() {
             <div className="flex flex-col gap-3">
               <LocalizedClientLink
                 href="/company/contact-us"
-                className="inline-flex min-h-11 items-center justify-center rounded-full bg-gradient-to-r from-[#f3c04f] to-[#e07b4c] px-5 text-[0.88rem] font-bold uppercase tracking-[0.08em] text-white shadow-[0_14px_30px_rgba(224,123,76,0.22)] transition-transform duration-200 hover:-translate-y-0.5"
+                className="inline-flex min-h-11 items-center justify-center bg-gradient-to-r from-[#f3c04f] to-[#e07b4c] px-5 text-[0.88rem] font-bold uppercase text-white shadow-[0_14px_30px_rgba(224,123,76,0.22)] transition-transform duration-200 hover:-translate-y-0.5"
               >
                 Request a Free Proposal
               </LocalizedClientLink>
               <LocalizedClientLink
                 href="/resources"
-                className="inline-flex min-h-11 items-center justify-center rounded-full bg-gradient-to-r from-[#f0b94f] to-[#d96f46] px-5 text-[0.88rem] font-bold uppercase tracking-[0.08em] text-white shadow-[0_14px_30px_rgba(224,123,76,0.18)] transition-transform duration-200 hover:-translate-y-0.5"
+                className="inline-flex min-h-11 items-center justify-center bg-gradient-to-r from-[#f0b94f] to-[#d96f46] px-5 text-[0.88rem] font-bold uppercase text-white shadow-[0_14px_30px_rgba(224,123,76,0.18)] transition-transform duration-200 hover:-translate-y-0.5"
               >
                 Join the Newsletter
               </LocalizedClientLink>
@@ -199,7 +199,7 @@ export default function Footer() {
           <div className="grid gap-8 md:grid-cols-2 xl:grid-cols-4">
             {locations.map((location) => (
               <div key={location.city} className="text-center xl:text-left">
-                <h4 className="text-sm font-bold uppercase tracking-[0.14em] text-white">
+                <h4 className="text-sm font-bold uppercase text-white">
                   {location.city}
                 </h4>
                 <p className="mx-auto mt-4 max-w-[220px] text-[0.92rem] leading-7 text-white/78 xl:mx-0">
@@ -213,7 +213,7 @@ export default function Footer() {
         <div className="mt-12 flex flex-col items-center gap-4 border-t border-white/10 pt-8 text-center">
           <a
             href="tel:6197521955"
-            className="text-xl font-black tracking-[0.04em] text-white transition-colors duration-200 hover:text-[#f8c86f]"
+            className="text-xl font-black text-white transition-colors duration-200 hover:text-[#f8c86f]"
           >
             (619) 752-1955
           </a>
@@ -227,7 +227,7 @@ export default function Footer() {
             >
               Privacy Policy
             </LocalizedClientLink>
-            <span className="h-1 w-1 rounded-full bg-white/30" />
+            <span className="h-1 w-1 bg-white/30" />
             <LocalizedClientLink
               href="/content/terms-of-use"
               className="transition-colors duration-200 hover:text-white"

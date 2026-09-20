@@ -8,12 +8,12 @@ const EmptyCartMessage = () => {
       className="overflow-hidden border border-slate-200/80 bg-white px-6 py-14 shadow-[0_18px_45px_rgba(15,23,42,0.06)] small:px-10 small:py-16"
       data-testid="empty-cart-message"
     >
-      <p className="font-[family-name:var(--font-tech)] text-xs uppercase tracking-[0.28em] text-sky-700">
+      <p className="font-[family-name:var(--font-tech)] text-xs uppercase text-sky-700">
         Cart
       </p>
       <Heading
         level="h1"
-        className="mt-3 font-[family-name:var(--font-brand)] text-[2.4rem] font-semibold leading-none tracking-[0.01em] text-slate-950"
+        className="mt-3 font-[family-name:var(--font-brand)] text-[2.4rem] font-semibold leading-none text-slate-950"
       >
         Your cart is empty.
       </Heading>

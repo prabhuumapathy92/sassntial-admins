@@ -49,7 +49,7 @@ const MarketingSupportingMessage = ({
         )}
 
         <div className="text-center">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.1em] text-[#f59e0b]">
+          <p className="text-[11px] font-semibold uppercase text-[#f59e0b]">
             {eyebrow}
           </p>
           <h3 className="mx-auto mt-4 text-[2rem] font-black leading-[1.02] text-slate-900 small:text-[2.35rem]">
@@ -60,14 +60,14 @@ const MarketingSupportingMessage = ({
           </p>
 
           {showActionCard && (
-            <div className="mx-auto mt-8 max-w-[520px] rounded-[22px] border border-[#e7ebf1] bg-white px-6 py-5 shadow-[0_10px_22px_rgba(15,23,42,0.04)]">
+            <div className="mx-auto mt-8 max-w-[520px] border border-[#e7ebf1] bg-white px-6 py-5 shadow-[0_10px_22px_rgba(15,23,42,0.04)]">
               <p className="text-[0.98rem] font-semibold text-slate-900">
                 {actionTitle}
               </p>
               <div className="mt-4 flex justify-center">
                 <LocalizedClientLink
                   href={actionHref}
-                  className="inline-flex items-center justify-center rounded-[999px] bg-[linear-gradient(90deg,#5e68f3_0%,#4753d9_100%)] px-8 py-3 text-[0.95rem] font-bold text-white shadow-[0_14px_28px_rgba(71,83,217,0.24)] transition-transform duration-200 hover:-translate-y-0.5"
+                  className="inline-flex items-center justify-center bg-brand-cta px-8 py-3 text-[0.95rem] font-bold text-white shadow-[0_14px_28px_rgba(71,83,217,0.24)] transition-transform duration-200 hover:-translate-y-0.5"
                 >
                   {actionLabel}
                 </LocalizedClientLink>

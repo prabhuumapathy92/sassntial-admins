@@ -248,12 +248,12 @@ const AiSeoVisualShowcase = ({
           return (
             <article
               key={card.title}
-              className="overflow-hidden rounded-[24px] border border-[#e5ebf4] bg-white shadow-[0_16px_32px_rgba(15,23,42,0.08)]"
+              className="overflow-hidden border border-[#e5ebf4] bg-white shadow-[0_16px_32px_rgba(15,23,42,0.08)]"
             >
               <div
                 className={`relative h-[210px] overflow-hidden ${theme.panelClass}`}
               >
-                <span className="absolute left-4 top-4 z-[1] rounded-full bg-white/90 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.08em] text-slate-700">
+                <span className="absolute left-4 top-4 z-[1] bg-white/90 px-3 py-1 text-[10px] font-bold uppercase text-slate-700">
                   {theme.eyebrow}
                 </span>
                 <ServiceArt art={theme.art} />
@@ -278,7 +278,7 @@ const AiSeoVisualShowcase = ({
       <div className="mt-8 flex justify-center">
         <LocalizedClientLink
           href={ctaHref}
-          className="inline-flex items-center justify-center rounded-[999px] bg-[linear-gradient(90deg,#f2b544_0%,#ee6b4b_100%)] px-[26px] py-3.5 text-[0.86rem] font-bold uppercase leading-6 tracking-[0.03em] text-white shadow-[0_18px_34px_rgba(238,107,75,0.24)] transition-transform duration-200 hover:-translate-y-0.5"
+          className="inline-flex items-center justify-center bg-brand-cta px-[26px] py-3.5 text-[0.86rem] font-bold uppercase leading-6 text-white shadow-[0_18px_34px_rgba(238,107,75,0.24)] transition-transform duration-200 hover:-translate-y-0.5"
         >
           {ctaLabel}
         </LocalizedClientLink>

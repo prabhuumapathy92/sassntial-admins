@@ -29,7 +29,8 @@ export const listCartPaymentMethods = async (regionId: string) => {
         return a.id > b.id ? 1 : -1
       })
     )
-    .catch(() => {
+    .catch((e) => {
+      console.error("Failed to list payment providers for region", regionId, e)
       return null
     })
 }

@@ -48,14 +48,14 @@ export default async function Nav() {
           <DesktopMegaMenu items={primaryMenuItems} />
 
           <div className="ml-auto flex items-center gap-3">
-            <AccountButton className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white/90 transition-colors duration-200 hover:bg-white/10 hover:text-white" />
+            <AccountButton className="inline-flex h-11 w-11 items-center justify-center border border-white/10 bg-white/5 text-white/90 transition-colors duration-200 hover:bg-white/10 hover:text-white" />
             <CartButton
               iconOnly
-              linkClassName="relative inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white/90 transition-colors duration-200 hover:bg-white/10 hover:text-white"
-              panelClassName="top-[calc(100%+16px)] rounded-[24px] shadow-[0_24px_55px_rgba(15,23,42,0.12)]"
+              linkClassName="relative inline-flex h-11 w-11 items-center justify-center border border-white/10 bg-white/5 text-white/90 transition-colors duration-200 hover:bg-white/10 hover:text-white"
+              panelClassName="top-[calc(100%+16px)] shadow-[0_24px_55px_rgba(15,23,42,0.12)]"
             />
             <LocalizedClientLink
-              className="inline-flex min-h-12 items-center justify-center rounded-full bg-gradient-to-r from-[#e1b24f] to-[#d97348] px-6 text-[14px] font-bold tracking-[0.02em] text-white shadow-[0_16px_32px_rgba(217,115,72,0.22)] transition-transform duration-200 hover:-translate-y-0.5"
+              className="inline-flex min-h-12 items-center justify-center bg-brand-cta px-6 text-[14px] font-bold text-white shadow-[0_16px_32px_rgba(217,115,72,0.22)] transition-transform duration-200 hover:-translate-y-0.5"
               href={ctaMenuItem.href}
             >
               {ctaMenuItem.label}

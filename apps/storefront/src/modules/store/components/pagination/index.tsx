@@ -89,7 +89,7 @@ export function Pagination({
     <button
       type="button"
       className={clx(
-        "inline-flex h-10 items-center gap-2 rounded-none border px-4 text-sm font-medium transition",
+        "inline-flex h-10 items-center gap-2 border px-4 text-sm font-medium transition",
         {
           "cursor-not-allowed border-[#dde3ed] bg-white text-[#c0c8d4]": disabled,
           "border-transparent bg-transparent text-[#5b6b7f] hover:border-[#d9e2f2] hover:bg-white hover:text-[#1d4ed8]":
@@ -113,7 +113,7 @@ export function Pagination({
       type="button"
       key={pageNumber}
       className={clx(
-        "inline-flex h-10 min-w-10 items-center justify-center rounded-none border px-3 text-sm font-semibold transition",
+        "inline-flex h-10 min-w-10 items-center justify-center border px-3 text-sm font-semibold transition",
         {
           "border-[#2c7cf7] bg-[#2c7cf7] text-white shadow-[0_10px_25px_rgba(44,124,247,0.28)]":
             isCurrent,
@@ -253,14 +253,14 @@ export function Pagination({
 
   if (variant === "training") {
     return (
-      <div className="overflow-hidden rounded-[24px] border border-[#dbe3ef] bg-white p-5 shadow-[0_12px_32px_rgba(15,23,42,0.05)] small:p-6">
+      <div className="overflow-hidden border border-[#dbe3ef] bg-white p-5 shadow-[0_12px_32px_rgba(15,23,42,0.05)] small:p-6">
         <div className="flex flex-col gap-4 medium:flex-row medium:items-end medium:justify-between">
           <div>
             <p className="text-[11px] font-semibold text-[#f59e0b]">
               All Training
             </p>
             <h3
-              className="truncate text-[1.2rem] font-bold leading-tight tracking-[-0.02em] text-[#0f172a] transition hover:text-[#2c7cf7] small:text-[1.35rem]"
+              className="truncate text-[1.2rem] font-bold leading-tight text-[#0f172a] transition hover:text-[#2c7cf7] small:text-[1.35rem]"
               data-testid="store-page-title"
             >
               {title}
@@ -297,7 +297,7 @@ export function Pagination({
               <select
                 value={pageSize}
                 onChange={(event) => handlePageSizeChange(event.target.value)}
-                className="h-11 min-w-[150px] rounded-[18px] border border-[#d7dce5] bg-[#f8fbff] px-4 text-[14px] font-medium text-[#243244] outline-none transition focus:border-[#f59e0b] focus:ring-2 focus:ring-[#fde68a] small:min-w-[170px] small:text-[15px]"
+                className="h-11 min-w-[150px] border border-[#d7dce5] bg-[#f8fbff] px-4 text-[14px] font-medium text-[#243244] outline-none transition focus:border-[#f59e0b] focus:ring-2 focus:ring-[#fde68a] small:min-w-[170px] small:text-[15px]"
               >
                 {[12, 20, 40].map((option) => (
                   <option key={option} value={option}>
@@ -368,7 +368,7 @@ export function Pagination({
               <select
                 value={pageSize}
                 onChange={(event) => handlePageSizeChange(event.target.value)}
-                className="h-11 rounded-none border border-[#d7dce5] bg-white px-4 text-sm font-medium text-[#243244] outline-none transition focus:border-[#2c7cf7] focus:ring-2 focus:ring-[#bfdbfe]"
+                className="h-11 border border-[#d7dce5] bg-white px-4 text-sm font-medium text-[#243244] outline-none transition focus:border-[#2c7cf7] focus:ring-2 focus:ring-[#bfdbfe]"
               >
                 {[12, 20, 40].map((option) => (
                   <option key={option} value={option}>

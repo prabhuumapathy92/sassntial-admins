@@ -130,7 +130,7 @@ const Item = ({ item, type = "full", currencyCode }: ItemProps) => {
 
           <div className="mt-4 grid gap-3 small:grid-cols-2 medium:hidden">
             <div className="border border-[#e8eef7] bg-[#f8fafc] px-4 py-3">
-              <p className="text-[0.68rem] uppercase tracking-[0.22em] text-[#64748b]">
+              <p className="text-[0.68rem] uppercase text-[#64748b]">
                 Price
               </p>
               <div className="mt-2 text-slate-950">
@@ -143,7 +143,7 @@ const Item = ({ item, type = "full", currencyCode }: ItemProps) => {
             </div>
 
             <div className="border border-[#e8eef7] bg-[#f8fafc] px-4 py-3">
-              <p className="text-[0.68rem] uppercase tracking-[0.22em] text-[#64748b]">
+              <p className="text-[0.68rem] uppercase text-[#64748b]">
                 Total
               </p>
               <div className="mt-2 text-slate-950">
@@ -158,7 +158,7 @@ const Item = ({ item, type = "full", currencyCode }: ItemProps) => {
 
           <div className="hidden medium:flex medium:flex-wrap medium:items-center medium:gap-6 medium:pt-2">
             <div className="inline-flex items-stretch">
-              <span className="inline-flex items-center border border-[#e8eef7] bg-[#f8fafc] px-4 py-2 text-[0.68rem] uppercase tracking-[0.22em] text-[#64748b]">
+              <span className="inline-flex items-center border border-[#e8eef7] bg-[#f8fafc] px-4 py-2 text-[0.68rem] uppercase text-[#64748b]">
                 Price
               </span>
               <div className="inline-flex items-center border border-l-0 border-[#e8eef7] bg-white px-4 py-2 text-slate-950">
@@ -171,7 +171,7 @@ const Item = ({ item, type = "full", currencyCode }: ItemProps) => {
             </div>
 
             <div className="inline-flex items-stretch">
-              <span className="inline-flex items-center border border-[#e8eef7] bg-[#f8fafc] px-4 py-2 text-[0.68rem] uppercase tracking-[0.22em] text-[#64748b]">
+              <span className="inline-flex items-center border border-[#e8eef7] bg-[#f8fafc] px-4 py-2 text-[0.68rem] uppercase text-[#64748b]">
                 Total
               </span>
               <div className="inline-flex items-center border border-l-0 border-[#e8eef7] bg-white px-4 py-2 text-slate-950">
@@ -187,7 +187,7 @@ const Item = ({ item, type = "full", currencyCode }: ItemProps) => {
 
         <div className="grid gap-4 border-t border-[#e8eef7] pt-4 medium:border-0 medium:pt-0 medium:self-start">
           <div>
-            <p className="text-[0.68rem] uppercase tracking-[0.22em] text-[#64748b] medium:hidden">
+            <p className="text-[0.68rem] uppercase text-[#64748b] medium:hidden">
               Quantity
             </p>
             <div className="mt-2 flex flex-wrap items-center gap-2 medium:mt-0 medium:justify-end">

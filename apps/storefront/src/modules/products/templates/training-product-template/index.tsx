@@ -62,7 +62,7 @@ const TrainingProductTemplate = ({
   return (
     <div className="min-h-screen bg-brand-haze py-4 sm:py-6">
       <div className="content-container px-3 sm:px-4">
-        <div className="rounded-t-[4px] bg-[#102735] px-4 py-2.5 sm:px-5">
+        <div className="bg-[#102735] px-4 py-2.5 sm:px-5">
           <h1 className="text-[15px] font-semibold text-white sm:text-[16px]">
             {product.title}
           </h1>
@@ -71,7 +71,7 @@ const TrainingProductTemplate = ({
         <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-start">
           <div className="min-w-0 border border-t-0 border-brand-line bg-white">
             <div className="grid gap-5 px-4 py-5 sm:px-5 lg:grid-cols-[minmax(0,420px)_minmax(0,1fr)]">
-              <div className="relative aspect-[16/9] w-full overflow-hidden rounded-[3px] border border-brand-line bg-brand-haze">
+              <div className="relative aspect-[16/9] w-full overflow-hidden border border-brand-line bg-brand-haze">
                 {imageSrc ? (
                   <Image
                     src={imageSrc}
@@ -96,7 +96,7 @@ const TrainingProductTemplate = ({
                       <div key={fact.label} className="flex items-start gap-2.5">
                         <Icon className="mt-0.5 h-5 w-5 shrink-0 text-brand-slate" />
                         <div className="min-w-0">
-                          <dt className="text-[12px] font-semibold uppercase tracking-[0.08em] text-brand-navy">
+                          <dt className="text-[12px] font-semibold uppercase text-brand-navy">
                             {fact.label}
                           </dt>
                           <dd className="mt-0.5 text-[13px] text-slate-700">
@@ -153,7 +153,7 @@ const TrainingProductTemplate = ({
                     <img
                       src={faculty.image}
                       alt={faculty.name}
-                      className="h-[92px] w-[92px] shrink-0 rounded-[3px] border border-brand-line object-cover"
+                      className="h-[92px] w-[92px] shrink-0 border border-brand-line object-cover"
                     />
                   )}
                   <div className="min-w-0 text-[13px] leading-7 text-slate-700">
@@ -173,7 +173,7 @@ const TrainingProductTemplate = ({
           <aside className="lg:sticky lg:top-6">
             <Suspense
               fallback={
-                <div className="rounded-[4px] border border-brand-line bg-white px-4 py-6 text-center text-[13px] text-slate-500">
+                <div className="border border-brand-line bg-white px-4 py-6 text-center text-[13px] text-slate-500">
                   Loading options...
                 </div>
               }

@@ -7,7 +7,7 @@ const ResourcesTemplate = () => {
       <section className="overflow-hidden bg-white shadow-[0_18px_40px_rgba(15,23,42,0.06)]">
         <div className="grid large:grid-cols-[1.08fr_0.92fr]">
           <div className="px-6 py-7 small:px-10 small:py-10">
-            <p className="text-small-regular uppercase tracking-[0.24em] text-ui-fg-subtle">
+            <p className="text-small-regular uppercase text-ui-fg-subtle">
               Resources
             </p>
             <h1 className="mt-3 max-w-3xl text-3xl-semi text-ui-fg-base">
@@ -19,7 +19,7 @@ const ResourcesTemplate = () => {
             </p>
 
             <div className="mt-7 grid gap-3 small:grid-cols-3">
-              <div className="rounded-[22px] border border-ui-border-base bg-ui-bg-subtle px-5 py-4">
+              <div className="border border-ui-border-base bg-ui-bg-subtle px-5 py-4">
                 <p className="text-ui-fg-subtle">
                   Resource Types
                 </p>
@@ -27,7 +27,7 @@ const ResourcesTemplate = () => {
                   {resourceItems.length}
                 </p>
               </div>
-              <div className="rounded-[22px] border border-ui-border-base bg-ui-bg-subtle px-5 py-4">
+              <div className="border border-ui-border-base bg-ui-bg-subtle px-5 py-4">
                 <p className="text-ui-fg-subtle">
                   Audience
                 </p>
@@ -35,7 +35,7 @@ const ResourcesTemplate = () => {
                   Product, sales, and operations
                 </p>
               </div>
-              <div className="rounded-[22px] border border-ui-border-base bg-ui-bg-subtle px-5 py-4">
+              <div className="border border-ui-border-base bg-ui-bg-subtle px-5 py-4">
                 <p className="text-ui-fg-subtle">
                   Purpose
                 </p>
@@ -47,7 +47,7 @@ const ResourcesTemplate = () => {
           </div>
 
           <div className="border-t border-ui-border-base bg-[linear-gradient(180deg,#f7fbff_0%,#ffffff_100%)] px-6 py-7 small:px-8 small:py-10 large:border-l large:border-t-0">
-            <p className="text-small-regular uppercase tracking-[0.22em] text-ui-fg-subtle">
+            <p className="text-small-regular uppercase text-ui-fg-subtle">
               Resource Menu
             </p>
             <div className="mt-5 grid gap-3">
@@ -55,7 +55,7 @@ const ResourcesTemplate = () => {
                 <LocalizedClientLink
                   key={resource.slug}
                   href={`/resources/${resource.slug}`}
-                  className="group flex items-start justify-between gap-4 rounded-[20px] border border-ui-border-base bg-white/90 px-4 py-4 transition-colors duration-200 hover:border-[#bfdbfe] hover:bg-white"
+                  className="group flex items-start justify-between gap-4 border border-ui-border-base bg-white/90 px-4 py-4 transition-colors duration-200 hover:border-[#bfdbfe] hover:bg-white"
                 >
                   <div>
                     <p className="text-ui-fg-subtle">
@@ -65,7 +65,7 @@ const ResourcesTemplate = () => {
                       {resource.label}
                     </h2>
                   </div>
-                  <span className="rounded-full bg-ui-bg-subtle px-3 py-1 text-small-regular text-ui-fg-subtle">
+                  <span className="bg-ui-bg-subtle px-3 py-1 text-small-regular text-ui-fg-subtle">
                     {String(index + 1).padStart(2, "0")}
                   </span>
                 </LocalizedClientLink>
@@ -80,18 +80,18 @@ const ResourcesTemplate = () => {
           <LocalizedClientLink
             key={resource.slug}
             href={`/resources/${resource.slug}`}
-            className="group block h-full rounded-[28px] border border-ui-border-base bg-white p-6 shadow-[0_18px_40px_rgba(15,23,42,0.06)] transition-transform duration-200 hover:-translate-y-1"
+            className="group block h-full border border-ui-border-base bg-white p-6 shadow-[0_18px_40px_rgba(15,23,42,0.06)] transition-transform duration-200 hover:-translate-y-1"
           >
             <div className="flex items-start justify-between gap-4">
               <div>
-                <p className="text-small-regular uppercase tracking-[0.22em] text-ui-fg-subtle">
+                <p className="text-small-regular uppercase text-ui-fg-subtle">
                   {resource.eyebrow}
                 </p>
                 <h2 className="mt-3 text-2xl-semi text-ui-fg-base transition-colors duration-200 group-hover:text-[#2a83d8]">
                   {resource.label}
                 </h2>
               </div>
-              <span className="rounded-full border border-ui-border-base px-3 py-1 text-small-regular text-ui-fg-subtle">
+              <span className="border border-ui-border-base px-3 py-1 text-small-regular text-ui-fg-subtle">
                 {String(index + 1).padStart(2, "0")}
               </span>
             </div>
@@ -104,7 +104,7 @@ const ResourcesTemplate = () => {
               {resource.highlights.map((highlight) => (
                 <li
                   key={highlight}
-                  className="rounded-[18px] border border-ui-border-base bg-ui-bg-subtle px-4 py-3 text-base-regular text-ui-fg-subtle"
+                  className="border border-ui-border-base bg-ui-bg-subtle px-4 py-3 text-base-regular text-ui-fg-subtle"
                 >
                   {highlight}
                 </li>
@@ -115,7 +115,7 @@ const ResourcesTemplate = () => {
               <p className="max-w-[70%] text-small-regular text-ui-fg-subtle">
                 {resource.formats[0]}
               </p>
-              <span className="text-small-regular font-medium uppercase tracking-[0.2em] text-[#2a83d8]">
+              <span className="text-small-regular font-medium uppercase text-[#2a83d8]">
                 Explore
               </span>
             </div>

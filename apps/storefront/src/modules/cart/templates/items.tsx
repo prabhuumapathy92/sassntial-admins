@@ -16,7 +16,7 @@ const ItemsTemplate = ({ cart }: ItemsTemplateProps) => {
     <div>
       <div className="flex flex-col gap-4 border-b border-[#e8eef7] pb-5 medium:flex-row medium:items-end medium:justify-between">
         <div>         
-          <Heading className="font-sans h2-core text-[1.55rem] font-semibold tracking-[-0.03em] text-slate-950">
+          <Heading className="font-sans h2-core text-[1.55rem] font-semibold text-slate-950">
             Your cart
           </Heading>
           <p className="mt-3 max-w-2xl text-sm leading-7 text-slate-600">

@@ -31,11 +31,11 @@ const AiSeoStrategicApproach = ({
       <article className="overflow-hidden bg-[#162033] shadow-[0_24px_52px_rgba(15,23,42,0.12)]">
         <div className="grid small:grid-cols-2">
           <div className="px-5 py-6 text-white small:px-7 small:py-7 medium:px-8 medium:py-8">
-            <span className="inline-flex rounded-full bg-[#ff8b38] px-3 py-1 text-[10px] font-black uppercase tracking-[0.14em] text-slate-950">
+            <span className="inline-flex bg-[#ff8b38] px-3 py-1 text-[10px] font-black uppercase text-slate-950">
               {eyebrow}
             </span>
 
-            <h2 className="mt-4 text-[1.85rem] font-black uppercase leading-[1.02] tracking-[-0.03em] small:text-[2.2rem] medium:text-[2.45rem]">
+            <h2 className="mt-4 text-[1.85rem] font-black uppercase leading-[1.02] small:text-[2.2rem] medium:text-[2.45rem]">
               {title}
             </h2>
 
@@ -43,7 +43,7 @@ const AiSeoStrategicApproach = ({
               {description}
             </p>
 
-            <p className="mt-7 text-[11px] font-semibold uppercase tracking-[0.1em] text-[#ffb36e]">
+            <p className="mt-7 text-[11px] font-semibold uppercase text-[#ffb36e]">
               {pillarsLabel}
             </p>
 
@@ -51,7 +51,7 @@ const AiSeoStrategicApproach = ({
               {pillars.map((pillar) => (
                 <div
                   key={pillar}
-                  className="rounded-[18px] border border-white/10 bg-white/[0.08] px-4 py-3.5 text-[13px] leading-6 text-slate-100 backdrop-blur-sm"
+                  className="border border-white/10 bg-white/[0.08] px-4 py-3.5 text-[13px] leading-6 text-slate-100 backdrop-blur-sm"
                 >
                   {pillar}
                 </div>
@@ -68,7 +68,7 @@ const AiSeoStrategicApproach = ({
               <img
                 src={imageSrc}
                 alt={imageAlt}
-                className="mx-auto h-auto w-full max-w-[500px] rounded-[22px] object-contain"
+                className="mx-auto h-auto w-full max-w-[500px] object-contain"
               />
             </div>
           </div>

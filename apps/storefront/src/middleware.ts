@@ -1,7 +1,7 @@
 import { HttpTypes } from "@medusajs/types"
 import { NextRequest, NextResponse } from "next/server"
 
-const BACKEND_URL = process.env.MEDUSA_BACKEND_URL
+const BACKEND_URL = process.env.MEDUSA_BACKEND_URL?.replace(/\/+$/, "")
 const PUBLISHABLE_API_KEY = process.env.NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY
 const DEFAULT_REGION = process.env.NEXT_PUBLIC_DEFAULT_REGION || "us"
 
@@ -34,7 +34,16 @@ async function getRegionMap(cacheId: string) {
       },
       cache: "force-cache",
     }).then(async (response) => {
-      const json = await response.json()
+      const body = await response.text()
+      let json: any
+
+      try {
+        json = JSON.parse(body)
+      } catch {
+        throw new Error(
+          `Middleware.ts: ${BACKEND_URL}/store/regions responded with ${response.status} and a non-JSON body: ${body.slice(0, 200)}`
+        )
+      }
 
       if (!response.ok) {
         throw new Error(json.message)

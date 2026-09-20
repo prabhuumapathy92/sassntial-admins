@@ -71,7 +71,7 @@ const DiscountCode: React.FC<DiscountCodeProps> = ({
         <div className="border-t border-slate-200 pt-4">
           <div className="flex items-start justify-between gap-3">
             <div>
-              <p className="font-[family-name:var(--font-tech)] text-[0.68rem] uppercase tracking-[0.22em] text-slate-500">
+              <p className="font-[family-name:var(--font-tech)] text-[0.68rem] uppercase text-slate-500">
                 Active promotions
               </p>
               <p className="mt-1 text-sm leading-6 text-slate-600">
@@ -111,7 +111,7 @@ const DiscountCode: React.FC<DiscountCodeProps> = ({
                       >
                         {promotion.code}
                       </span>
-                      <span className="inline-flex items-center border border-slate-200 bg-white px-2 py-1 text-[0.68rem] font-medium uppercase tracking-[0.18em] text-slate-500">
+                      <span className="inline-flex items-center border border-slate-200 bg-white px-2 py-1 text-[0.68rem] font-medium uppercase text-slate-500">
                         {promotion.is_automatic ? "Automatic" : "Code"}
                       </span>
                     </div>
@@ -233,7 +233,7 @@ const DiscountCode: React.FC<DiscountCodeProps> = ({
                         Promotion code
                       </p>
                       {promotions.length ? (
-                        <span className="inline-flex items-center border border-slate-200 bg-white px-2 py-1 text-[0.68rem] font-medium uppercase tracking-[0.18em] text-slate-500">
+                        <span className="inline-flex items-center border border-slate-200 bg-white px-2 py-1 text-[0.68rem] font-medium uppercase text-slate-500">
                           {promotions.length} active
                         </span>
                       ) : null}

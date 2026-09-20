@@ -8,7 +8,7 @@ type AiSeoLeadFormProps = {
 }
 
 const fieldClassName =
-  "h-12 w-full rounded-[10px] border border-white/15 bg-white px-4 text-sm text-slate-900 outline-none transition-colors duration-200 placeholder:text-slate-400 focus:border-[#f4bf4f]"
+  "h-12 w-full border border-white/15 bg-white px-4 text-sm text-slate-900 outline-none transition-colors duration-200 placeholder:text-slate-400 focus:border-[#f4bf4f]"
 
 const LeadField = ({
   name,
@@ -78,14 +78,14 @@ const AiSeoLeadForm = ({
                 name="message"
                 rows={4}
                 placeholder="Anything else we should know?"
-                className="min-h-[128px] w-full rounded-[10px] border border-white/15 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition-colors duration-200 placeholder:text-slate-400 focus:border-[#f4bf4f]"
+                className="min-h-[128px] w-full border border-white/15 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition-colors duration-200 placeholder:text-slate-400 focus:border-[#f4bf4f]"
               />
             </div>
 
             <div className="flex justify-center pt-2">
               <button
                 type="button"
-                className="inline-flex min-h-12 items-center justify-center rounded-[12px] bg-[linear-gradient(135deg,#f4bf4f_0%,#ea7a3d_100%)] px-6 py-3 text-sm font-bold text-slate-950 transition-transform duration-200 hover:-translate-y-0.5"
+                className="inline-flex min-h-12 items-center justify-center bg-[linear-gradient(135deg,#f4bf4f_0%,#ea7a3d_100%)] px-6 py-3 text-sm font-bold text-slate-950 transition-transform duration-200 hover:-translate-y-0.5"
               >
                 {primaryLabel}
               </button>
@@ -95,7 +95,7 @@ const AiSeoLeadForm = ({
 
         <div className="bg-[linear-gradient(180deg,#f8fbff_0%,#eef5fb_100%)] px-6 py-7 small:px-8 small:py-8">
           <div className="max-w-[32rem]">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#0b78b5]">
+            <p className="text-[11px] font-semibold uppercase text-[#0b78b5]">
               {eyebrow}
             </p>
 
@@ -103,7 +103,7 @@ const AiSeoLeadForm = ({
               {titleParts ? (
                 <>
                   <span className="block">{titleParts[0].trim()}</span>
-                  <span className="mt-3 inline-block rounded-[16px] bg-[linear-gradient(135deg,#f4bf4f_0%,#ea7a3d_100%)] px-4 py-2 text-slate-950 shadow-[0_12px_24px_rgba(234,122,61,0.24)]">
+                  <span className="mt-3 inline-block bg-[linear-gradient(135deg,#f4bf4f_0%,#ea7a3d_100%)] px-4 py-2 text-slate-950 shadow-[0_12px_24px_rgba(234,122,61,0.24)]">
                     {highlightPhrase}
                   </span>
                 </>
@@ -121,9 +121,9 @@ const AiSeoLeadForm = ({
             {focusCards.map((item, index) => (
               <article
                 key={item}
-                className="rounded-[18px] border border-[#dce7f1] bg-white px-4 py-4 shadow-[0_10px_24px_rgba(15,23,42,0.05)]"
+                className="border border-[#dce7f1] bg-white px-4 py-4 shadow-[0_10px_24px_rgba(15,23,42,0.05)]"
               >
-                <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0b78b5]">
+                <p className="text-[11px] font-semibold uppercase text-[#0b78b5]">
                   Focus {String(index + 1).padStart(2, "0")}
                 </p>
                 <p className="mt-3 text-[1rem] font-bold leading-6 text-slate-900">

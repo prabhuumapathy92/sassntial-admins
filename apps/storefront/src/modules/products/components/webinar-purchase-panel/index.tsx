@@ -1,9 +1,10 @@
 "use client"
 
-import { addToCart } from "@lib/data/cart"
+import { addItemsToCart } from "@lib/data/cart"
 import { medusaErrorMessage } from "@lib/util/medusa-error"
 import { HttpTypes } from "@medusajs/types"
 import { Button, clx } from "@medusajs/ui"
+import { getPercentageDiff } from "@lib/util/get-percentage-diff"
 import { getPricesForVariant } from "@lib/util/get-product-price"
 import { convertToLocale } from "@lib/util/money"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
@@ -57,31 +58,30 @@ const defaultVariantId = (product: HttpTypes.StoreProduct) => {
   )[0].id
 }
 
-type Prices = ReturnType<typeof getPricesForVariant>
+/** Combined price of every ticked option, so the headline matches the selection. */
+type SelectionTotals = {
+  calculated_price: string
+  original_price: string
+  savings: number
+  savings_label: string
+  percentage_diff: string
+  count: number
+} | null
 
 const PriceSummary = ({
-  prices,
+  totals,
   onAddToCart,
   disabled,
   isAdding,
   label,
 }: {
-  prices: Prices
+  totals: SelectionTotals
   onAddToCart: () => void
   disabled: boolean
   isAdding: boolean
   label: string
 }) => {
-  const savings = prices
-    ? prices.original_price_number - prices.calculated_price_number
-    : 0
-
-  const savingsLabel = prices
-    ? convertToLocale({
-        amount: savings,
-        currency_code: prices.currency_code,
-      })
-    : null
+  const savings = totals?.savings ?? 0
 
   return (
     <div className="flex items-center justify-between gap-3 px-4 py-3">
@@ -90,7 +90,7 @@ const PriceSummary = ({
           <p className="text-slate-500">
             Was:{" "}
             <span className="font-semibold text-brand-ember line-through">
-              {prices!.original_price}
+              {totals!.original_price}
             </span>
           </p>
         )}
@@ -100,15 +100,23 @@ const PriceSummary = ({
             className="text-[19px] font-bold text-slate-900"
             data-testid="webinar-price"
           >
-            {prices?.calculated_price ?? "--"}
+            {totals?.calculated_price ?? "--"}
           </span>
         </p>
         {savings > 0 && (
           <p className="text-[12px] text-slate-500">
             You Save:{" "}
             <span className="font-semibold text-brand-ember">
-              {savingsLabel} ({prices!.percentage_diff}%)
+              {totals!.savings_label} ({totals!.percentage_diff}%)
             </span>
+          </p>
+        )}
+        {!!totals && totals.count > 1 && (
+          <p
+            className="text-[12px] text-slate-500"
+            data-testid="webinar-selection-count"
+          >
+            {totals.count} options selected
           </p>
         )}
       </div>
@@ -117,7 +125,7 @@ const PriceSummary = ({
         onClick={onAddToCart}
         disabled={disabled}
         isLoading={isAdding}
-        className="h-10 shrink-0 rounded-full bg-gradient-to-r from-brand-gold to-brand-ember px-5 text-[13px] font-bold text-white shadow-none transition-transform hover:-translate-y-0.5 disabled:translate-y-0 disabled:bg-slate-200 disabled:bg-none disabled:text-slate-400"
+        className="h-10 shrink-0 bg-brand-cta px-5 text-[13px] font-bold text-white shadow-none transition-transform hover:-translate-y-0.5 disabled:translate-y-0 disabled:bg-slate-200 disabled:bg-none disabled:text-slate-400"
         data-testid="add-product-button"
       >
         {label}
@@ -139,27 +147,70 @@ export default function WebinarPurchasePanel({
   const countryCode = useParams().countryCode as string
   const groups = useMemo(() => groupWebinarVariants(product), [product])
 
-  const [selectedId, setSelectedId] = useState<string | undefined>(() =>
-    defaultVariantId(product)
-  )
+  const [selectedIds, setSelectedIds] = useState<string[]>(() => {
+    const id = defaultVariantId(product)
+    return id ? [id] : []
+  })
   const [isAdding, setIsAdding] = useState(false)
   const [feedback, setFeedback] = useState<string | null>(null)
   const [shareNote, setShareNote] = useState<string | null>(null)
 
-  const selectedVariant = useMemo(
-    () => product.variants?.find((variant) => variant.id === selectedId),
-    [product.variants, selectedId]
+  const toggleVariant = (variantId: string) => {
+    setFeedback(null)
+    setSelectedIds((current) =>
+      current.includes(variantId)
+        ? current.filter((id) => id !== variantId)
+        : [...current, variantId]
+    )
+  }
+
+  // Kept in product order rather than click order, so the panel and the
+  // resulting cart lines read the same way as the option list.
+  const selectedVariants = useMemo(
+    () =>
+      (product.variants ?? []).filter((variant) =>
+        selectedIds.includes(variant.id)
+      ),
+    [product.variants, selectedIds]
   )
 
-  const prices = useMemo(
-    () => (selectedVariant ? getPricesForVariant(selectedVariant) : null),
-    [selectedVariant]
-  )
+  const totals = useMemo<SelectionTotals>(() => {
+    const priced = selectedVariants
+      .map((variant) => getPricesForVariant(variant))
+      .filter((price): price is NonNullable<typeof price> => !!price)
 
-  const inStock = selectedVariant ? isPurchasable(selectedVariant) : false
+    if (!priced.length) {
+      return null
+    }
+
+    const calculated = priced.reduce(
+      (sum, price) => sum + price.calculated_price_number,
+      0
+    )
+    const original = priced.reduce(
+      (sum, price) => sum + price.original_price_number,
+      0
+    )
+    const currency_code = priced[0].currency_code
+
+    return {
+      calculated_price: convertToLocale({ amount: calculated, currency_code }),
+      original_price: convertToLocale({ amount: original, currency_code }),
+      savings: original - calculated,
+      savings_label: convertToLocale({
+        amount: original - calculated,
+        currency_code,
+      }),
+      percentage_diff: getPercentageDiff(original, calculated),
+      count: selectedVariants.length,
+    }
+  }, [selectedVariants])
+
+  const inStock =
+    selectedVariants.length > 0 && selectedVariants.every(isPurchasable)
 
   const handleAddToCart = async () => {
-    if (!selectedVariant?.id) {
+    if (!selectedVariants.length) {
       return
     }
 
@@ -167,13 +218,19 @@ export default function WebinarPurchasePanel({
     setFeedback(null)
 
     try {
-      await addToCart({
-        variantId: selectedVariant.id,
-        quantity: 1,
+      await addItemsToCart({
+        items: selectedVariants.map((variant) => ({
+          variantId: variant.id,
+          quantity: 1,
+        })),
         countryCode,
       })
 
-      setFeedback("Added to your cart")
+      setFeedback(
+        selectedVariants.length > 1
+          ? `Added ${selectedVariants.length} options to your cart`
+          : "Added to your cart"
+      )
     } catch (error) {
       // Without this the rejected server action escapes as an unhandled error
       // and the shopper only sees Next's dev overlay.
@@ -202,23 +259,25 @@ export default function WebinarPurchasePanel({
     setTimeout(() => setShareNote(null), 2500)
   }
 
-  const buttonLabel = !selectedVariant
+  const buttonLabel = !selectedVariants.length
     ? "Select option"
     : !inStock
       ? "Unavailable"
-      : "Add To Cart"
+      : selectedVariants.length > 1
+        ? `Add ${selectedVariants.length} To Cart`
+        : "Add To Cart"
 
   const summaryProps = {
-    prices,
+    totals,
     onAddToCart: handleAddToCart,
-    disabled: !selectedVariant || !inStock || !!disabled || isAdding,
+    disabled: !selectedVariants.length || !inStock || !!disabled || isAdding,
     isAdding,
     label: buttonLabel,
   }
 
   return (
     <div className="flex flex-col gap-4" id="webinar-options">
-      <div className="overflow-hidden rounded-[4px] border border-brand-line bg-white">
+      <div className="overflow-hidden border border-brand-line bg-white">
         <PriceSummary {...summaryProps} />
 
         {groups.map((group) => (
@@ -228,7 +287,7 @@ export default function WebinarPurchasePanel({
               {group.variants.map((variant) => {
                 const variantPrices = getPricesForVariant(variant)
                 const info = getVariantInfo(variant)
-                const isSelected = variant.id === selectedId
+                const isSelected = selectedIds.includes(variant.id)
                 const available = isPurchasable(variant)
 
                 return (
@@ -243,12 +302,12 @@ export default function WebinarPurchasePanel({
                       )}
                     >
                       <input
-                        type="radio"
+                        type="checkbox"
                         name="webinar-option"
                         className="sr-only"
                         checked={isSelected}
                         disabled={!available}
-                        onChange={() => setSelectedId(variant.id)}
+                        onChange={() => toggleVariant(variant.id)}
                       />
                       <span
                         className={clx(
@@ -324,10 +383,10 @@ export default function WebinarPurchasePanel({
         )}
       </div>
 
-      <div className="flex items-center gap-3 rounded-[4px] border border-brand-line bg-white px-4 py-3">
+      <div className="flex items-center gap-3 border border-brand-line bg-white px-4 py-3">
         <ShieldIcon className="h-9 w-9 shrink-0 text-brand-gold" />
         <div className="text-[12px] leading-5">
-          <p className="font-semibold uppercase tracking-wide text-brand-navy">
+          <p className="font-semibold uppercase text-brand-navy">
             100% Money Back Guaranteed
           </p>
           <LocalizedClientLink
@@ -339,7 +398,7 @@ export default function WebinarPurchasePanel({
         </div>
       </div>
 
-      <div className="rounded-[4px] border border-brand-amber/50 bg-brand-amber/12 px-4 py-3 text-center text-[12px] leading-6 text-slate-700">
+      <div className="border border-brand-amber/50 bg-brand-amber/12 px-4 py-3 text-center text-[12px] leading-6 text-slate-700">
         <p>For group or any booking support, contact:</p>
         <a
           href={`mailto:${SUPPORT_EMAIL}`}
@@ -361,7 +420,7 @@ export default function WebinarPurchasePanel({
         <button
           type="button"
           onClick={handleShare}
-          className="inline-flex items-center gap-1.5 rounded-full bg-brand-slate px-3.5 py-1.5 text-[12px] font-semibold text-white transition-colors hover:bg-brand-navy"
+          className="inline-flex items-center gap-1.5 bg-brand-slate px-3.5 py-1.5 text-[12px] font-semibold text-white transition-colors hover:bg-brand-navy"
         >
           <ShareIcon className="h-3.5 w-3.5" />
           Share

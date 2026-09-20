@@ -27,7 +27,8 @@ export const listCartShippingMethods = async (cartId: string) => {
       }
     )
     .then(({ shipping_options }) => shipping_options)
-    .catch(() => {
+    .catch((e) => {
+      console.error("Failed to list shipping options for cart", cartId, e)
       return null
     })
 }
@@ -63,6 +64,7 @@ export const calculatePriceForShippingOption = async (
     )
     .then(({ shipping_option }) => shipping_option)
     .catch((e) => {
+      console.error("Failed to calculate price for shipping option", optionId, e)
       return null
     })
 }

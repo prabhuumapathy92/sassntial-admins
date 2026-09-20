@@ -8,7 +8,7 @@ const SignInPrompt = () => {
         <div className="max-w-xl">       
           <Heading
             level="h2"
-            className="text-[1.55rem] font-semibold tracking-[-0.03em] text-slate-950"
+            className="text-[1.55rem] font-semibold text-slate-950"
           >
           Already have an account?
           </Heading>

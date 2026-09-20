@@ -1,6 +1,6 @@
 "use client"
 
-import { Funnel, MagnifyingGlass } from "@medusajs/icons"
+import { MagnifyingGlass } from "@medusajs/icons"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import { useEffect, useState } from "react"
 
@@ -24,44 +24,49 @@ const sortOptions: Array<{ label: string; value: SortOptions }> = [
   { label: "Price: High to Low", value: "price_desc" },
 ]
 
-const filterFieldClassName =
-  "h-12 w-full rounded-[18px] border border-[#d7dce5] bg-white px-4 text-sm text-[#0f172a] outline-none transition focus:border-[#f59e0b] focus:ring-2 focus:ring-[#fde68a]"
+const controlClassName =
+  "h-14 w-full appearance-none border border-[#e3e3e3] bg-white pl-5 pr-10 text-[13px] font-medium uppercase text-[#3d3d3d] outline-none transition hover:border-[#c9c9c9] focus:border-[#f59e0b]"
 
+const Caret = () => (
+  <svg
+    viewBox="0 0 24 24"
+    className="pointer-events-none absolute right-4 top-1/2 h-3 w-3 -translate-y-1/2 text-[#8a8a8a]"
+    fill="currentColor"
+    aria-hidden
+  >
+    <path d="M12 16 5 8h14z" />
+  </svg>
+)
+
+/** Native selects kept, styled to read as the bar's plain bordered boxes. */
 const FilterSelect = ({
-  label,
   value,
   onChange,
   placeholder,
   options,
 }: {
-  label: string
   value?: string
   onChange: (value: string) => void
   placeholder: string
   options: TrainingCatalogOption[]
-}) => {
-  return (
-    <label className="block">
-      {label ? (
-        <span className="mb-2 block text-sm font-semibold text-[#243244]">
-          {label}
-        </span>
-      ) : null}
-      <select
-        value={value ?? ""}
-        onChange={(event) => onChange(event.target.value)}
-        className={filterFieldClassName}
-      >
-        <option value="">{placeholder}</option>
-        {options.map((option) => (
-          <option key={option.value} value={option.value}>
-            {option.label}
-          </option>
-        ))}
-      </select>
-    </label>
-  )
-}
+}) => (
+  <div className="relative">
+    <select
+      value={value ?? ""}
+      onChange={(event) => onChange(event.target.value)}
+      className={controlClassName}
+      aria-label={placeholder}
+    >
+      <option value="">{placeholder}</option>
+      {options.map((option) => (
+        <option key={option.value} value={option.value}>
+          {option.label}
+        </option>
+      ))}
+    </select>
+    <Caret />
+  </div>
+)
 
 const TrainingCatalogFilters = ({
   initialQuery,
@@ -128,67 +133,76 @@ const TrainingCatalogFilters = ({
     router.replace(pathname)
   }
 
+  const hasActiveFilters = !!(
+    currentQuery ||
+    initialCategory ||
+    initialSpeaker ||
+    initialMonth
+  )
+
   return (
-    <aside className="sticky top-6 self-start overflow-hidden rounded-[28px] border border-[#d8deea] bg-white shadow-[0_18px_44px_rgba(15,23,42,0.07)]">
-      <div className="border-b border-[#e7edf6] bg-[linear-gradient(180deg,#f8fbff_0%,#ffffff_100%)] px-4 py-5 small:px-6 small:py-6">
-        <div className="relative flex items-center gap-3">
-          <div className="flex h-11 w-11 items-center justify-center rounded-[16px] bg-[#fff4df] text-[#f59e0b]">
-            <Funnel className="h-5 w-5" />
-          </div>
-          <div>
-            <p className="text-[11px] font-semibold text-[#f59e0b]">
-              Refine Results
-            </p>
-            <p className="mt-1 text-md font-semibold text-[#0f172a]">Filters</p>
-          </div>
-        </div>
-      </div>
-
-      <div className="space-y-4 bg-transparent px-4 py-4 small:space-y-5 small:px-6 small:py-6">
-        <label className="block">
-          <div className="relative">
-            <MagnifyingGlass className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[#94a3b8]" />
-            <input
-              type="search"
-              value={searchValue}
-              onChange={(event) => setSearchValue(event.target.value)}
-              placeholder="Enter keyword..."
-              className={`${filterFieldClassName} pl-11`}
-            />
-          </div>
-        </label>
-
+    <div
+      className="flex flex-wrap items-center gap-3"
+      data-testid="training-catalog-filters"
+    >
+      <div className="min-w-[170px]">
         <FilterSelect
-          label=""
           value={initialCategory}
           onChange={(value) => pushWithUpdates({ category: value || null })}
-          placeholder="All categories"
+          placeholder="Category"
           options={categoryOptions}
         />
+      </div>
 
+      <div className="min-w-[170px]">
         <FilterSelect
-          label=""
           value={initialSpeaker}
           onChange={(value) => pushWithUpdates({ speaker: value || null })}
-          placeholder="All speakers"
+          placeholder="Speaker"
           options={speakerOptions}
         />
+      </div>
 
+      <div className="min-w-[150px]">
         <FilterSelect
-          label=""
           value={initialMonth}
           onChange={(value) => pushWithUpdates({ month: value || null })}
-          placeholder="All months"
+          placeholder="Month"
           options={monthOptions}
         />
+      </div>
 
-        <label className="block">
+      {hasActiveFilters ? (
+        <button
+          type="button"
+          onClick={handleReset}
+          className="h-14 border border-[#e3e3e3] bg-white px-5 text-[13px] font-medium uppercase text-[#8a8a8a] transition hover:border-[#c9c9c9] hover:text-[#3d3d3d]"
+        >
+          Reset
+        </button>
+      ) : null}
+
+      <div className="ml-auto flex flex-wrap items-center gap-3">
+        <div className="relative min-w-[200px] small:min-w-[260px]">
+          <MagnifyingGlass className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[#8a8a8a]" />
+          <input
+            type="search"
+            value={searchValue}
+            onChange={(event) => setSearchValue(event.target.value)}
+            placeholder="Search"
+            aria-label="Search training"
+            className="h-14 w-full border border-[#e3e3e3] bg-white pl-11 pr-4 text-[13px] font-medium uppercase text-[#3d3d3d] outline-none transition placeholder:text-[#8a8a8a] hover:border-[#c9c9c9] focus:border-[#f59e0b]"
+          />
+        </div>
+
+        <div className="relative min-w-[180px]">
           <select
             value={sortBy}
             onChange={(event) =>
               pushWithUpdates({ sortBy: event.target.value || null })
             }
-            className={filterFieldClassName}
+            className={controlClassName}
+            aria-label="Sort by"
           >
             {sortOptions.map((option) => (
               <option key={option.value} value={option.value}>
@@ -196,19 +210,21 @@ const TrainingCatalogFilters = ({
               </option>
             ))}
           </select>
-        </label>
-
-        <div className="pt-2">
-          <button
-            type="button"
-            onClick={handleReset}
-            className="w-full rounded-[18px] border border-[#d7dce5] bg-[#f8fbff] px-4 py-2.5 text-sm font-medium text-[#64748b] transition hover:border-[#fbd38d] hover:bg-white hover:text-[#f59e0b] small:py-3"
+          <svg
+            viewBox="0 0 24 24"
+            className="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[#8a8a8a]"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden
           >
-            Reset filters
-          </button>
+            <path d="M7 4v16m0 0 3-3m-3 3-3-3M17 20V4m0 0 3 3m-3-3-3 3" />
+          </svg>
         </div>
       </div>
-    </aside>
+    </div>
   )
 }
 

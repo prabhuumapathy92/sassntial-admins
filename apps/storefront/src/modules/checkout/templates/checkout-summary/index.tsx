@@ -19,7 +19,7 @@ const CheckoutSummary = ({ cart }: { cart: any }) => {
           <div className="flex items-center justify-between gap-4">
             <Heading
               level="h2"
-              className="font-sans text-[1.9rem] font-semibold tracking-[-0.03em] text-slate-950"
+              className="font-sans text-[1.9rem] font-semibold text-slate-950"
             >
               In your Cart
             </Heading>
@@ -99,7 +99,7 @@ const CheckoutSummary = ({ cart }: { cart: any }) => {
 
           <div className="mt-5 border border-slate-200 bg-white px-4 py-4">
             <div className="mb-4 flex items-center justify-between gap-4">
-              <p className="font-[family-name:var(--font-tech)] text-[0.68rem] uppercase tracking-[0.22em] text-slate-500">
+              <p className="font-[family-name:var(--font-tech)] text-[0.68rem] uppercase text-slate-500">
                 Items
               </p>
               <p className="text-sm text-slate-500">

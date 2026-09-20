@@ -47,13 +47,28 @@ module.exports = {
           90: "#111827",
         },
       },
+      // Squared-off design language: every radius token resolves to 0, which
+      // also flattens the @medusajs/ui components that ship their own
+      // rounded-* classes and cannot be edited from src/.
       borderRadius: {
         none: "0px",
-        soft: "2px",
-        base: "4px",
-        rounded: "8px",
-        large: "16px",
-        circle: "9999px",
+        soft: "0px",
+        base: "0px",
+        rounded: "0px",
+        large: "0px",
+        circle: "0px",
+        sm: "0px",
+        DEFAULT: "0px",
+        md: "0px",
+        lg: "0px",
+        xl: "0px",
+        "2xl": "0px",
+        "3xl": "0px",
+        full: "0px",
+      },
+      backgroundImage: {
+        // The one call-to-action fill, so every primary button matches.
+        "brand-cta": "linear-gradient(90deg,#e1b24f 0%,#d97348 100%)",
       },
       maxWidth: {
         "8xl": "100rem",
@@ -71,16 +86,10 @@ module.exports = {
         "3xl": "2rem",
       },
       fontFamily: {
-        sans: [
-          "Inter",
-          "-apple-system",
-          "BlinkMacSystemFont",
-          "Segoe UI",
-          "Roboto",
-          "Helvetica Neue",
-          "Ubuntu",
-          "sans-serif",
-        ],
+        // One family for the whole storefront. The stack itself lives in
+        // globals.css as --font-sans, so there is a single definition rather
+        // than a Tailwind list and a CSS variable drifting apart.
+        sans: ["var(--font-sans)"],
       },
       keyframes: {
         ring: {

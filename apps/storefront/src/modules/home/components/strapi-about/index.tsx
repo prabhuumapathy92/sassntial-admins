@@ -147,10 +147,10 @@ const StrapiAbout = ({ data }: StrapiAboutProps) => {
   return (
     <section className="py-16 bg-slate-50">
       <div className="content-container">
-        <div className="rounded-[28px] border border-slate-200 bg-white px-8 py-12 shadow-[0_30px_70px_-60px_rgba(15,23,42,0.9)] lg:px-14 lg:py-16">
+        <div className="border border-slate-200 bg-white px-8 py-12 shadow-[0_30px_70px_-60px_rgba(15,23,42,0.9)] lg:px-14 lg:py-16">
           <div className="space-y-6">
             {eyebrow && (
-              <p className="text-xs font-semibold uppercase tracking-[0.35em] text-slate-400">
+              <p className="text-xs font-semibold uppercase text-slate-400">
                 {eyebrow}
               </p>
             )}
@@ -169,7 +169,7 @@ const StrapiAbout = ({ data }: StrapiAboutProps) => {
                 {pillItems.map((item, index) => (
                   <span
                     key={`${item}-${index}`}
-                    className="rounded-full border border-slate-200 px-4 py-2 text-sm text-slate-600"
+                    className="border border-slate-200 px-4 py-2 text-sm text-slate-600"
                   >
                     {item}
                   </span>
@@ -179,7 +179,7 @@ const StrapiAbout = ({ data }: StrapiAboutProps) => {
             <div className="flex flex-wrap gap-4 pt-2">
               {primaryCtaText && (
                 <a
-                  className="inline-flex items-center justify-center rounded-full bg-sky-400 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-sky-400/30 transition hover:bg-sky-300"
+                  className="inline-flex items-center justify-center bg-sky-400 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-sky-400/30 transition hover:bg-sky-300"
                   href={primaryCtaLink}
                 >
                   {primaryCtaText}
@@ -187,7 +187,7 @@ const StrapiAbout = ({ data }: StrapiAboutProps) => {
               )}
               {secondaryCtaText && (
                 <a
-                  className="inline-flex items-center justify-center rounded-full border border-slate-200 bg-white px-6 py-3 text-sm font-semibold text-slate-600 transition hover:border-slate-300 hover:text-slate-800"
+                  className="inline-flex items-center justify-center border border-slate-200 bg-white px-6 py-3 text-sm font-semibold text-slate-600 transition hover:border-slate-300 hover:text-slate-800"
                   href={secondaryCtaLink}
                 >
                   {secondaryCtaText}
@@ -197,10 +197,10 @@ const StrapiAbout = ({ data }: StrapiAboutProps) => {
           </div>
         </div>
 
-        <div className="mt-16 rounded-[28px] bg-slate-950 px-8 py-12 text-white shadow-[0_30px_70px_-60px_rgba(15,23,42,0.9)] lg:px-14 lg:py-16">
+        <div className="mt-16 bg-slate-950 px-8 py-12 text-white shadow-[0_30px_70px_-60px_rgba(15,23,42,0.9)] lg:px-14 lg:py-16">
           <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.9fr)]">
             <div className="lg:sticky lg:top-24 lg:self-start">
-              <p className="text-xs font-semibold uppercase tracking-[0.35em] text-slate-500">
+              <p className="text-xs font-semibold uppercase text-slate-500">
                 Outcomes
               </p>
               <h3 className="mt-4 max-w-md text-3xl font-semibold text-white md:text-4xl">
@@ -222,7 +222,7 @@ const StrapiAbout = ({ data }: StrapiAboutProps) => {
               {statItems.map((stat, index) => (
                 <div key={`${stat.value}-${index}`} className="h-[60vh]">
                   <div className="sticky top-28">
-                    <p className="text-6xl font-semibold tracking-tight text-white md:text-7xl">
+                    <p className="text-6xl font-semibold text-white md:text-7xl">
                       {stat.value}
                     </p>
                     {stat.label && (

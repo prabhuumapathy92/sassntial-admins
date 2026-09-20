@@ -45,7 +45,7 @@ const AboutIcon = ({
 }) => {
   return (
     <span
-      className={`inline-flex h-12 w-12 items-center justify-center rounded-[14px] text-white ${className}`}
+      className={`inline-flex h-12 w-12 items-center justify-center text-white ${className}`}
     >
       {type === "visibility" && (
         <svg

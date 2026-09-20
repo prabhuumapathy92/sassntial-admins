@@ -17,12 +17,13 @@ export default async function CheckoutForm({
     return null
   }
 
-  const shippingMethods = await listCartShippingMethods(cart.id)
-  const paymentMethods = await listCartPaymentMethods(cart.region?.id ?? "")
-
-  if (!shippingMethods || !paymentMethods) {
-    return null
-  }
+  // Both lists resolve to null when the Medusa backend is unreachable. The
+  // checkout still renders in that case so the shopper sees which step failed
+  // instead of a blank page.
+  const [shippingMethods, paymentMethods] = await Promise.all([
+    listCartShippingMethods(cart.id),
+    listCartPaymentMethods(cart.region?.id ?? ""),
+  ])
 
   return (
     <div className="flex w-full flex-col gap-6 small:gap-7">

@@ -223,7 +223,7 @@ const CompanyDetailTemplate = ({ item }: { item: CompanyItem }) => {
           {posts.map((post) => (
             <article
               key={post.slug}
-              className="overflow-hidden rounded-[24px] border border-[#e6edf5] bg-white shadow-[0_16px_34px_rgba(15,23,42,0.06)]"
+              className="overflow-hidden border border-[#e6edf5] bg-white shadow-[0_16px_34px_rgba(15,23,42,0.06)]"
             >
               <div className="aspect-[16/9] overflow-hidden bg-slate-100">
                 {post.imageUrl ? (
@@ -238,10 +238,10 @@ const CompanyDetailTemplate = ({ item }: { item: CompanyItem }) => {
               </div>
 
               <div className="px-5 py-5">
-                <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-slate-400">
+                <p className="text-[10px] font-semibold uppercase text-slate-400">
                   {post.category} | {post.readTime}
                 </p>
-                <h3 className="mt-3 text-lg font-bold uppercase tracking-[0.03em] text-slate-900">
+                <h3 className="mt-3 text-lg font-bold uppercase text-slate-900">
                   {post.title}
                 </h3>
                 <p className="mt-3 text-sm leading-7 text-slate-500">
@@ -249,7 +249,7 @@ const CompanyDetailTemplate = ({ item }: { item: CompanyItem }) => {
                 </p>
                 <LocalizedClientLink
                   href={`/company/blog/${post.slug}`}
-                  className="mt-5 inline-flex items-center text-sm font-semibold uppercase tracking-[0.18em] text-[#0b78b5] transition-colors duration-200 hover:text-slate-900"
+                  className="mt-5 inline-flex items-center text-sm font-semibold uppercase text-[#0b78b5] transition-colors duration-200 hover:text-slate-900"
                 >
                   Read Article
                 </LocalizedClientLink>
@@ -483,7 +483,7 @@ const CompanyDetailTemplate = ({ item }: { item: CompanyItem }) => {
           />
 
           <article className="relative overflow-hidden px-6 py-7 shadow-[0_28px_60px_-48px_rgba(15,23,42,0.76)] small:px-8 small:py-8">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[#f59e0b]">
+            <p className="text-[11px] font-semibold uppercase text-[#f59e0b]">
               FAQs
             </p>
             <h3 className="mt-3 text-[2rem] font-black leading-[1.02] text-slate-900 small:text-[2.3rem]">
@@ -495,11 +495,11 @@ const CompanyDetailTemplate = ({ item }: { item: CompanyItem }) => {
                 <details
                   key={faq.question}
                   name={`${item.slug}-faq`}
-                  className="group overflow-hidden rounded-[24px] border border-[#dfe8f1] bg-white shadow-[0_16px_30px_-28px_rgba(15,23,42,0.76)]"
+                  className="group overflow-hidden border border-[#dfe8f1] bg-white shadow-[0_16px_30px_-28px_rgba(15,23,42,0.76)]"
                 >
                   <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-5 small:px-6">
                     <div className="flex items-center gap-4">
-                      <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-[16px] bg-[linear-gradient(135deg,#eff6ff_0%,#dbeafe_100%)] text-[11px] font-black uppercase text-[#1d4ed8] shadow-[0_12px_20px_rgba(15,23,42,0.08)]">
+                      <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center bg-[linear-gradient(135deg,#eff6ff_0%,#dbeafe_100%)] text-[11px] font-black uppercase text-[#1d4ed8] shadow-[0_12px_20px_rgba(15,23,42,0.08)]">
                         {String(index + 1).padStart(2, "0")}
                       </span>
                       <h4 className="text-base font-bold text-slate-900 small:text-lg">

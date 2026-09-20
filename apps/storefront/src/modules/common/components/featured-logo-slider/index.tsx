@@ -2,32 +2,32 @@ const featuredLogos = [
   {
     name: "Entrepreneur",
     className:
-      "font-serif text-[1.85rem] font-semibold tracking-[-0.06em] text-[#d7442b] small:text-[2.1rem]",
+      "font-serif text-[1.85rem] font-semibold text-[#d7442b] small:text-[2.1rem]",
   },
   {
     name: "SEMRUSH",
     className:
-      "text-[1.5rem] font-black uppercase tracking-[-0.04em] text-[#ff6a2b] small:text-[1.8rem]",
+      "text-[1.5rem] font-black uppercase text-[#ff6a2b] small:text-[1.8rem]",
   },
   {
     name: "HUFFPOST",
     className:
-      "text-[1.45rem] font-black uppercase italic tracking-[-0.08em] text-[#101010] small:text-[1.72rem]",
+      "text-[1.45rem] font-black uppercase italic text-[#101010] small:text-[1.72rem]",
   },
   {
     name: "SocialMediaToday",
     className:
-      "text-[1.15rem] font-bold tracking-[-0.03em] text-[#28374d] small:text-[1.35rem]",
+      "text-[1.15rem] font-bold text-[#28374d] small:text-[1.35rem]",
   },
   {
     name: "Hindustan Times",
     className:
-      "font-serif text-[1.4rem] font-semibold tracking-[-0.04em] text-[#2e2e2e] small:text-[1.72rem]",
+      "font-serif text-[1.4rem] font-semibold text-[#2e2e2e] small:text-[1.72rem]",
   },
   {
     name: "Outlook",
     className:
-      "text-[1.85rem] font-black tracking-[-0.05em] text-[#d70f1b] small:text-[2.1rem]",
+      "text-[1.85rem] font-black text-[#d70f1b] small:text-[2.1rem]",
   },
 ] as const
 

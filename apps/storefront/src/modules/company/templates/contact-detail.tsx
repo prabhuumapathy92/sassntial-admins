@@ -187,7 +187,7 @@ const ContactDetailTemplate = ({ item }: { item: CompanyItem }) => {
               <div className="small:col-span-2">
                 <button
                   type="button"
-                  className="inline-flex min-h-11 items-center justify-center bg-[linear-gradient(90deg,#e8f7ff_0%,#35b8f4_100%)] px-6 py-3 font-[family-name:var(--font-tech)] text-sm uppercase tracking-[0.16em] text-slate-950 transition-transform duration-200 hover:-translate-y-0.5"
+                  className="inline-flex min-h-11 items-center justify-center bg-brand-cta px-6 py-3 font-[family-name:var(--font-tech)] text-sm uppercase text-slate-950 transition-transform duration-200 hover:-translate-y-0.5"
                 >
                   Send Message
                 </button>

@@ -1,14 +1,12 @@
 "use client"
 
 import { setAddresses } from "@lib/data/cart"
-import compareAddresses from "@lib/util/compare-addresses"
 import { CheckCircleSolid } from "@medusajs/icons"
 import { HttpTypes } from "@medusajs/types"
-import { Heading, Text, useToggleState } from "@medusajs/ui"
+import { Heading, Text } from "@medusajs/ui"
 import Spinner from "@modules/common/icons/spinner"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import { useActionState } from "react"
-import BillingAddress from "../billing_address"
 import ErrorMessage from "../error-message"
 import ShippingAddress from "../shipping-address"
 import { SubmitButton } from "../submit-button"
@@ -26,12 +24,6 @@ const Addresses = ({
 
   const isOpen = searchParams.get("step") === "address"
 
-  const { state: sameAsBilling, toggle: toggleSameAsBilling } = useToggleState(
-    cart?.shipping_address && cart?.billing_address
-      ? compareAddresses(cart?.shipping_address, cart?.billing_address)
-      : true
-  )
-
   const handleEdit = () => {
     router.push(pathname + "?step=address")
   }
@@ -43,9 +35,9 @@ const Addresses = ({
       <div className="mb-8 flex flex-row items-center justify-between gap-4">
         <Heading
           level="h2"
-          className="h1-core font-sans h2-core text-[1.55rem] font-semibold tracking-[-0.03em] text-slate-950"
+          className="h1-core font-sans h2-core text-[1.55rem] font-semibold text-slate-950"
         >
-          Shipping Address
+          Booking Address
           {!isOpen && <CheckCircleSolid />}
         </Heading>
         {!isOpen && cart?.shipping_address && (
@@ -63,25 +55,7 @@ const Addresses = ({
       {isOpen ? (
         <form action={formAction}>
           <div className="space-y-6">
-            <ShippingAddress
-              customer={customer}
-              checked={sameAsBilling}
-              onChange={toggleSameAsBilling}
-              cart={cart}
-            />
-
-            {!sameAsBilling && (
-              <div>
-                <Heading
-                  level="h2"
-                  className="border-t border-slate-200 pt-6 font-sans text-[1.2rem] font-semibold text-slate-950"
-                >
-                  Billing address
-                </Heading>
-
-                <BillingAddress cart={cart} />
-              </div>
-            )}
+            <ShippingAddress customer={customer} cart={cart} />
             <SubmitButton
               className="mt-2 h-12 bg-slate-950 px-5 text-sm font-medium text-white hover:bg-slate-900"
               data-testid="submit-address-button"
@@ -103,8 +77,8 @@ const Addresses = ({
                   className="border border-slate-200 bg-slate-50/70 px-4 py-4"
                   data-testid="shipping-address-summary"
                 >
-                  <Text className="h1-core font-sans h2-core text-[1.55rem] font-semibold tracking-[-0.03em] text-slate-950">
-                    Shipping Address
+                  <Text className="h1-core font-sans h2-core text-[1.55rem] font-semibold text-slate-950">
+                    Booking Address
                   </Text>
                   <Text className="text-sm leading-7 text-slate-700">
                     {cart.shipping_address.first_name}{" "}
@@ -127,7 +101,7 @@ const Addresses = ({
                   className="border border-slate-200 bg-slate-50/70 px-4 py-4"
                   data-testid="shipping-contact-summary"
                 >
-                  <Text className="mb-2 font-[family-name:var(--font-tech)] text-[0.68rem] uppercase tracking-[0.22em] text-slate-500">
+                  <Text className="mb-2 font-[family-name:var(--font-tech)] text-[0.68rem] uppercase text-slate-500">
                     Contact
                   </Text>
                   <Text className="text-sm leading-7 text-slate-700">
@@ -142,33 +116,13 @@ const Addresses = ({
                   className="border border-slate-200 bg-slate-50/70 px-4 py-4"
                   data-testid="billing-address-summary"
                 >
-                  <Text className="mb-2 font-[family-name:var(--font-tech)] text-[0.68rem] uppercase tracking-[0.22em] text-slate-500">
+                  <Text className="mb-2 font-[family-name:var(--font-tech)] text-[0.68rem] uppercase text-slate-500">
                     Billing Address
                   </Text>
 
-                  {sameAsBilling ? (
-                    <Text className="text-sm leading-7 text-slate-700">
-                      Billing and delivery address are the same.
-                    </Text>
-                  ) : (
-                    <>
-                      <Text className="text-sm leading-7 text-slate-700">
-                        {cart.billing_address?.first_name}{" "}
-                        {cart.billing_address?.last_name}
-                      </Text>
-                      <Text className="text-sm leading-7 text-slate-700">
-                        {cart.billing_address?.address_1}{" "}
-                        {cart.billing_address?.address_2}
-                      </Text>
-                      <Text className="text-sm leading-7 text-slate-700">
-                        {cart.billing_address?.postal_code},{" "}
-                        {cart.billing_address?.city}
-                      </Text>
-                      <Text className="text-sm leading-7 text-slate-700">
-                        {cart.billing_address?.country_code?.toUpperCase()}
-                      </Text>
-                    </>
-                  )}
+                  <Text className="text-sm leading-7 text-slate-700">
+                    Billing and delivery address are the same.
+                  </Text>
                 </div>
               </div>
             ) : (

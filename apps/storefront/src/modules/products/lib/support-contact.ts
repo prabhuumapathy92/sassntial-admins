@@ -3,7 +3,7 @@
  * environment with NEXT_PUBLIC_SUPPORT_* so nothing is hard-coded per product.
  */
 export const SUPPORT_EMAIL =
-  process.env.NEXT_PUBLIC_SUPPORT_EMAIL || "support@ignitevisibility.com"
+  process.env.NEXT_PUBLIC_SUPPORT_EMAIL || "support@sassntial.com"
 
 export const SUPPORT_PHONE =
   process.env.NEXT_PUBLIC_SUPPORT_PHONE || "(619) 752-1955"

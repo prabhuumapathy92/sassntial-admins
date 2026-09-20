@@ -76,7 +76,7 @@ const TrainingCardPurchase = ({
 
   if (!buyable.length) {
     return (
-      <div className="w-full rounded-[20px] border border-brand-line bg-white/90 px-4 py-3 text-center text-[12px] text-slate-500 medium:w-[248px]">
+      <div className="w-full border border-brand-line bg-white/90 px-4 py-3 text-center text-[12px] text-slate-500 medium:w-[248px]">
         Currently unavailable
       </div>
     )
@@ -91,7 +91,7 @@ const TrainingCardPurchase = ({
     : "--"
 
   return (
-    <div className="w-full rounded-[20px] border border-brand-line bg-white/95 p-3 shadow-[0_12px_28px_rgba(15,23,42,0.05)] medium:w-[248px]">
+    <div className="w-full border border-brand-line bg-white/95 p-3 shadow-[0_12px_28px_rgba(15,23,42,0.05)] medium:w-[248px]">
       {showOptions && (
         <ul className="mb-2 max-h-[132px] space-y-0.5 overflow-y-auto">
           {variants.map((variant) => {
@@ -103,7 +103,7 @@ const TrainingCardPurchase = ({
               <li key={variant.id}>
                 <label
                   className={clx(
-                    "flex cursor-pointer items-center gap-2 rounded-[10px] px-2 py-1.5 text-[12px] transition-colors hover:bg-brand-mist",
+                    "flex cursor-pointer items-center gap-2 px-2 py-1.5 text-[12px] transition-colors hover:bg-brand-mist",
                     {
                       "bg-brand-mist": isSelected,
                       "cursor-not-allowed opacity-55": !available,
@@ -124,7 +124,7 @@ const TrainingCardPurchase = ({
                   />
                   <span
                     className={clx(
-                      "flex h-[14px] w-[14px] shrink-0 items-center justify-center rounded-[2px] border transition-colors",
+                      "flex h-[14px] w-[14px] shrink-0 items-center justify-center border transition-colors",
                       isSelected
                         ? "border-brand-navy bg-brand-navy text-white"
                         : "border-brand-slate/50 bg-white text-transparent"
@@ -162,10 +162,10 @@ const TrainingCardPurchase = ({
       )}
 
       <div className="flex items-baseline justify-between gap-2 px-1">
-        <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-brand-slate">
+        <span className="text-[10px] font-semibold uppercase text-brand-slate">
           {selectedVariants.length > 1 ? "Total" : "Price"}
         </span>
-        <span className="text-[17px] font-bold tracking-[-0.02em] text-slate-900">
+        <span className="text-[17px] font-bold text-slate-900">
           {total}
         </span>
       </div>
@@ -174,7 +174,7 @@ const TrainingCardPurchase = ({
         onClick={handleAddToCart}
         disabled={!selectedVariants.length || isAdding}
         isLoading={isAdding}
-        className="mt-2 h-10 w-full rounded-full bg-gradient-to-r from-brand-gold to-brand-ember text-[13px] font-bold text-white shadow-none transition-transform hover:-translate-y-0.5 disabled:translate-y-0 disabled:bg-slate-200 disabled:bg-none disabled:text-slate-400"
+        className="mt-2 h-10 w-full bg-brand-cta text-[13px] font-bold text-white shadow-none transition-transform hover:-translate-y-0.5 disabled:translate-y-0 disabled:bg-slate-200 disabled:bg-none disabled:text-slate-400"
         data-testid="card-add-to-cart"
       >
         {addToCartLabel(selectedVariants.length)}

@@ -2,10 +2,17 @@ import { clx } from "@medusajs/ui"
 
 type BrandMarkProps = {
   className?: string
+  // Sizes the box the logo is contained in. Override it where the default
+  // wide box would leave the mark off-centre, such as the checkout header.
+  boxClassName?: string
   variant?: "dark" | "light"
 }
 
-const BrandMark = ({ className, variant = "dark" }: BrandMarkProps) => {
+const BrandMark = ({
+  className,
+  boxClassName = "h-[40px] w-[180px] small:h-[46px] small:w-[200px]",
+  variant = "dark",
+}: BrandMarkProps) => {
   return (
     <div
       className={clx(
@@ -13,7 +20,7 @@ const BrandMark = ({ className, variant = "dark" }: BrandMarkProps) => {
         className
       )}
     >
-      <div className="relative h-[40px] w-[180px] small:h-[46px] small:w-[200px]">
+      <div className={clx("relative", boxClassName)}>
         <img
           src="/logo.png"
           alt="Store Logo"
