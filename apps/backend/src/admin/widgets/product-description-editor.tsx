@@ -5,7 +5,7 @@ import {
   toast,
   clx,
   FocusModal,
-  Text, 
+  Text,
   Badge,
   DropdownMenu,
   IconButton
