@@ -6,7 +6,7 @@ import {
   clx,
   FocusModal,
   Text,
-  Badge,
+  Badge, 
   DropdownMenu,
   IconButton
 } from "@medusajs/ui"
