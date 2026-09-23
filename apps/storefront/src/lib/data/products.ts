@@ -64,8 +64,11 @@ export const listProducts = async ({
           limit,
           offset,
           region_id: region?.id,
+          // `*type` carries the speaker: the admin's product type holds the
+          // speaker name, so without it every card falls back to "Speaker to be
+          // announced" and the speaker filter has nothing to list.
           fields:
-            "*variants.calculated_price,+variants.inventory_quantity,*variants.images,*categories,*collection,+metadata,+tags,",
+            "*variants.calculated_price,+variants.inventory_quantity,*variants.images,*categories,*collection,*type,+metadata,+tags,",
           ...queryParams,
         },
         headers,

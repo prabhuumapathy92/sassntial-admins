@@ -3,6 +3,7 @@ import Image from "next/image"
 import React, { Suspense } from "react"
 
 import ProductActionsWrapper from "../product-actions-wrapper"
+import ProductFaq from "@modules/products/components/product-faq"
 import RelatedProducts from "@modules/products/components/related-products"
 import SkeletonRelatedProducts from "@modules/skeletons/templates/skeleton-related-products"
 import WebinarHeaderActions from "@modules/products/components/webinar-header-actions"
@@ -168,6 +169,8 @@ const TrainingProductTemplate = ({
                 </div>
               </section>
             )}
+
+            <ProductFaq product={product} />
           </div>
 
           <aside className="lg:sticky lg:top-6">

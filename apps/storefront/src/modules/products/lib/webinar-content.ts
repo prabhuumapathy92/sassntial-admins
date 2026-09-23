@@ -290,9 +290,10 @@ export const getWebinarLanguage = (product: HttpTypes.StoreProduct) =>
 export const getWebinarRecordingUrl = (product: HttpTypes.StoreProduct) =>
   readScoped(product, recordingKeys)
 
+// No `product.type` fallback: the type holds the speaker name, which would show
+// up here as the level.
 export const getWebinarLevel = (product: HttpTypes.StoreProduct) =>
   readScoped(product, ["level", "training_level", "skill_level", "difficulty"]) ??
-  product.type?.value ??
   null
 
 export type WebinarSchedule = {

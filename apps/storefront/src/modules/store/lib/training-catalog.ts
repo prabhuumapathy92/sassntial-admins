@@ -177,6 +177,13 @@ export const getTrainingSpeaker = (product: HttpTypes.StoreProduct) => {
     return metadataSpeaker
   }
 
+  // The product type is the speaker: it is labelled "Speaker name" in the admin
+  // and is the field merchants actually fill in, so it wins over the older
+  // tag/collection conventions below, which stay for products not migrated yet.
+  if (product.type?.value) {
+    return product.type.value
+  }
+
   const speakerTag = product.tags?.find((tag) =>
     tag.value.toLowerCase().startsWith("speaker:")
   )
@@ -231,10 +238,11 @@ export const getTrainingFormat = (product: HttpTypes.StoreProduct) => {
 }
 
 export const getTrainingCategory = (product: HttpTypes.StoreProduct) => {
+  // No `product.type` fallback: the type holds the speaker name, which would
+  // show up here as a category chip.
   return (
     product.categories?.[0]?.name ??
     product.collection?.title ??
-    product.type?.value ??
     "General Training"
   )
 }
@@ -249,11 +257,9 @@ export const getTrainingSummary = (product: HttpTypes.StoreProduct) => {
 }
 
 export const getTrainingLevel = (product: HttpTypes.StoreProduct) => {
-  return (
-    getMetadataValue(product.metadata, levelKeys) ||
-    product.type?.value ||
-    "Beginner"
-  )
+  // No `product.type` fallback: the type holds the speaker name, which would
+  // show up here as the level badge.
+  return getMetadataValue(product.metadata, levelKeys) || "Beginner"
 }
 
 export const getTrainingDuration = (product: HttpTypes.StoreProduct) => {

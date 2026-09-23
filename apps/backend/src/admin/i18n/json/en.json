@@ -1,0 +1,29 @@
+{
+  "products": {
+    "fields": {
+      "type": {
+        "label": "Speaker name"
+      }
+    }
+  },
+  "productTypes": {
+    "domain": "Speakers",
+    "subtitle": "Manage the speakers that sessions are attributed to.",
+    "create": {
+      "header": "Create Speaker",
+      "hint": "Add a speaker that sessions can be attributed to.",
+      "successToast": "Speaker {{value}} was successfully created."
+    },
+    "edit": {
+      "header": "Edit Speaker",
+      "successToast": "Speaker {{value}} was successfully updated."
+    },
+    "delete": {
+      "confirmation": "You are about to delete the speaker \"{{value}}\". This action cannot be undone.",
+      "successToast": "Speaker \"{{value}}\" was successfully deleted."
+    },
+    "fields": {
+      "value": "Speaker name"
+    }
+  }
+}
