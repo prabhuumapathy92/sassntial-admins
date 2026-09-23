@@ -1,18 +1,26 @@
 import { defineWidgetConfig } from "@medusajs/admin-sdk"
+import type { AdminProduct, DetailWidgetProps } from "@medusajs/framework/types"
 import { EllipsisHorizontal, PencilSquare } from "@medusajs/icons"
 import {
   Button,
   Container,
   DropdownMenu,
-  FocusModal, 
+  FocusModal,
   Heading,
-  IconButton, 
+  IconButton,
   Input,
   Label,
   Text,
   toast,
 } from "@medusajs/ui"
-import { useEffect, useState, type InputHTMLAttributes } from "react"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
+import { useEffect, useMemo, useState, type InputHTMLAttributes } from "react"
+import { useTranslation } from "react-i18next"
+
+import { hasLabel, hideDefaultSections } from "../lib/hide-default-section"
+import { sdk } from "../lib/sdk"
+
+const WIDGET_CLASS = "custom-product-attributes-widget"
 
 type ProductMetadata = Record<string, unknown> | null | undefined
 
@@ -76,22 +84,6 @@ const readMetadataValue = (
   }
 
   return ""
-}
-
-const metadataToFormState = (metadata: ProductMetadata): AttributeFormState => {
-  const startDate = readMetadataValue(metadata, "start_date")
-  const endDate = readMetadataValue(metadata, "end_date")
-  const normalizedStartDate = normalizeDateTimeInputValue(startDate)
-  const normalizedEndDate = normalizeDateTimeInputValue(endDate)
-
-  return {
-    start_date: normalizedStartDate,
-    end_date: normalizedEndDate,
-    duration:
-      calculateDuration(normalizedStartDate, normalizedEndDate) ||
-      readMetadataValue(metadata, "duration"),
-    time_zone: readMetadataValue(metadata, "time_zone"),
-  }
 }
 
 const normalizeDateTimeInputValue = (value: string) => {
@@ -161,11 +153,25 @@ const calculateDuration = (startDate: string, endDate: string) => {
   return parts.join(" ")
 }
 
-const formatDateValue = (value: string) => {
-  if (!value.trim()) {
-    return "-"
-  }
+const metadataToFormState = (metadata: ProductMetadata): AttributeFormState => {
+  const startDate = normalizeDateTimeInputValue(
+    readMetadataValue(metadata, "start_date")
+  )
+  const endDate = normalizeDateTimeInputValue(
+    readMetadataValue(metadata, "end_date")
+  )
 
+  return {
+    start_date: startDate,
+    end_date: endDate,
+    duration:
+      calculateDuration(startDate, endDate) ||
+      readMetadataValue(metadata, "duration"),
+    time_zone: readMetadataValue(metadata, "time_zone"),
+  }
+}
+
+const formatDateValue = (value: string) => {
   const parsed = new Date(value)
 
   if (Number.isNaN(parsed.getTime())) {
@@ -190,54 +196,60 @@ const formatFieldValue = (key: AttributeField, value: string) => {
   return value
 }
 
-const hideDefaultAttributesCard = () => {
-  const headings = document.querySelectorAll("h1, h2, h3, h4, span, p, div")
-
-  headings.forEach((node) => {
-    const element = node as HTMLElement
-
-    if (element.closest(".custom-product-attributes-widget")) {
-      return
+/**
+ * The dashboard renders its attributes section as a `Container` carrying
+ * `divide-y p-0`, whose first row holds an `h2` with the section title. Matching
+ * that heading and hiding its own container keeps every sibling section — and
+ * the page grid around them — intact.
+ */
+const findDefaultAttributeSections = (labels: string[]) =>
+  Array.from(document.querySelectorAll("h2")).flatMap((heading) => {
+    if (heading.closest(`.${WIDGET_CLASS}`) || !hasLabel(heading, labels)) {
+      return []
     }
 
-    if (element.textContent?.trim() !== "Attributes") {
-      return
-    }
+    const container = heading.closest<HTMLElement>("div.divide-y")
 
-    const container =
-      element.closest(".shadow-elevation-card-rest") ??
-      element.closest("[class*='shadow-elevation-card-rest']") ??
-      element.closest(".border-ui-border-base")
-
-    if (container instanceof HTMLElement) {
-      container.style.display = "none"
-    }
+    return container ? [container] : []
   })
-}
 
-const ProductAttributesWidget = ({ data: product }: { data: any }) => {
+const ProductAttributesWidget = ({
+  data: product,
+}: DetailWidgetProps<AdminProduct>) => {
+  const { t } = useTranslation()
   const [open, setOpen] = useState(false)
-  const [isSaving, setIsSaving] = useState(false)
   const [formState, setFormState] = useState<AttributeFormState>(DEFAULT_STATE)
+  const queryClient = useQueryClient()
 
   useEffect(() => {
     setFormState(metadataToFormState(product?.metadata))
   }, [product?.id, product?.metadata])
 
-  useEffect(() => {
-    hideDefaultAttributesCard()
+  // The dashboard's own translation of the heading, so the section is still
+  // found in a non-English locale. The literal is the fallback for when the
+  // i18n instance has not resolved the key.
+  const labels = useMemo(() => [t("products.attributes"), "Attributes"], [t])
 
-    const observer = new MutationObserver(() => {
-      hideDefaultAttributesCard()
-    })
+  useEffect(
+    () => hideDefaultSections(() => findDefaultAttributeSections(labels)),
+    [labels]
+  )
 
-    observer.observe(document.body, {
-      childList: true,
-      subtree: true,
-    })
-
-    return () => observer.disconnect()
-  }, [])
+  const { mutateAsync, isPending } = useMutation({
+    mutationFn: (metadata: Record<string, unknown>) =>
+      sdk.admin.product.update(product.id, { metadata }),
+    onSuccess: async ({ product: updated }) => {
+      setFormState(metadataToFormState(updated?.metadata))
+      await queryClient.invalidateQueries({ queryKey: ["products"] })
+      toast.success("Success", { description: "Attributes updated" })
+      setOpen(false)
+    },
+    onError: (error: Error) => {
+      toast.error("Error", {
+        description: error.message || "Failed to update attributes",
+      })
+    },
+  })
 
   const handleChange = (key: AttributeField, value: string) => {
     setFormState((current) => {
@@ -258,128 +270,40 @@ const ProductAttributesWidget = ({ data: product }: { data: any }) => {
   }
 
   const handleSave = async () => {
-    setIsSaving(true)
+    // Medusa merges metadata into what is already stored, so only the fields
+    // this widget owns are sent. An empty string is the documented sentinel for
+    // removing a key — omitting it would leave the previous value in place.
+    const metadata = Object.fromEntries(
+      ATTRIBUTE_FIELDS.map(({ key }) => [key, formState[key].trim()])
+    )
 
-    const currentMetadata =
-      product?.metadata && typeof product.metadata === "object"
-        ? { ...product.metadata }
-        : {}
-
-    ATTRIBUTE_FIELDS.forEach(({ key }) => {
-      const value = formState[key].trim()
-
-      if (value) {
-        currentMetadata[key] = value
-      } else {
-        delete currentMetadata[key]
-      }
-    })
-
-    try {
-      const response = await fetch(`/admin/products/${product.id}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          metadata: currentMetadata,
-        }),
-      })
-
-      if (!response.ok) {
-        throw new Error("Failed to update product attributes")
-      }
-
-      const payload = await response.json()
-      setFormState(metadataToFormState(payload.product?.metadata ?? currentMetadata))
-      toast.success("Success", {
-        description: "Attributes updated",
-      })
-      setOpen(false)
-    } catch (error) {
-      console.error(error)
-      toast.error("Error", {
-        description: "Failed to update attributes",
-      })
-    } finally {
-      setIsSaving(false)
-    }
+    // onError already surfaces the failure to the merchant; catching here stops
+    // it from also surfacing as an unhandled rejection.
+    await mutateAsync(metadata).catch(() => undefined)
   }
 
   return (
-    <div className="custom-product-attributes-widget">
+    <div className={WIDGET_CLASS}>
       <Container className="p-0 overflow-hidden border-ui-border-base shadow-elevation-card-rest">
         <div className="flex items-center justify-between px-6 py-4 border-b border-ui-border-base">
           <Heading level="h2">Attributes</Heading>
 
-          <FocusModal open={open} onOpenChange={setOpen}>
-            <DropdownMenu>
-              <DropdownMenu.Trigger asChild>
-                <IconButton variant="transparent">
-                  <EllipsisHorizontal />
-                </IconButton>
-              </DropdownMenu.Trigger>
-              <DropdownMenu.Content>
-                <DropdownMenu.Item onClick={() => setOpen(true)} className="gap-x-2">
-                  <PencilSquare className="text-ui-fg-subtle" />
-                  Edit attributes
-                </DropdownMenu.Item>
-              </DropdownMenu.Content>
-            </DropdownMenu>
-
-            <FocusModal.Content>
-              <FocusModal.Header>
-                <div className="flex items-center justify-between w-full pr-4">
-                  <div>
-                    <Heading level="h2">Edit Attributes</Heading>
-                    <Text size="small" className="text-ui-fg-subtle">
-                      Update the schedule details shown in the product attributes section.
-                    </Text>
-                  </div>
-
-                  <div className="flex items-center gap-x-2">
-                    <Button
-                      variant="secondary"
-                      size="small"
-                      onClick={() => setOpen(false)}
-                      disabled={isSaving}
-                    >
-                      Cancel
-                    </Button>
-                    <Button
-                      variant="primary"
-                      size="small"
-                      onClick={handleSave}
-                      isLoading={isSaving}
-                    >
-                      Save
-                    </Button>
-                  </div>
-                </div>
-              </FocusModal.Header>
-
-              <FocusModal.Body className="bg-ui-bg-subtle px-6 py-8">
-                <div className="mx-auto grid max-w-2xl gap-5 md:grid-cols-2">
-                  {ATTRIBUTE_FIELDS.map((field) => (
-                    <div key={field.key} className="flex flex-col gap-y-2">
-                      <Label htmlFor={field.key}>{field.label}</Label>
-                      <Input
-                        id={field.key}
-                        type={field.type}
-                        placeholder={field.placeholder}
-                        value={formState[field.key]}
-                        readOnly={field.readOnly}
-                        disabled={field.readOnly}
-                        onChange={(event) =>
-                          handleChange(field.key, event.target.value)
-                        }
-                      />
-                    </div>
-                  ))}
-                </div>
-              </FocusModal.Body>
-            </FocusModal.Content>
-          </FocusModal>
+          <DropdownMenu>
+            <DropdownMenu.Trigger asChild>
+              <IconButton variant="transparent">
+                <EllipsisHorizontal />
+              </IconButton>
+            </DropdownMenu.Trigger>
+            <DropdownMenu.Content>
+              <DropdownMenu.Item
+                onClick={() => setOpen(true)}
+                className="gap-x-2"
+              >
+                <PencilSquare className="text-ui-fg-subtle" />
+                Edit attributes
+              </DropdownMenu.Item>
+            </DropdownMenu.Content>
+          </DropdownMenu>
         </div>
 
         <div className="divide-y divide-ui-border-base">
@@ -398,6 +322,62 @@ const ProductAttributesWidget = ({ data: product }: { data: any }) => {
           ))}
         </div>
       </Container>
+
+      <FocusModal open={open} onOpenChange={setOpen}>
+        <FocusModal.Content>
+          <FocusModal.Header>
+            <div className="flex items-center justify-between w-full pr-4">
+              <div>
+                <Heading level="h2">Edit Attributes</Heading>
+                <Text size="small" className="text-ui-fg-subtle">
+                  Update the schedule details shown in the product attributes
+                  section.
+                </Text>
+              </div>
+
+              <div className="flex items-center gap-x-2">
+                <Button
+                  variant="secondary"
+                  size="small"
+                  onClick={() => setOpen(false)}
+                  disabled={isPending}
+                >
+                  Cancel
+                </Button>
+                <Button
+                  variant="primary"
+                  size="small"
+                  onClick={handleSave}
+                  isLoading={isPending}
+                >
+                  Save
+                </Button>
+              </div>
+            </div>
+          </FocusModal.Header>
+
+          <FocusModal.Body className="bg-ui-bg-subtle px-6 py-8">
+            <div className="mx-auto grid max-w-2xl gap-5 md:grid-cols-2">
+              {ATTRIBUTE_FIELDS.map((field) => (
+                <div key={field.key} className="flex flex-col gap-y-2">
+                  <Label htmlFor={field.key}>{field.label}</Label>
+                  <Input
+                    id={field.key}
+                    type={field.type}
+                    placeholder={field.placeholder}
+                    value={formState[field.key]}
+                    readOnly={field.readOnly}
+                    disabled={field.readOnly}
+                    onChange={(event) =>
+                      handleChange(field.key, event.target.value)
+                    }
+                  />
+                </div>
+              ))}
+            </div>
+          </FocusModal.Body>
+        </FocusModal.Content>
+      </FocusModal>
     </div>
   )
 }
