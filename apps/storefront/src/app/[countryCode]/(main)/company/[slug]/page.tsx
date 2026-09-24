@@ -5,6 +5,7 @@ import {
   companyItems,
   getCompanyBySlug,
 } from "@modules/company/constants/company-items"
+import { retrieveContactPage } from "@lib/data/contact-page"
 import CompanyDetailTemplate from "@modules/company/templates/detail"
 
 type Params = {
@@ -41,5 +42,10 @@ export default async function CompanyDetailPage(props: Params) {
     notFound()
   }
 
-  return <CompanyDetailTemplate item={item} />
+  // Only the contact page reads admin-authored settings; every other slug is
+  // static content, so nothing else pays for the request.
+  const contactSettings =
+    item.slug === "contact-us" ? await retrieveContactPage() : null
+
+  return <CompanyDetailTemplate item={item} contactSettings={contactSettings} />
 }

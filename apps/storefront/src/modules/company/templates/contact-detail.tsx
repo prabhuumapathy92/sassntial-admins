@@ -1,19 +1,23 @@
+import type { ContactPageSettings } from "@lib/data/contact-page"
 import { CompanyItem } from "@modules/company/constants/company-items"
+import ContactForm from "@modules/company/components/contact-form"
 
-const contactChannels = [
-  {
-    label: "General inquiries",
-    value: "hello@medusastore.com",
-  },
-  {
-    label: "Support line",
-    value: "+1 (213) 456-586",
-  },
-  {
-    label: "Availability",
-    value: "Monday to Friday, 09:00 - 18:00 UTC",
-  },
-]
+/**
+ * Used only until the contact page has been filled in from the admin, or when
+ * the backend is unreachable. Every value here is overridden by whatever is
+ * saved under Contact page in the dashboard.
+ */
+const FALLBACK = {
+  generalInquiries: "hello@example.com",
+  supportLine: "+1 (213) 456-586",
+  availability: "Monday to Friday, 09:00 - 18:00 UTC",
+  formEyebrow: "For More Details",
+  formHeading: "Share your context and we'll route it to the right team.",
+  formDescription:
+    "Use the form for product questions, delivery discussions, or training requests.",
+}
+
+const clean = (value: string | null | undefined) => value?.trim() || null
 
 const responseSignals = [
   "Training and product discovery",
@@ -65,37 +69,34 @@ const connectivityNodes = [
   { key: "east-asia", x: 1042, y: 258, delay: "0.25s" },
 ]
 
-const inputClassName =
-  "h-12 w-full border border-slate-200 bg-white px-4 text-sm text-slate-800 outline-none transition-colors duration-200 placeholder:text-slate-400 focus:border-sky-400"
-
-const ContactField = ({
-  name,
-  placeholder,
-  type = "text",
-  className = "",
+const ContactDetailTemplate = ({
+  item,
+  settings,
 }: {
-  name: string
-  placeholder: string
-  type?: string
-  className?: string
+  item: CompanyItem
+  settings?: ContactPageSettings | null
 }) => {
-  return (
-    <>
-      <label htmlFor={name} className="sr-only">
-        {placeholder}
-      </label>
-      <input
-        id={name}
-        name={name}
-        type={type}
-        placeholder={placeholder}
-        className={`${inputClassName} ${className}`.trim()}
-      />
-    </>
-  )
-}
+  const contactChannels = [
+    {
+      label: "General inquiries",
+      value:
+        clean(settings?.general_inquiries_email) ?? FALLBACK.generalInquiries,
+    },
+    {
+      label: "Support line",
+      value: clean(settings?.support_line) ?? FALLBACK.supportLine,
+    },
+    {
+      label: "Availability",
+      value: clean(settings?.availability) ?? FALLBACK.availability,
+    },
+  ]
 
-const ContactDetailTemplate = ({ item }: { item: CompanyItem }) => {
+  const intro = clean(settings?.intro) ?? item.intro
+  const focusItems = settings?.focus_items?.length
+    ? settings.focus_items
+    : item.highlights
+
   return (
     <div className="pb-16 small:pb-24">
       <section className="content-container py-10 small:py-14">
@@ -106,7 +107,7 @@ const ContactDetailTemplate = ({ item }: { item: CompanyItem }) => {
               Contact Us
             </h1>
             <p className="mt-5 text-[0.97rem] leading-8 text-slate-600">
-              {item.intro}
+              {intro}
             </p>
 
             <div className="mt-8 grid gap-4">
@@ -126,7 +127,7 @@ const ContactDetailTemplate = ({ item }: { item: CompanyItem }) => {
             </div>
 
             <div className="mt-8 grid gap-3 small:grid-cols-2 medium:grid-cols-1">
-              {item.highlights.map((highlight) => (
+              {focusItems.map((highlight) => (
                 <div
                   key={highlight}
                   className="border border-slate-200/80 bg-slate-50 px-4 py-4"
@@ -144,55 +145,16 @@ const ContactDetailTemplate = ({ item }: { item: CompanyItem }) => {
 
           <div className="border border-slate-200/80 bg-white p-5 shadow-[0_22px_52px_rgba(15,23,42,0.08)] small:p-7 large:p-8">
             <div className="border-b border-slate-200 pb-5">
-              <p>
-                For More Details
-              </p>
+              <p>{clean(settings?.form_eyebrow) ?? FALLBACK.formEyebrow}</p>
               <h1 className="mt-3 max-w-3xl text-3xl-semi text-ui-fg-base">
-                Share your context and we&apos;ll route it to the right team.
+                {clean(settings?.form_heading) ?? FALLBACK.formHeading}
               </h1>
               <p className="mt-3 max-w-[700px] text-[0.97rem] leading-7 text-slate-600">
-                Use the form for product questions, delivery discussions, or
-                training requests. This page now matches the new design, but it
-                does not have a live submission handler yet.
+                {clean(settings?.form_description) ?? FALLBACK.formDescription}
               </p>
             </div>
 
-            <form className="mt-6 grid gap-3 small:grid-cols-2">
-              <ContactField name="full_name" placeholder="Full Name" />
-              <ContactField name="company" placeholder="Company" />
-              <ContactField name="email" type="email" placeholder="Email" />
-              <ContactField
-                name="phone_number"
-                type="tel"
-                placeholder="Phone number"
-              />
-              <ContactField
-                name="location"
-                placeholder="Location"
-                className="small:col-span-2"
-              />
-              <div className="small:col-span-2">
-                <label htmlFor="message" className="sr-only">
-                  Your message
-                </label>
-                <textarea
-                  id="message"
-                  name="message"
-                  rows={5}
-                  placeholder="Your message"
-                  className="min-h-[148px] w-full border border-slate-200 bg-white px-4 py-3 text-sm text-slate-800 outline-none transition-colors duration-200 placeholder:text-slate-400 focus:border-sky-400"
-                />
-              </div>
-
-              <div className="small:col-span-2">
-                <button
-                  type="button"
-                  className="inline-flex min-h-11 items-center justify-center bg-brand-cta px-6 py-3 font-[family-name:var(--font-tech)] text-sm uppercase text-slate-950 transition-transform duration-200 hover:-translate-y-0.5"
-                >
-                  Send Message
-                </button>
-              </div>
-            </form>
+            <ContactForm />
           </div>
         </div>
       </section>

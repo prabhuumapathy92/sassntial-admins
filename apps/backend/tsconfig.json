@@ -19,8 +19,18 @@
     "checkJs": false,
     "strictNullChecks": true
   },
+  /**
+   * ts-node loads TypeScript modules (medusa-config.ts, src/modules/*) at
+   * runtime. Its swc transpiler needs a native .node binary, which Windows
+   * Application Control refuses to load on some machines — that failure takes
+   * down `medusa develop`, `db:migrate` and `db:generate` alike. The built-in
+   * TypeScript transpiler is pure JavaScript and always loads; transpileOnly
+   * keeps it roughly as fast by skipping the type check, which `medusa build`
+   * and `tsc --noEmit` already cover.
+   */
   "ts-node": {
-    "swc": true
+    "swc": false,
+    "transpileOnly": true
   },
   "include": [
     "**/*",

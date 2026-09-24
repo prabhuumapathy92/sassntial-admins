@@ -5,6 +5,7 @@ import {
   CompanyItem,
   companyItems,
 } from "@modules/company/constants/company-items"
+import type { ContactPageSettings } from "@lib/data/contact-page"
 import ContactDetailTemplate from "@modules/company/templates/contact-detail"
 import AiSeoAboutGains from "@modules/services/components/ai-seo-about-gains"
 import AiSeoDifferentiators from "@modules/services/components/ai-seo-differentiators"
@@ -181,9 +182,15 @@ const buildCompanyFaqs = (
   },
 ]
 
-const CompanyDetailTemplate = ({ item }: { item: CompanyItem }) => {
+const CompanyDetailTemplate = ({
+  item,
+  contactSettings,
+}: {
+  item: CompanyItem
+  contactSettings?: ContactPageSettings | null
+}) => {
   if (item.slug === "contact-us") {
-    return <ContactDetailTemplate item={item} />
+    return <ContactDetailTemplate item={item} settings={contactSettings} />
   }
 
   const isAiImmersivePage = aiSlugs.includes(item.slug)
