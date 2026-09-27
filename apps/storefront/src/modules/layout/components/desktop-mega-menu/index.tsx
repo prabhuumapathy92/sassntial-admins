@@ -207,19 +207,37 @@ const DesktopMegaMenu = ({ items }: DesktopMegaMenuProps) => {
       onMouseEnter={cancelClose}
       onMouseLeave={scheduleClose}
     >
-      {items.map((item) => (
+      {items.map((item) => {
+        const triggerClass = clx(
+          "relative whitespace-nowrap text-[14px] font-semibold text-white/90 transition-colors duration-200 hover:text-white after:absolute after:-bottom-4 after:left-0 after:h-px after:w-full after:origin-left after:scale-x-0 after:bg-[#d97348] after:transition-transform after:duration-200 hover:after:scale-x-100",
+          activeItem === item.label && "text-white after:scale-x-100"
+        )
+
+        return (
         <div key={item.label} className="relative flex items-center">
-          <LocalizedClientLink
-            className={clx(
-              "relative whitespace-nowrap text-[14px] font-semibold text-white/90 transition-colors duration-200 hover:text-white after:absolute after:-bottom-4 after:left-0 after:h-px after:w-full after:origin-left after:scale-x-0 after:bg-[#d97348] after:transition-transform after:duration-200 hover:after:scale-x-100",
-              activeItem === item.label && "text-white after:scale-x-100"
-            )}
-            href={item.href}
-            onClick={closeMenu}
-            onMouseEnter={() => openItem(item.label)}
-          >
-            {item.label}
-          </LocalizedClientLink>
+          {item.href ? (
+            <LocalizedClientLink
+              className={triggerClass}
+              href={item.href}
+              onClick={closeMenu}
+              onMouseEnter={() => openItem(item.label)}
+            >
+              {item.label}
+            </LocalizedClientLink>
+          ) : (
+            // Nothing to navigate to, so it is a button: keyboard users get the
+            // menu on focus and Enter rather than a dead link.
+            <button
+              type="button"
+              className={triggerClass}
+              aria-expanded={activeItem === item.label}
+              onClick={() => openItem(item.label)}
+              onFocus={() => openItem(item.label)}
+              onMouseEnter={() => openItem(item.label)}
+            >
+              {item.label}
+            </button>
+          )}
 
           {activeMenuItem?.label === item.label ? (
             <div onMouseEnter={cancelClose} onMouseLeave={scheduleClose}>
@@ -227,7 +245,8 @@ const DesktopMegaMenu = ({ items }: DesktopMegaMenuProps) => {
             </div>
           ) : null}
         </div>
-      ))}
+        )
+      })}
     </div>
   )
 }

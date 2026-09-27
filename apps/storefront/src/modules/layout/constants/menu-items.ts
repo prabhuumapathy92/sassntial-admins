@@ -39,7 +39,12 @@ export type MegaMenu = {
 
 export type MenuItem = {
   label: string
-  href: string
+  /**
+   * Optional: a top-level item with a mega menu but no destination of its own
+   * opens the menu instead of navigating. Section roots like Services have no
+   * page behind them, so linking the label would lead nowhere.
+   */
+  href?: string
   children?: MenuLink[]
   megaMenu?: MegaMenu
 }
@@ -108,7 +113,6 @@ export const primaryMenuItems: MenuItem[] = [
   },
   {
     label: "Who We Serve",
-    href: "/who-we-serve",
     megaMenu: {
       label: "Who We Serve",
       groups: [
@@ -153,7 +157,6 @@ export const primaryMenuItems: MenuItem[] = [
   },
   {
     label: "Services",
-    href: "/services",
     megaMenu: {
       label: "Services",
       groups: [
@@ -196,7 +199,6 @@ export const primaryMenuItems: MenuItem[] = [
   },
   {
     label: "About Us",
-    href: "/company",
     megaMenu: {
       label: "About Us",
       groups: [
@@ -281,7 +283,6 @@ export const primaryMenuItems: MenuItem[] = [
   },
   {
     label: "Free Resources",
-    href: "/resources",
     megaMenu: {
       label: "Free Resources",
       groups: [
@@ -318,7 +319,8 @@ export const utilityMenuItems: MenuItem[] = [
   },
 ]
 
-export const ctaMenuItem: MenuItem = {
+/** Always a link - the header button has somewhere to go by definition. */
+export const ctaMenuItem: MenuLink = {
   label: "Get Started",
   href: "/company/contact-us",
 }

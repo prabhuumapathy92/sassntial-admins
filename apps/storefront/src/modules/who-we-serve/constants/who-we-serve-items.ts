@@ -7,7 +7,24 @@ export type WhoWeServeItem = {
   intro: string
   highlights: string[]
   supportPoints: string[]
+  /** Capability cards set in Medusa Admin; empty falls back to generated ones. */
+  cards?: Array<{
+    title?: string
+    description?: string
+    image?: string | null
+  }>
+  /** Set in Medusa Admin; blank falls back to the defaults below. */
+  heroImage?: string | null
+  strategyImage?: string | null
+  showcaseImage?: string | null
 }
+
+/** Used when a page has no image of its own, so nothing renders empty. */
+export const WHO_WE_SERVE_DEFAULT_IMAGES = {
+  hero: "/multi-location-banner.jpeg",
+  strategy: "/ai-services.jpeg",
+  showcase: "/ai.jpeg",
+} as const
 
 const createWhoWeServeItem = ({
   slug,

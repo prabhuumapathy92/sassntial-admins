@@ -18,9 +18,11 @@ type ContactSubmission = {
   id: string
   full_name: string
   company: string | null
+  website: string | null
   email: string
   phone_number: string | null
   location: string | null
+  enquiry_type: string | null
   message: string
   created_at: string
 }
@@ -158,6 +160,7 @@ const ContactSubmissionsPage = () => {
                   <Table.HeaderCell>Name</Table.HeaderCell>
                   <Table.HeaderCell>Email</Table.HeaderCell>
                   <Table.HeaderCell>Company</Table.HeaderCell>
+                  <Table.HeaderCell>Enquiry type</Table.HeaderCell>
                   <Table.HeaderCell>Message</Table.HeaderCell>
                 </Table.Row>
               </Table.Header>
@@ -174,6 +177,7 @@ const ContactSubmissionsPage = () => {
                     <Table.Cell>{submission.full_name}</Table.Cell>
                     <Table.Cell>{submission.email}</Table.Cell>
                     <Table.Cell>{submission.company || "-"}</Table.Cell>
+                    <Table.Cell>{submission.enquiry_type || "-"}</Table.Cell>
                     <Table.Cell>{truncate(submission.message)}</Table.Cell>
                   </Table.Row>
                 ))}
@@ -216,8 +220,10 @@ const ContactSubmissionsPage = () => {
             {selected && (
               <>
                 <Detail label="Received" value={formatDate(selected.created_at)} />
+                <Detail label="Enquiry type" value={selected.enquiry_type} />
                 <Detail label="Email" value={selected.email} />
                 <Detail label="Company" value={selected.company} />
+                <Detail label="Website" value={selected.website} />
                 <Detail label="Phone" value={selected.phone_number} />
                 <Detail label="Location" value={selected.location} />
                 <div>

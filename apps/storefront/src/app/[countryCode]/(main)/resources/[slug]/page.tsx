@@ -1,10 +1,11 @@
 import { Metadata } from "next"
 import { notFound } from "next/navigation"
 
-import {
-  getResourceBySlug,
-  resourceItems,
-} from "@modules/resources/constants/resource-items"
+import CmsPageContent from "@modules/cms/components/cms-page-content"
+import BlockRenderer from "@modules/cms/components/block-renderer"
+import PreviewBanner from "@modules/cms/components/preview-banner"
+import { loadPageBlock } from "@modules/cms/lib/load-page-block"
+import type { ResourceItem } from "@modules/resources/constants/resource-items"
 import ResourceDetailTemplate from "@modules/resources/templates/detail"
 
 type Params = {
@@ -13,33 +14,76 @@ type Params = {
   }>
 }
 
-export async function generateStaticParams() {
-  return resourceItems.map((resource) => ({
-    slug: resource.slug,
-  }))
+/**
+ * Content for these pages lives in Medusa Admin.
+ *
+ * The CMS stores the same fields the template already consumed, so the design
+ * is unchanged. Rendered on demand, so a saved edit is live without a rebuild.
+ */
+export const dynamic = "force-dynamic"
+
+const load = async (slug: string) => {
+  const result = await loadPageBlock<ResourceItem>(`resources/${slug}`, "resource")
+
+  if (!result) {
+    return null
+  }
+
+  return {
+    ...result,
+    // The block was written from the original item, so its shape matches.
+    item: result.item ? ({ ...result.item, slug } as ResourceItem) : null,
+  }
 }
 
 export async function generateMetadata(props: Params): Promise<Metadata> {
   const params = await props.params
-  const resource = getResourceBySlug(params.slug)
+  const result = await load(params.slug)
 
-  if (!resource) {
+  if (!result) {
     return {}
   }
 
+  if (!result.item) {
+    return {
+      title: result.page.seo_title || result.page.title,
+      description: result.page.seo_description ?? undefined,
+    }
+  }
+
   return {
-    title: resource.label,
-    description: resource.summary,
+    title: result.item.label,
+    description: result.item.summary,
   }
 }
 
-export default async function ResourceDetailPage(props: Params) {
+export default async function Page(props: Params) {
   const params = await props.params
-  const resource = getResourceBySlug(params.slug)
+  const result = await load(params.slug)
 
-  if (!resource) {
+  if (!result) {
     notFound()
   }
 
-  return <ResourceDetailTemplate resource={resource} />
+  if (!result.item) {
+    if (!result.preview && !result.page.blocks.length) {
+      notFound()
+    }
+
+    return (
+      <CmsPageContent
+        page={result.page}
+        breadcrumbs={result.breadcrumbs}
+        preview={result.preview}
+      />
+    )
+  }
+
+  return (
+    <>
+      {result.preview && <PreviewBanner status={result.status} />}
+      <ResourceDetailTemplate resource={result.item} />
+      <BlockRenderer blocks={result.additionalBlocks} />
+    </>
+  )
 }

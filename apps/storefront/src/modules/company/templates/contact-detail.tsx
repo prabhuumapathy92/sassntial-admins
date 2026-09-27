@@ -154,7 +154,7 @@ const ContactDetailTemplate = ({
               </p>
             </div>
 
-            <ContactForm />
+            <ContactForm enquiryType={item.label} />
           </div>
         </div>
       </section>

@@ -200,6 +200,37 @@ const AuthorityArt = () => (
   </div>
 )
 
+/**
+ * A card's own image when it has one, otherwise the themed illustration.
+ *
+ * The four defaults stay so pages that have not set an image look unchanged.
+ */
+const CardArt = ({
+  art,
+  image,
+}: {
+  art: VisualTheme["art"]
+  image?: string | null
+}) => {
+  if (image) {
+    return (
+      <div className="absolute inset-0 overflow-hidden">
+        {/* Editor-uploaded host, so a plain img avoids next/image remote
+            pattern configuration for every upload. */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={image}
+          alt=""
+          aria-hidden="true"
+          className="h-full w-full object-cover object-center"
+        />
+      </div>
+    )
+  }
+
+  return <ServiceArt art={art} />
+}
+
 const ServiceArt = ({ art }: { art: VisualTheme["art"] }) => {
   switch (art) {
     case "geo":
@@ -256,7 +287,7 @@ const AiSeoVisualShowcase = ({
                 <span className="absolute left-4 top-4 z-[1] bg-white/90 px-3 py-1 text-[10px] font-bold uppercase text-slate-700">
                   {theme.eyebrow}
                 </span>
-                <ServiceArt art={theme.art} />
+                <CardArt art={theme.art} image={card.image} />
               </div>
 
               <div className={`${theme.bandClass} px-4 py-3`}>

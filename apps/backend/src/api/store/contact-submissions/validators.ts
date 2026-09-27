@@ -16,9 +16,11 @@ const optionalText = (max: number) =>
 export const CreateContactSubmission = z.object({
   full_name: z.string().trim().min(1).max(200),
   company: optionalText(200),
+  website: optionalText(2000),
   email: z.string().trim().email().max(320),
   phone_number: optionalText(50),
   location: optionalText(200),
+  enquiry_type: optionalText(200),
   message: z.string().trim().min(1).max(5000),
 })
 

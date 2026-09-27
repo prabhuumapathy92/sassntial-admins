@@ -9,7 +9,7 @@ import CartButton from "@modules/layout/components/cart-button"
 import BrandMark from "@modules/layout/components/brand-mark"
 import DesktopMegaMenu from "@modules/layout/components/desktop-mega-menu"
 import SideMenu from "@modules/layout/components/side-menu"
-import { ctaMenuItem, primaryMenuItems } from "@modules/layout/constants/menu-items"
+import { listNavigation } from "@lib/data/navigation"
 
 export default async function Nav() {
   const [regions, locales, currentLocale, mobileCart] = await Promise.all([
@@ -22,11 +22,17 @@ export default async function Nav() {
   const mobileCartItemCount =
     mobileCart?.items?.reduce((total, item) => total + item.quantity, 0) || 0
 
+  // Managed in Medusa Admin; falls back to the built-in menu if the
+  // backend is unreachable, since the header renders on every page.
+  const navigation = await listNavigation()
+
   return (
     <div className="sticky inset-x-0 top-0 z-50 bg-[#102735] text-white shadow-[0_12px_30px_rgba(1,15,24,0.2)]">
       <header className="mx-auto max-w-[1880px]">
         <div className="px-4 py-3 xl:hidden">
           <SideMenu
+            menuItems={navigation.primary}
+            cta={navigation.cta}
             regions={regions}
             locales={locales}
             currentLocale={currentLocale}
@@ -45,7 +51,7 @@ export default async function Nav() {
             </LocalizedClientLink>
           </div>
 
-          <DesktopMegaMenu items={primaryMenuItems} />
+          <DesktopMegaMenu items={navigation.primary} />
 
           <div className="ml-auto flex items-center gap-3">
             <AccountButton className="inline-flex h-11 w-11 items-center justify-center border border-white/10 bg-white/5 text-white/90 transition-colors duration-200 hover:bg-white/10 hover:text-white" />
@@ -56,9 +62,9 @@ export default async function Nav() {
             />
             <LocalizedClientLink
               className="inline-flex min-h-12 items-center justify-center bg-brand-cta px-6 text-[14px] font-bold text-white shadow-[0_16px_32px_rgba(217,115,72,0.22)] transition-transform duration-200 hover:-translate-y-0.5"
-              href={ctaMenuItem.href}
+              href={navigation.cta.href}
             >
-              {ctaMenuItem.label}
+              {navigation.cta.label}
             </LocalizedClientLink>
           </div>
         </nav>

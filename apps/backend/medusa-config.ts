@@ -23,6 +23,39 @@ module.exports = defineConfig({
     {
       resolve: "./src/modules/contact-page",
     },
+    {
+      resolve: "./src/modules/navigation",
+    },
+    {
+      resolve: "./src/modules/page-builder",
+    },
+    {
+      resolve: "./src/modules/site-settings",
+    },
+    {
+      /**
+       * The local file provider defaults to http://localhost:9000, so uploaded
+       * images pointed at a port nothing listens on and never loaded - in the
+       * admin or on the storefront. The URL is derived from the port this
+       * backend actually runs on, and MEDUSA_BACKEND_URL overrides it wherever
+       * the public origin differs (any deployed environment).
+       */
+      resolve: "@medusajs/medusa/file",
+      options: {
+        providers: [
+          {
+            resolve: "@medusajs/medusa/file-local",
+            id: "local",
+            options: {
+              backend_url: `${(
+                process.env.MEDUSA_BACKEND_URL ??
+                `http://localhost:${process.env.PORT || 9000}`
+              ).replace(/\/+$/, "")}/static`,
+            },
+          },
+        ],
+      },
+    },
   ],
 
   admin: {

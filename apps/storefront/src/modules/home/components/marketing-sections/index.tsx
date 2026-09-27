@@ -378,14 +378,8 @@ const MarketingSections = () => {
 
           <div className="mx-auto mt-16 flex max-w-[1160px] flex-wrap items-center justify-center gap-4">
             <LocalizedClientLink
-              href="/services"
-              className="inline-flex min-h-12 items-center justify-center bg-brand-cta px-8 text-sm font-bold uppercase text-white shadow-[0_16px_32px_rgba(217,115,72,0.26)] transition-transform duration-200 hover:-translate-y-0.5"
-            >
-              Explore Marketing Services
-            </LocalizedClientLink>
-            <LocalizedClientLink
               href="/training"
-              className="inline-flex min-h-12 items-center justify-center border border-slate-200 bg-white px-8 text-sm font-bold uppercase text-[#0b2450] transition-colors duration-200 hover:border-slate-300 hover:bg-slate-50"
+              className="inline-flex min-h-12 items-center justify-center bg-brand-cta px-8 text-sm font-bold uppercase text-white shadow-[0_16px_32px_rgba(217,115,72,0.26)] transition-transform duration-200 hover:-translate-y-0.5"
             >
               Browse Training Programs
             </LocalizedClientLink>

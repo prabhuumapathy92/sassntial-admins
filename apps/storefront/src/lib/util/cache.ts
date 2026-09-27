@@ -21,4 +21,13 @@ export const CATALOG_CACHE_TAGS = [
   "collections",
   "regions",
   "variants",
+  // Managed in Medusa Admin rather than the catalog, but invalidated through
+  // the same /api/revalidate hook.
+  "navigation",
+  "cms-pages",
+  "cms-posts",
+  // Without this entry /api/revalidate rejected the tag, so footer edits
+  // never reached the storefront: its fetch is force-cache with no expiry.
+  "footer",
+  "site-settings",
 ] as const

@@ -12,5 +12,8 @@ export async function POST(
   })
 
   // Only the id goes back: the storefront needs a success signal, not the row.
-  res.status(201).json({ contact_submission: { id: result.id } })
+  res.status(201).json({
+    contact_submission: { id: result.submission.id },
+    notification_sent: result.email_sent,
+  })
 }

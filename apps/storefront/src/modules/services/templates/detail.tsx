@@ -37,10 +37,10 @@ type ServicePresentation = {
 }
 
 const defaultParagraph =
-  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+  "We build programs around your market context, operational realities and growth priorities."
 
 const defaultAnswer =
-  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent rutrum, libero in suscipit tempor, massa est feugiat nibh, ut faucibus velit magna at sapien."
+  "Every engagement starts with an audit of where you stand today, then a plan that targets the gaps worth closing first. We report on outcomes rather than activity."
 
 const fallbackIcons: SeoServiceCard["icon"][] = [
   "megaphone",
@@ -131,19 +131,20 @@ const firstAvailable = (...values: Array<string | undefined>) =>
 const uniqueValues = (items: Array<string | undefined>) =>
   Array.from(new Set(items.map(cleanText).filter(Boolean)))
 
+/**
+ * Real values only, de-duplicated.
+ *
+ * This used to pad short lists with generated placeholder copy. That stayed
+ * invisible while every page had enough content, but would have put "Lorem
+ * insight 3" on the live site the first time an editor saved a page with fewer
+ * items. Sections now render however many entries actually exist. The padding
+ * arguments are kept so the call sites read unchanged.
+ */
 const fillList = (
   items: Array<string | undefined>,
-  minimum: number,
-  fallbackFactory: (index: number) => string
-) => {
-  const next = uniqueValues(items)
-
-  while (next.length < minimum) {
-    next.push(fallbackFactory(next.length))
-  }
-
-  return next
-}
+  _minimum?: number,
+  _fallbackFactory?: (index: number) => string
+) => uniqueValues(items)
 
 const buildGeneratedCards = (service: ServiceItem): SeoServiceCard[] => {
   const sections = service.sections ?? []
@@ -318,7 +319,7 @@ const ServiceDetailTemplate = ({ service }: { service: ServiceItem }) => {
       ...service.outcomes,
     ],
     4,
-    (index) => `Lorem insight ${index + 1} for ${service.label}.`
+    (index) => ""
   )
   const approachDescription =
     firstAvailable(
@@ -346,9 +347,7 @@ const ServiceDetailTemplate = ({ service }: { service: ServiceItem }) => {
     ],
     4,
     (index) =>
-      `Lorem differentiator ${
-        index + 1
-      } for ${service.label.toLowerCase()} services.`
+      ""
   ).slice(0, 6)
   const differentiatorTitle =
     firstAvailable(
@@ -391,9 +390,7 @@ const ServiceDetailTemplate = ({ service }: { service: ServiceItem }) => {
               service.outcomes,
               3,
               (index) =>
-                `Lorem outcome ${
-                  index + 1
-                } for ${service.label.toLowerCase()} services.`
+                ""
             ).slice(0, 3),
           },
         ]
@@ -428,7 +425,7 @@ const ServiceDetailTemplate = ({ service }: { service: ServiceItem }) => {
     <MarketingDetailShell
       breadcrumbs={[
         { label: "Home", href: "/" },
-        { label: "Services", href: "/services" },
+        { label: "Services" },
         { label: service.label },
       ]}
       title={heroTitle}

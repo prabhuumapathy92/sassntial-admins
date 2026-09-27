@@ -1,3 +1,9 @@
+"use client"
+
+import { useState, type FormEvent } from "react"
+
+import { submitContactForm } from "@lib/data/contact-page"
+
 type AiSeoLeadFormProps = {
   title: string
   description: string
@@ -15,11 +21,13 @@ const LeadField = ({
   placeholder,
   type = "text",
   className = "",
+  required = false,
 }: {
   name: string
   placeholder: string
   type?: string
   className?: string
+  required?: boolean
 }) => {
   return (
     <>
@@ -30,6 +38,7 @@ const LeadField = ({
         id={name}
         name={name}
         type={type}
+        required={required}
         placeholder={placeholder}
         className={`${fieldClassName} ${className}`.trim()}
       />
@@ -46,6 +55,39 @@ const AiSeoLeadForm = ({
   formIdPrefix = "ai-seo",
 }: AiSeoLeadFormProps) => {
   const highlightPhrase = "AI Search Results?"
+  const [status, setStatus] = useState<"idle" | "sending" | "sent">("idle")
+  const [error, setError] = useState<string | null>(null)
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+
+    const form = event.currentTarget
+    const data = new FormData(form)
+
+    setStatus("sending")
+    setError(null)
+
+    const result = await submitContactForm({
+      full_name: String(data.get("full_name") ?? ""),
+      company: String(data.get("company") ?? ""),
+      website: String(data.get("website") ?? ""),
+      email: String(data.get("email") ?? ""),
+      phone_number: String(data.get("phone") ?? ""),
+      location: "",
+      enquiry_type: eyebrow,
+      message: String(data.get("message") ?? ""),
+    })
+
+    if (result.success) {
+      form.reset()
+      setStatus("sent")
+      return
+    }
+
+    setStatus("idle")
+    setError(result.error)
+  }
+
   const titleParts = title.includes(highlightPhrase)
     ? title.split(highlightPhrase)
     : null
@@ -56,17 +98,32 @@ const AiSeoLeadForm = ({
     <section className="mx-auto">
       <article className="grid overflow-hidden bg-white shadow-[0_20px_44px_rgba(15,23,42,0.08)] medium:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]">
         <div className="bg-[linear-gradient(180deg,#0f2942_0%,#153957_100%)] px-6 py-7 small:px-8 small:py-8">
-          <form className="grid gap-4">
-            <LeadField name="full_name" placeholder="Full Name *" />
+          <form className="grid gap-4" onSubmit={handleSubmit}>
+            <LeadField name="full_name" placeholder="Full Name *" required />
 
             <div className="grid gap-4 small:grid-cols-2">
-              <LeadField name="company" placeholder="Company *" />
-              <LeadField name="website" placeholder="Website *" />
+              <LeadField name="company" placeholder="Company *" required />
+              <LeadField
+                name="website"
+                type="url"
+                placeholder="Website *"
+                required
+              />
             </div>
 
             <div className="grid gap-4 small:grid-cols-2">
-              <LeadField name="email" type="email" placeholder="Email *" />
-              <LeadField name="phone" type="tel" placeholder="Phone *" />
+              <LeadField
+                name="email"
+                type="email"
+                placeholder="Email *"
+                required
+              />
+              <LeadField
+                name="phone"
+                type="tel"
+                placeholder="Phone *"
+                required
+              />
             </div>
 
             <div>
@@ -77,20 +134,33 @@ const AiSeoLeadForm = ({
                 id={messageFieldId}
                 name="message"
                 rows={4}
+                required
                 placeholder="Anything else we should know?"
                 className="min-h-[128px] w-full border border-white/15 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition-colors duration-200 placeholder:text-slate-400 focus:border-[#f4bf4f]"
               />
             </div>
 
+            {error && (
+              <p className="text-sm text-rose-200" role="alert">
+                {error}
+              </p>
+            )}
+
             <div className="flex justify-center pt-2">
               <button
-                type="button"
+                type="submit"
+                disabled={status === "sending"}
                 className="inline-flex min-h-12 items-center justify-center bg-[linear-gradient(135deg,#f4bf4f_0%,#ea7a3d_100%)] px-6 py-3 text-sm font-bold text-slate-950 transition-transform duration-200 hover:-translate-y-0.5"
               >
-                {primaryLabel}
+                {status === "sending" ? "Sending..." : primaryLabel}
               </button>
             </div>
           </form>
+          {status === "sent" && (
+            <p className="mt-4 text-sm font-semibold text-emerald-300" role="status">
+              Thanks, your enquiry has been sent.
+            </p>
+          )}
         </div>
 
         <div className="bg-[linear-gradient(180deg,#f8fbff_0%,#eef5fb_100%)] px-6 py-7 small:px-8 small:py-8">

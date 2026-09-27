@@ -28,15 +28,8 @@ const Hero = () => {
 
           <div className="mt-10 flex flex-wrap justify-center gap-4">
             <LocalizedClientLink
-              href="/services"
-              className="inline-flex min-h-14 items-center justify-center bg-brand-cta px-9 text-[1.02rem] font-bold uppercase text-white shadow-[0_18px_42px_rgba(217,115,72,0.35)] transition-transform duration-200 hover:-translate-y-0.5 hover:shadow-[0_22px_52px_rgba(217,115,72,0.42)]"
-            >
-              Explore Services
-            </LocalizedClientLink>
-
-            <LocalizedClientLink
               href="/training"
-              className="inline-flex min-h-14 items-center justify-center border border-white/25 bg-white/10 px-9 text-[1.02rem] font-bold uppercase text-white transition-colors duration-200 hover:bg-white/18"
+              className="inline-flex min-h-14 items-center justify-center bg-brand-cta px-9 text-[1.02rem] font-bold uppercase text-white shadow-[0_18px_42px_rgba(217,115,72,0.35)] transition-transform duration-200 hover:-translate-y-0.5 hover:shadow-[0_22px_52px_rgba(217,115,72,0.42)]"
             >
               View Training
             </LocalizedClientLink>

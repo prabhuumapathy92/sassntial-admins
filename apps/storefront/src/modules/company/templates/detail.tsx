@@ -5,6 +5,7 @@ import {
   CompanyItem,
   companyItems,
 } from "@modules/company/constants/company-items"
+import type { CmsPost } from "@lib/data/cms"
 import type { ContactPageSettings } from "@lib/data/contact-page"
 import ContactDetailTemplate from "@modules/company/templates/contact-detail"
 import AiSeoAboutGains from "@modules/services/components/ai-seo-about-gains"
@@ -34,10 +35,10 @@ type AiSectionListGroup = {
 }
 
 const defaultParagraph =
-  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+  "We build programs around your market context, operational realities and growth priorities."
 
 const defaultAnswer =
-  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent rutrum, libero in suscipit tempor, massa est feugiat nibh, ut faucibus velit magna at sapien."
+  "Every engagement starts with an audit of where you stand today, then a plan that targets the gaps worth closing first. We report on outcomes rather than activity."
 
 const fallbackIcons: SeoServiceCard["icon"][] = [
   "megaphone",
@@ -58,19 +59,20 @@ const firstAvailable = (...values: Array<string | undefined>) =>
 const uniqueValues = (items: Array<string | undefined>) =>
   Array.from(new Set(items.map(cleanText).filter(Boolean)))
 
+/**
+ * Real values only, de-duplicated.
+ *
+ * This used to pad short lists with generated placeholder copy. That stayed
+ * invisible while every page had enough content, but would have put "Lorem
+ * insight 3" on the live site the first time an editor saved a page with fewer
+ * items. Sections now render however many entries actually exist. The padding
+ * arguments are kept so the call sites read unchanged.
+ */
 const fillList = (
   items: Array<string | undefined>,
-  minimum: number,
-  fallbackFactory: (index: number) => string
-) => {
-  const next = uniqueValues(items)
-
-  while (next.length < minimum) {
-    next.push(fallbackFactory(next.length))
-  }
-
-  return next
-}
+  _minimum?: number,
+  _fallbackFactory?: (index: number) => string
+) => uniqueValues(items)
 
 const getCompanySectionImage = (item: CompanyItem) => ({
   src:
@@ -185,9 +187,12 @@ const buildCompanyFaqs = (
 const CompanyDetailTemplate = ({
   item,
   contactSettings,
+  posts = [],
 }: {
   item: CompanyItem
   contactSettings?: ContactPageSettings | null
+  /** Published CMS posts, supplied by the route for the blog slug. */
+  posts?: CmsPost[]
 }) => {
   if (item.slug === "contact-us") {
     return <ContactDetailTemplate item={item} settings={contactSettings} />
@@ -196,13 +201,12 @@ const CompanyDetailTemplate = ({
   const isAiImmersivePage = aiSlugs.includes(item.slug)
 
   if (item.slug === "blog") {
-    const posts = item.blogPosts ?? []
 
     return (
       <MarketingDetailShell
         breadcrumbs={[
           { label: "Home", href: "/" },
-          { label: "Company", href: "/company" },
+          { label: "Company" },
           { label: item.label },
         ]}
         eyebrow={item.eyebrow}
@@ -210,13 +214,7 @@ const CompanyDetailTemplate = ({
         description={item.intro}
         actions={[
           { label: "Contact Us", href: "/company/contact-us" },
-          {
-            label: "All Company Pages",
-            href: "/company",
-            variant: "secondary",
-          },
         ]}
-        heroNote="The shared page shell is applied here too, while the article list remains specific to the blog section."
         proofTitle="COMPANY INSIGHTS AND DELIVERY NOTES"
         sectionEyebrow="Featured Posts"
         sectionTitle="Recent Articles"
@@ -226,44 +224,61 @@ const CompanyDetailTemplate = ({
           description: highlight,
         }))}
       >
-        <div className="grid gap-5 medium:grid-cols-2 large:grid-cols-3">
-          {posts.map((post) => (
-            <article
-              key={post.slug}
-              className="overflow-hidden border border-[#e6edf5] bg-white shadow-[0_16px_34px_rgba(15,23,42,0.06)]"
-            >
-              <div className="aspect-[16/9] overflow-hidden bg-slate-100">
-                {post.imageUrl ? (
-                  <img
-                    src={post.imageUrl}
-                    alt={post.title}
-                    className="h-full w-full object-cover"
-                  />
-                ) : (
-                  <div className="marketing-hero-placeholder h-full w-full" />
-                )}
-              </div>
+        {posts.length ? (
+          <div className="grid gap-5 medium:grid-cols-2 large:grid-cols-3">
+            {posts.map((post) => (
+              <article
+                key={post.id}
+                className="overflow-hidden border border-[#e6edf5] bg-white shadow-[0_16px_34px_rgba(15,23,42,0.06)]"
+              >
+                <div className="aspect-[16/9] overflow-hidden bg-slate-100">
+                  {post.cover_image ? (
+                    // Admin-supplied host, so a plain img avoids next/image
+                    // remote-pattern configuration for every editor upload.
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={post.cover_image}
+                      alt={post.title}
+                      className="h-full w-full object-cover"
+                    />
+                  ) : (
+                    <div className="marketing-hero-placeholder h-full w-full" />
+                  )}
+                </div>
 
-              <div className="px-5 py-5">
-                <p className="text-[10px] font-semibold uppercase text-slate-400">
-                  {post.category} | {post.readTime}
-                </p>
-                <h3 className="mt-3 text-lg font-bold uppercase text-slate-900">
-                  {post.title}
-                </h3>
-                <p className="mt-3 text-sm leading-7 text-slate-500">
-                  {post.excerpt}
-                </p>
-                <LocalizedClientLink
-                  href={`/company/blog/${post.slug}`}
-                  className="mt-5 inline-flex items-center text-sm font-semibold uppercase text-[#0b78b5] transition-colors duration-200 hover:text-slate-900"
-                >
-                  Read Article
-                </LocalizedClientLink>
-              </div>
-            </article>
-          ))}
-        </div>
+                <div className="px-5 py-5">
+                  <p className="text-[10px] font-semibold uppercase text-slate-400">
+                    {post.category ? `${post.category.name} | ` : ""}
+                    {post.reading_minutes} Min Read
+                  </p>
+                  <h3 className="mt-3 text-lg font-bold uppercase text-slate-900">
+                    {post.title}
+                  </h3>
+                  {post.excerpt ? (
+                    <p className="mt-3 text-sm leading-7 text-slate-500">
+                      {post.excerpt}
+                    </p>
+                  ) : null}
+                  <LocalizedClientLink
+                    href={`/blog/${post.slug}`}
+                    className="mt-5 inline-flex items-center text-sm font-semibold uppercase text-[#0b78b5] transition-colors duration-200 hover:text-slate-900"
+                  >
+                    Read Article
+                  </LocalizedClientLink>
+                </div>
+              </article>
+            ))}
+          </div>
+        ) : (
+          <div className="border border-dashed border-[#cad5e4] bg-white px-6 py-16 text-center">
+            <p className="text-sm font-semibold uppercase text-[#2c7cf7]">
+              No articles yet
+            </p>
+            <h3 className="mt-3 text-xl font-semibold text-[#0f172a]">
+              Posts published in Medusa Admin appear here.
+            </h3>
+          </div>
+        )}
       </MarketingDetailShell>
     )
   }
@@ -297,7 +312,7 @@ const CompanyDetailTemplate = ({
         ...(item.seoCards?.map((card) => card.title) ?? []),
       ],
       4,
-      (index) => `Lorem insight ${index + 1} for ${item.label}.`
+      (index) => ""
     )
     const approachDescription =
       firstAvailable(
@@ -338,7 +353,7 @@ const CompanyDetailTemplate = ({
       ],
       4,
       (index) =>
-        `Lorem differentiator ${index + 1} for ${item.label.toLowerCase()}.`
+        ""
     ).slice(0, 6)
     const differentiatorTitle =
       firstAvailable(
@@ -376,7 +391,7 @@ const CompanyDetailTemplate = ({
               items: fillList(
                 item.supportPoints,
                 3,
-                (index) => `Lorem support point ${index + 1} for ${item.label}.`
+                (index) => ""
               ).slice(0, 3),
             },
           ]
@@ -398,15 +413,17 @@ const CompanyDetailTemplate = ({
       differentiatorItems
     )
     const parentLabel = isAiImmersivePage ? "AI" : "About Us"
+    // AI leads to a real page; About Us is a section root the site no longer
+    // serves, so that crumb is text.
     const parentHref = isAiImmersivePage
       ? "/company/ai-opportunity-discovery"
-      : "/company"
+      : undefined
 
     return (
       <MarketingDetailShell
         breadcrumbs={[
           { label: "Home", href: "/" },
-          { label: parentLabel, href: parentHref },
+          { label: parentLabel, ...(parentHref ? { href: parentHref } : {}) },
           { label: item.label },
         ]}
         title={heroTitle}

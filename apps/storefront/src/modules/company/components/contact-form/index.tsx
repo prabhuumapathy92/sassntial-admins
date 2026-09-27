@@ -35,7 +35,7 @@ const ContactField = ({
   </>
 )
 
-const ContactForm = () => {
+const ContactForm = ({ enquiryType }: { enquiryType: string }) => {
   const [status, setStatus] = useState<"idle" | "sending" | "sent">("idle")
   const [error, setError] = useState<string | null>(null)
 
@@ -54,6 +54,7 @@ const ContactForm = () => {
       email: String(data.get("email") ?? ""),
       phone_number: String(data.get("phone_number") ?? ""),
       location: String(data.get("location") ?? ""),
+      enquiry_type: enquiryType,
       message: String(data.get("message") ?? ""),
     })
 

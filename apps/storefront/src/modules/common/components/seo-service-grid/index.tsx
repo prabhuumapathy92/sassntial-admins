@@ -7,6 +7,8 @@ type CopySegment = {
 
 export type SeoServiceCard = {
   title: string
+  /** Uploaded in Medusa Admin; falls back to the themed illustration. */
+  image?: string | null
   icon:
     | "megaphone"
     | "directory"

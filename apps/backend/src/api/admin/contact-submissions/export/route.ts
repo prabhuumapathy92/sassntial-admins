@@ -8,9 +8,11 @@ const COLUMNS = [
   "created_at",
   "full_name",
   "company",
+  "website",
   "email",
   "phone_number",
   "location",
+  "enquiry_type",
   "message",
 ] as const
 

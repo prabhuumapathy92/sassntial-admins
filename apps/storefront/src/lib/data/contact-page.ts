@@ -38,9 +38,11 @@ export const retrieveContactPage =
 export type ContactFormInput = {
   full_name: string
   company: string
+  website?: string
   email: string
   phone_number: string
   location: string
+  enquiry_type?: string
   message: string
 }
 

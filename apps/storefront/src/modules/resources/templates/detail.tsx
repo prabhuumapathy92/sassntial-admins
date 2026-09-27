@@ -25,7 +25,7 @@ const ResourceDetailTemplate = ({ resource }: { resource: ResourceItem }) => {
     <MarketingDetailShell
       breadcrumbs={[
         { label: "Home", href: "/" },
-        { label: "Resources", href: "/resources" },
+        { label: "Resources" },
         { label: resource.label },
       ]}
       eyebrow={resource.eyebrow}
@@ -33,9 +33,7 @@ const ResourceDetailTemplate = ({ resource }: { resource: ResourceItem }) => {
       description={resource.intro}
       actions={[
         { label: "Browse Training", href: "/training" },
-        { label: "All Resources", href: "/resources", variant: "secondary" },
       ]}
-      heroNote="This shared shell is reusable across resource pages, while the cards and messaging are driven by each page's own content."
       proofTitle="RESOURCE FORMATS BUILT FOR DELIVERY TEAMS"
       sectionEyebrow={resource.label}
       sectionTitle={`${resource.label} Formats Include`}

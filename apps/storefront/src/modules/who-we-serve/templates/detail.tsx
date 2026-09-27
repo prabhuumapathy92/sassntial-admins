@@ -12,6 +12,7 @@ import AiSeoVisualShowcase from "@modules/services/components/ai-seo-visual-show
 import {
   WhoWeServeItem,
   whoWeServeItems,
+  WHO_WE_SERVE_DEFAULT_IMAGES,
 } from "@modules/who-we-serve/constants/who-we-serve-items"
 
 type WhoWeServeFaq = {
@@ -25,10 +26,10 @@ type WhoWeServeListGroup = {
 }
 
 const defaultParagraph =
-  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+  "We build programs around your market context, operational realities and growth priorities."
 
 const defaultAnswer =
-  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent rutrum, libero in suscipit tempor, massa est feugiat nibh, ut faucibus velit magna at sapien."
+  "Every engagement starts with an audit of where you stand today, then a plan that targets the gaps worth closing first. We report on outcomes rather than activity."
 
 const fallbackIcons: SeoServiceCard["icon"][] = [
   "megaphone",
@@ -49,19 +50,20 @@ const firstAvailable = (...values: Array<string | undefined>) =>
 const uniqueValues = (items: Array<string | undefined>) =>
   Array.from(new Set(items.map(cleanText).filter(Boolean)))
 
+/**
+ * Real values only, de-duplicated.
+ *
+ * This used to pad short lists with generated placeholder copy. That stayed
+ * invisible while every page had enough content, but would have put "Lorem
+ * insight 3" on the live site the first time an editor saved a page with fewer
+ * items. Sections now render however many entries actually exist. The padding
+ * arguments are kept so the call sites read unchanged.
+ */
 const fillList = (
   items: Array<string | undefined>,
-  minimum: number,
-  fallbackFactory: (index: number) => string
-) => {
-  const next = uniqueValues(items)
-
-  while (next.length < minimum) {
-    next.push(fallbackFactory(next.length))
-  }
-
-  return next
-}
+  _minimum?: number,
+  _fallbackFactory?: (index: number) => string
+) => uniqueValues(items)
 
 const buildWhoWeServeCards = (
   item: WhoWeServeItem,
@@ -71,10 +73,21 @@ const buildWhoWeServeCards = (
     return multiLocationSeoServiceCards
   }
 
+  // Cards authored in the admin win outright, artwork included.
+  if (item.cards?.length) {
+    return item.cards.map((card, index) => ({
+      title: card.title || `Focus ${String(index + 1).padStart(2, "0")}`,
+      image: card.image ?? null,
+      icon: fallbackIcons[index % fallbackIcons.length],
+      segments: [{ text: card.description ?? "" }],
+    }))
+  }
+
+  // Otherwise derive them, without padding to a fixed four: an invented
+  // "Focus 04" card reads as unfinished content.
   const totalCards = Math.max(
     item.highlights.length,
-    item.supportPoints.length,
-    4
+    item.supportPoints.length
   )
 
   return Array.from({ length: totalCards }, (_, index) => ({
@@ -171,7 +184,7 @@ const WhoWeServeDetailTemplate = ({ item }: { item: WhoWeServeItem }) => {
   const focusItems = fillList(
     [...item.highlights, ...item.supportPoints],
     4,
-    (index) => `Lorem insight ${index + 1} for ${item.label}.`
+    (index) => ""
   )
   const supportingTitle =
     firstAvailable(
@@ -184,7 +197,7 @@ const WhoWeServeDetailTemplate = ({ item }: { item: WhoWeServeItem }) => {
   const differentiatorItems = fillList(
     [...item.supportPoints, ...item.highlights],
     4,
-    (index) => `Lorem differentiator ${index + 1} for ${item.label}.`
+    (index) => ""
   ).slice(0, 6)
   const differentiatorTitle =
     firstAvailable(
@@ -205,7 +218,7 @@ const WhoWeServeDetailTemplate = ({ item }: { item: WhoWeServeItem }) => {
       items: fillList(
         item.highlights,
         3,
-        (index) => `Lorem priority ${index + 1}.`
+        (index) => ""
       ).slice(0, 3),
     },
     {
@@ -213,7 +226,7 @@ const WhoWeServeDetailTemplate = ({ item }: { item: WhoWeServeItem }) => {
       items: fillList(
         item.supportPoints,
         3,
-        (index) => `Lorem support area ${index + 1}.`
+        (index) => ""
       ).slice(0, 3),
     },
   ]
@@ -236,7 +249,7 @@ const WhoWeServeDetailTemplate = ({ item }: { item: WhoWeServeItem }) => {
     <MarketingDetailShell
       breadcrumbs={[
         { label: "Home", href: "/" },
-        { label: "Who We Serve", href: "/who-we-serve" },
+        { label: "Who We Serve" },
         { label: item.label },
       ]}
       title={heroTitle}
@@ -244,7 +257,7 @@ const WhoWeServeDetailTemplate = ({ item }: { item: WhoWeServeItem }) => {
       heroVariant="immersive"
       actions={[{ label: ctaLabel, href: "/company/contact-us" }]}
       heroImage={{
-        src: "/multi-location-banner.jpeg",
+        src: item.heroImage || WHO_WE_SERVE_DEFAULT_IMAGES.hero,
         alt: `${item.label} audience segment hero image`,
       }}
       heroNote="We email qualified businesses within one business day"
@@ -256,7 +269,7 @@ const WhoWeServeDetailTemplate = ({ item }: { item: WhoWeServeItem }) => {
           pillars={focusItems.slice(0, 4)}
           pillarsLabel={`What ${item.label} includes`}
           closingNote={supportingDescription}
-          imageSrc="/ai-services.jpeg"
+          imageSrc={item.strategyImage || WHO_WE_SERVE_DEFAULT_IMAGES.strategy}
           imageAlt={`${item.label} strategic support visual`}
         />
       }
@@ -279,7 +292,7 @@ const WhoWeServeDetailTemplate = ({ item }: { item: WhoWeServeItem }) => {
           eyebrow={item.eyebrow || "Who We Serve"}
           title={supportingTitle}
           description={supportingDescription}
-          imageSrc="/ai.jpeg"
+          imageSrc={item.showcaseImage || WHO_WE_SERVE_DEFAULT_IMAGES.showcase}
           imageAlt={`${item.label} supporting visual`}
           actionTitle={`Ready to explore ${item.label}?`}
           actionLabel={ctaLabel}

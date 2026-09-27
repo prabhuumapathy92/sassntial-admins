@@ -1,0 +1,685 @@
+{
+  "primary": [
+    {
+      "label": "Training",
+      "href": "/training",
+      "icon": null,
+      "media": null,
+      "children": [
+        {
+          "label": "Featured Programs",
+          "href": null,
+          "icon": "book",
+          "media": null,
+          "children": [
+            {
+              "label": "AI Bots Automation",
+              "href": "/training",
+              "icon": null,
+              "media": null,
+              "children": []
+            },
+            {
+              "label": "Maintenance & Reliability Masterclass",
+              "href": "/training",
+              "icon": null,
+              "media": null,
+              "children": []
+            },
+            {
+              "label": "SMRP 5 Pillars",
+              "href": "/training",
+              "icon": null,
+              "media": null,
+              "children": []
+            },
+            {
+              "label": "Industry-Specific Programs",
+              "href": "/training",
+              "icon": null,
+              "media": null,
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "Delivery Formats",
+          "href": null,
+          "icon": "lightbulb",
+          "media": null,
+          "children": [
+            {
+              "label": "Live Workshops",
+              "href": "/training",
+              "icon": null,
+              "media": null,
+              "children": []
+            },
+            {
+              "label": "Webinars",
+              "href": "/training",
+              "icon": null,
+              "media": null,
+              "children": []
+            },
+            {
+              "label": "On-Demand Learning",
+              "href": "/training",
+              "icon": null,
+              "media": null,
+              "children": []
+            },
+            {
+              "label": "Custom Training",
+              "href": "/training",
+              "icon": null,
+              "media": null,
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "Next Steps",
+          "href": null,
+          "icon": "rocket",
+          "media": null,
+          "children": [
+            {
+              "label": "Browse Catalog",
+              "href": "/training",
+              "icon": null,
+              "media": null,
+              "children": []
+            },
+            {
+              "label": "Request a Session",
+              "href": "/company/contact-us",
+              "icon": null,
+              "media": null,
+              "children": []
+            },
+            {
+              "label": "Talk to the Team",
+              "href": "/company/contact-us",
+              "icon": null,
+              "media": null,
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Who We Serve",
+      "href": "/who-we-serve",
+      "icon": null,
+      "media": null,
+      "children": [
+        {
+          "label": "Business Types",
+          "href": null,
+          "icon": "users",
+          "media": null,
+          "children": [
+            {
+              "label": "Multi-Location Businesses",
+              "href": "/who-we-serve/multi-location-businesses",
+              "icon": null,
+              "media": null,
+              "children": []
+            },
+            {
+              "label": "B2B Marketing",
+              "href": "/who-we-serve/b2b-marketing",
+              "icon": null,
+              "media": null,
+              "children": []
+            },
+            {
+              "label": "Ecommerce",
+              "href": "/who-we-serve/ecommerce",
+              "icon": null,
+              "media": null,
+              "children": []
+            },
+            {
+              "label": "Lead Generation",
+              "href": "/who-we-serve/lead-generation",
+              "icon": null,
+              "media": null,
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "Franchise Businesses",
+          "href": null,
+          "icon": "storefront",
+          "media": null,
+          "children": [
+            {
+              "label": "Franchise Marketing",
+              "href": "/who-we-serve/franchise-marketing",
+              "icon": null,
+              "media": null,
+              "children": []
+            },
+            {
+              "label": "Franchise Development",
+              "href": "/who-we-serve/franchise-development",
+              "icon": null,
+              "media": null,
+              "children": []
+            },
+            {
+              "label": "National to Local",
+              "href": "/who-we-serve/national-to-local",
+              "icon": null,
+              "media": null,
+              "children": []
+            },
+            {
+              "label": "Franchise SEO",
+              "href": "/who-we-serve/franchise-seo",
+              "icon": null,
+              "media": null,
+              "children": []
+            },
+            {
+              "label": "Franchise Paid Media",
+              "href": "/who-we-serve/franchise-paid-media",
+              "icon": null,
+              "media": null,
+              "children": []
+            },
+            {
+              "label": "Franchise Social Media",
+              "href": "/who-we-serve/franchise-social-media",
+              "icon": null,
+              "media": null,
+              "children": []
+            },
+            {
+              "label": "Franchise Email Marketing",
+              "href": "/who-we-serve/franchise-email-marketing",
+              "icon": null,
+              "media": null,
+              "children": []
+            },
+            {
+              "label": "Franchise Web Dev",
+              "href": "/who-we-serve/franchise-web-dev",
+              "icon": null,
+              "media": null,
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "Industries",
+          "href": null,
+          "icon": "globe",
+          "media": null,
+          "children": [
+            {
+              "label": "Automotive Services",
+              "href": "/who-we-serve/automotive-services",
+              "icon": null,
+              "media": null,
+              "children": []
+            },
+            {
+              "label": "Dental Practices",
+              "href": "/who-we-serve/dental-practices",
+              "icon": null,
+              "media": null,
+              "children": []
+            },
+            {
+              "label": "Financial Services",
+              "href": "/who-we-serve/financial-services",
+              "icon": null,
+              "media": null,
+              "children": []
+            },
+            {
+              "label": "Home Services",
+              "href": "/who-we-serve/home-services",
+              "icon": null,
+              "media": null,
+              "children": []
+            },
+            {
+              "label": "Healthcare Practices",
+              "href": "/who-we-serve/healthcare-practices",
+              "icon": null,
+              "media": null,
+              "children": []
+            },
+            {
+              "label": "View More Industries",
+              "href": "/who-we-serve/industries",
+              "icon": null,
+              "media": null,
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Services",
+      "href": "/services",
+      "icon": null,
+      "media": null,
+      "children": [
+        {
+          "label": "Owned Media",
+          "href": null,
+          "icon": "chart",
+          "media": null,
+          "children": [
+            {
+              "label": "Content Marketing",
+              "href": "/services/content-marketing",
+              "icon": null,
+              "media": null,
+              "children": []
+            },
+            {
+              "label": "Conversion Rate Optimization",
+              "href": "/services/conversion-rate-optimization",
+              "icon": null,
+              "media": null,
+              "children": []
+            },
+            {
+              "label": "Creative & Branding",
+              "href": "/services/creative-branding",
+              "icon": null,
+              "media": null,
+              "children": []
+            },
+            {
+              "label": "Website Development",
+              "href": "/services/website-development",
+              "icon": null,
+              "media": null,
+              "children": []
+            },
+            {
+              "label": "Reporting & Data Analytics",
+              "href": "/services/reporting-data-analytics",
+              "icon": null,
+              "media": null,
+              "children": []
+            },
+            {
+              "label": "Email & SMS Marketing",
+              "href": "/services/email-sms-marketing",
+              "icon": null,
+              "media": null,
+              "children": []
+            },
+            {
+              "label": "Lifecycle Marketing",
+              "href": "/services/lifecycle-marketing",
+              "icon": null,
+              "media": null,
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "Earned Media",
+          "href": null,
+          "icon": "newspaper",
+          "media": null,
+          "children": [
+            {
+              "label": "SEO",
+              "href": "/services/seo",
+              "icon": null,
+              "media": null,
+              "children": []
+            },
+            {
+              "label": "Local SEO",
+              "href": "/services/local-seo",
+              "icon": null,
+              "media": null,
+              "children": []
+            },
+            {
+              "label": "AI SEO",
+              "href": "/services/ai-seo",
+              "icon": null,
+              "media": null,
+              "children": []
+            },
+            {
+              "label": "Digital PR",
+              "href": "/services/digital-pr",
+              "icon": null,
+              "media": null,
+              "children": []
+            },
+            {
+              "label": "Social Media Management",
+              "href": "/services/social-media-management",
+              "icon": null,
+              "media": null,
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "Paid Media",
+          "href": null,
+          "icon": "rocket",
+          "media": null,
+          "children": [
+            {
+              "label": "PPC",
+              "href": "/services/ppc",
+              "icon": null,
+              "media": null,
+              "children": []
+            },
+            {
+              "label": "Paid Social Advertising",
+              "href": "/services/paid-social-advertising",
+              "icon": null,
+              "media": null,
+              "children": []
+            },
+            {
+              "label": "Display Advertising",
+              "href": "/services/display-advertising",
+              "icon": null,
+              "media": null,
+              "children": []
+            },
+            {
+              "label": "Influencer Marketing",
+              "href": "/services/influencer-marketing",
+              "icon": null,
+              "media": null,
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "About Us",
+      "href": "/company",
+      "icon": null,
+      "media": null,
+      "children": [
+        {
+          "label": "About Ignite",
+          "href": null,
+          "icon": "lightbulb",
+          "media": null,
+          "children": [
+            {
+              "label": "Our Story",
+              "href": "/company/our-story",
+              "icon": null,
+              "media": null,
+              "children": []
+            },
+            {
+              "label": "Our Values",
+              "href": "/company/our-values",
+              "icon": null,
+              "media": null,
+              "children": []
+            },
+            {
+              "label": "Our Team",
+              "href": "/company/our-team",
+              "icon": null,
+              "media": null,
+              "children": []
+            },
+            {
+              "label": "Clients",
+              "href": "/company/clients",
+              "icon": null,
+              "media": null,
+              "children": []
+            },
+            {
+              "label": "Diversity & Inclusion",
+              "href": "/company/diversity-inclusion",
+              "icon": null,
+              "media": null,
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "Hire Us",
+          "href": null,
+          "icon": "users",
+          "media": null,
+          "children": [
+            {
+              "label": "Contact Us - Get Started",
+              "href": "/company/contact-us",
+              "icon": null,
+              "media": null,
+              "children": []
+            },
+            {
+              "label": "Our Awards",
+              "href": "/company/our-awards",
+              "icon": null,
+              "media": null,
+              "children": []
+            },
+            {
+              "label": "Our Clients",
+              "href": "/company/clients",
+              "icon": null,
+              "media": null,
+              "children": []
+            },
+            {
+              "label": "Case Studies",
+              "href": "/company/blog",
+              "icon": null,
+              "media": null,
+              "children": []
+            },
+            {
+              "label": "Request Free Audit",
+              "href": "/company/contact-us",
+              "icon": null,
+              "media": null,
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "Join Our Team",
+          "href": null,
+          "icon": "storefront",
+          "media": null,
+          "children": [
+            {
+              "label": "Become a Referral Partner",
+              "href": "/company/referral-partner",
+              "icon": null,
+              "media": null,
+              "children": []
+            },
+            {
+              "label": "Career Opportunities",
+              "href": "/company/careers",
+              "icon": null,
+              "media": null,
+              "children": []
+            },
+            {
+              "label": "Hiring Notice",
+              "href": "/company/hiring-notice",
+              "icon": null,
+              "media": null,
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "AI",
+      "href": "/company/ai-opportunity-discovery",
+      "icon": null,
+      "media": null,
+      "children": [
+        {
+          "label": "AI Strategy",
+          "href": null,
+          "icon": "lightbulb",
+          "media": null,
+          "children": [
+            {
+              "label": "AI Opportunity Discovery",
+              "href": "/company/ai-opportunity-discovery",
+              "icon": null,
+              "media": null,
+              "children": []
+            },
+            {
+              "label": "Industry Specific AI Solution",
+              "href": "/company/industry-specific-ai-solution",
+              "icon": null,
+              "media": null,
+              "children": []
+            },
+            {
+              "label": "AI Optimization and Continuous Improvement",
+              "href": "/company/ai-optimization-continuous-improvement",
+              "icon": null,
+              "media": null,
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "AI Delivery",
+          "href": null,
+          "icon": "rocket",
+          "media": null,
+          "children": [
+            {
+              "label": "Custom AI Agent Development",
+              "href": "/company/custom-ai-agent-development",
+              "icon": null,
+              "media": null,
+              "children": []
+            },
+            {
+              "label": "Workflow Automation and Integration",
+              "href": "/company/workflow-automation-integration",
+              "icon": null,
+              "media": null,
+              "children": []
+            },
+            {
+              "label": "AI Infrastructure and Deployment",
+              "href": "/company/ai-infrastructure-deployment",
+              "icon": null,
+              "media": null,
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Free Resources",
+      "href": "/resources",
+      "icon": null,
+      "media": {
+        "eyebrow": "Insights from the team",
+        "title": "Free resources",
+        "subtitle": "Articles, webinars, and planning guides for teams that want to move faster.",
+        "images": [
+          {
+            "src": "data:image/svg+xml;utf8,%0A%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%221200%22%20height%3D%22720%22%20viewBox%3D%220%200%201200%20720%22%20fill%3D%22none%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%20%20%3ClinearGradient%20id%3D%22blogBg1%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%236aa9ff%22%20%2F%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22%234c8dd9%22%20%2F%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%232b6cb0%22%20%2F%3E%0A%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Crect%20width%3D%221200%22%20height%3D%22720%22%20fill%3D%22url(%23blogBg1)%22%20%2F%3E%0A%20%20%3Ccircle%20cx%3D%22260%22%20cy%3D%22200%22%20r%3D%22110%22%20fill%3D%22%238fbfff%22%20%2F%3E%0A%20%20%3Ccircle%20cx%3D%22900%22%20cy%3D%22240%22%20r%3D%22130%22%20fill%3D%22%237aa8e6%22%20%2F%3E%0A%20%20%3Crect%20x%3D%22200%22%20y%3D%22340%22%20width%3D%22480%22%20height%3D%2224%22%20rx%3D%2212%22%20fill%3D%22%23cfe2ff%22%20%2F%3E%0A%20%20%3Crect%20x%3D%22200%22%20y%3D%22380%22%20width%3D%22360%22%20height%3D%2218%22%20rx%3D%229%22%20fill%3D%22%23b7d3ff%22%20%2F%3E%0A%20%20%3Crect%20x%3D%22200%22%20y%3D%22415%22%20width%3D%22420%22%20height%3D%2218%22%20rx%3D%229%22%20fill%3D%22%23b7d3ff%22%20%2F%3E%0A%3C%2Fsvg%3E%0A",
+            "alt": "Distributed Databases: Enabling Agentic AI",
+            "className": "absolute left-0 top-16 w-32 -rotate-6 shadow-[0_18px_30px_rgba(1,15,24,0.28)]"
+          },
+          {
+            "src": "data:image/svg+xml;utf8,%0A%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%221200%22%20height%3D%22720%22%20viewBox%3D%220%200%201200%20720%22%20fill%3D%22none%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%20%20%3ClinearGradient%20id%3D%22blogBg2%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%233437a8%22%20%2F%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%2250%25%22%20stop-color%3D%22%232c2f8f%22%20%2F%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%231c1f6b%22%20%2F%3E%0A%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Crect%20width%3D%221200%22%20height%3D%22720%22%20fill%3D%22url(%23blogBg2)%22%20%2F%3E%0A%20%20%3Crect%20x%3D%22140%22%20y%3D%22140%22%20width%3D%22520%22%20height%3D%22320%22%20rx%3D%2220%22%20fill%3D%22%234c4fb7%22%20%2F%3E%0A%20%20%3Crect%20x%3D%22720%22%20y%3D%22200%22%20width%3D%22320%22%20height%3D%22220%22%20rx%3D%2220%22%20fill%3D%22%235a5dc4%22%20%2F%3E%0A%20%20%3Ccircle%20cx%3D%22920%22%20cy%3D%22140%22%20r%3D%2260%22%20fill%3D%22%237a7fe0%22%20%2F%3E%0A%20%20%3Crect%20x%3D%22200%22%20y%3D%22520%22%20width%3D%22420%22%20height%3D%2224%22%20rx%3D%2212%22%20fill%3D%22%23c9cbff%22%20%2F%3E%0A%20%20%3Crect%20x%3D%22200%22%20y%3D%22560%22%20width%3D%22320%22%20height%3D%2218%22%20rx%3D%229%22%20fill%3D%22%23b2b5f2%22%20%2F%3E%0A%3C%2Fsvg%3E%0A",
+            "alt": "Product Interfaces in 2025",
+            "className": "absolute left-20 top-0 w-44 shadow-[0_18px_30px_rgba(1,15,24,0.28)]"
+          },
+          {
+            "src": "data:image/svg+xml;utf8,%0A%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%221200%22%20height%3D%22720%22%20viewBox%3D%220%200%201200%20720%22%20fill%3D%22none%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%20%20%3ClinearGradient%20id%3D%22blogBg3%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%236f8bff%22%20%2F%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%2250%25%22%20stop-color%3D%22%233c5ac4%22%20%2F%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23243a8f%22%20%2F%3E%0A%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Crect%20width%3D%221200%22%20height%3D%22720%22%20fill%3D%22url(%23blogBg3)%22%20%2F%3E%0A%20%20%3Crect%20x%3D%22160%22%20y%3D%22180%22%20width%3D%22360%22%20height%3D%22260%22%20rx%3D%2220%22%20fill%3D%22%237da0ff%22%20%2F%3E%0A%20%20%3Crect%20x%3D%22560%22%20y%3D%22200%22%20width%3D%22420%22%20height%3D%22300%22%20rx%3D%2220%22%20fill%3D%22%234f6ed9%22%20%2F%3E%0A%20%20%3Ccircle%20cx%3D%22920%22%20cy%3D%22150%22%20r%3D%2270%22%20fill%3D%22%239db8ff%22%20%2F%3E%0A%20%20%3Crect%20x%3D%22200%22%20y%3D%22540%22%20width%3D%22420%22%20height%3D%2224%22%20rx%3D%2212%22%20fill%3D%22%23d4ddff%22%20%2F%3E%0A%3C%2Fsvg%3E%0A",
+            "alt": "Agentic AI Across Global Regions",
+            "className": "absolute right-0 top-16 w-32 rotate-6 shadow-[0_18px_30px_rgba(1,15,24,0.28)]"
+          }
+        ]
+      },
+      "children": [
+        {
+          "label": "Free Resources",
+          "href": null,
+          "icon": "book",
+          "media": null,
+          "children": [
+            {
+              "label": "Our Blog",
+              "href": "/company/blog",
+              "icon": null,
+              "media": null,
+              "children": []
+            },
+            {
+              "label": "YouTube Channel",
+              "href": "/resources/webinars",
+              "icon": null,
+              "media": null,
+              "children": []
+            },
+            {
+              "label": "Marketing Resources",
+              "href": "/resources/whitepaper",
+              "icon": null,
+              "media": null,
+              "children": []
+            },
+            {
+              "label": "Franchise Marketing Resources",
+              "href": "/resources/whitepaper",
+              "icon": null,
+              "media": null,
+              "children": []
+            },
+            {
+              "label": "Attend Our Next Webinar",
+              "href": "/resources/webinars",
+              "icon": null,
+              "media": null,
+              "children": []
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "cta": [
+    {
+      "label": "Get Started",
+      "href": "/company/contact-us",
+      "icon": null,
+      "media": null,
+      "children": []
+    }
+  ]
+}

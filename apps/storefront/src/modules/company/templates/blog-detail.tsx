@@ -14,7 +14,7 @@ const BlogDetailTemplate = ({ post }: { post: BlogPost }) => {
     <MarketingDetailShell
       breadcrumbs={[
         { label: "Home", href: "/" },
-        { label: "Company", href: "/company" },
+        { label: "Company" },
         { label: "Blog", href: "/company/blog" },
         { label: post.title },
       ]}

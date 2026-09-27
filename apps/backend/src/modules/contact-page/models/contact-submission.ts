@@ -9,8 +9,10 @@ export const ContactSubmission = model.define("contact_submission", {
   id: model.id().primaryKey(),
   full_name: model.text(),
   company: model.text().nullable(),
+  website: model.text().nullable(),
   email: model.text(),
   phone_number: model.text().nullable(),
   location: model.text().nullable(),
+  enquiry_type: model.text().nullable(),
   message: model.text(),
 })

@@ -6,9 +6,11 @@ import type ContactPageModuleService from "../../modules/contact-page/service"
 export type CreateContactSubmissionInput = {
   full_name: string
   company?: string | null
+  website?: string | null
   email: string
   phone_number?: string | null
   location?: string | null
+  enquiry_type?: string | null
   message: string
 }
 

@@ -23,9 +23,9 @@ import { useState } from "react"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import BrandMark from "@modules/layout/components/brand-mark"
 import {
-  ctaMenuItem,
-  primaryMenuItems,
   type MegaMenuGroup,
+  type MenuItem,
+  type MenuLink,
 } from "@modules/layout/constants/menu-items"
 
 const megaMenuIconMap = {
@@ -74,6 +74,9 @@ const MegaMenuGroupList = ({
 }
 
 type SideMenuProps = {
+  /** Managed in Medusa Admin and passed down by the nav. */
+  menuItems: MenuItem[]
+  cta: MenuLink
   regions: HttpTypes.StoreRegion[] | null
   locales: Locale[] | null
   currentLocale: string | null
@@ -94,6 +97,8 @@ const MenuToggleIcon = () => {
 }
 
 const SideMenu = ({
+  menuItems,
+  cta,
   regions,
   locales,
   currentLocale,
@@ -167,13 +172,13 @@ const SideMenu = ({
           data-testid="nav-menu-popup"
         >
           <ul className="space-y-1">
-            {primaryMenuItems.map((item) => {
+            {menuItems.map((item) => {
               const children = item.children ?? []
               const megaMenuGroups = item.megaMenu?.groups ?? []
 
               return (
                 <li
-                  key={item.href}
+                  key={item.label}
                   className="border-b border-transparent last:border-none"
                 >
                   {item.megaMenu ? (
@@ -234,7 +239,7 @@ const SideMenu = ({
                         </>
                       )}
                     </Disclosure>
-                  ) : (
+                  ) : item.href ? (
                     <LocalizedClientLink
                       href={item.href}
                       className="block py-4 text-[1.05rem] font-semibold text-white transition-colors duration-200 hover:text-[#9fe4ff]"
@@ -243,6 +248,10 @@ const SideMenu = ({
                     >
                       {item.label}
                     </LocalizedClientLink>
+                  ) : (
+                    <span className="block py-4 text-[1.05rem] font-semibold text-white">
+                      {item.label}
+                    </span>
                   )}
                 </li>
               )
@@ -251,11 +260,11 @@ const SideMenu = ({
 
           <div className="mt-4 border-t border-white/10 pt-4">
             <LocalizedClientLink
-              href={ctaMenuItem.href}
+              href={cta.href}
               className="mx-auto flex min-h-12 w-full max-w-[185px] items-center justify-center bg-brand-cta px-4 py-3 text-[0.98rem] font-bold text-white shadow-[0_16px_32px_rgba(217,115,72,0.22)] transition-transform duration-200 hover:-translate-y-0.5"
               onClick={closeMenu}
             >
-              {ctaMenuItem.label}
+              {cta.label}
             </LocalizedClientLink>
           </div>
         </div>
