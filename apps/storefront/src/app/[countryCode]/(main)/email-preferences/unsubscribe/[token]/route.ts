@@ -47,7 +47,7 @@ export async function POST(
     })
     return new NextResponse(
       htmlPage(
-        "You’re unsubscribed",
+        "Youâ€™re unsubscribed",
         "You will no longer receive Aurnelle cart reminder emails."
       ),
       { headers: { "content-type": "text/html; charset=utf-8" } }
@@ -55,7 +55,7 @@ export async function POST(
   } catch {
     return new NextResponse(
       htmlPage(
-        "We couldn’t update your preferences",
+        "We couldnâ€™t update your preferences",
         "This link may be invalid. Please contact Aurnelle support if you need help."
       ),
       { status: 400, headers: { "content-type": "text/html; charset=utf-8" } }
