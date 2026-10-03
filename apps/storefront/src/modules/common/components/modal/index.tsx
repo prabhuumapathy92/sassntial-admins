@@ -37,10 +37,12 @@ const Modal = ({
           <div className="fixed inset-0 bg-opacity-75 backdrop-blur-md  h-screen" />
         </Transition.Child>
 
-        <div className="fixed inset-0 overflow-y-hidden">
+        {/* The panel grows to fit its content. Only on a screen shorter than
+            the panel does the overlay scroll, so no field is ever cut off. */}
+        <div className="fixed inset-0 overflow-y-auto">
           <div
             className={clx(
-              "flex min-h-full h-full justify-center p-4 text-center",
+              "flex min-h-full justify-center p-4 text-center",
               {
                 "items-center": !search,
                 "items-start": search,
@@ -59,7 +61,7 @@ const Modal = ({
               <Dialog.Panel
                 data-testid={dataTestId}
                 className={clx(
-                  "flex flex-col justify-start w-full transform p-5 text-left align-middle transition-all max-h-[75vh] h-fit overflow-y-auto",
+                  "flex flex-col justify-start w-full transform p-5 text-left align-middle transition-all h-fit",
                   {
                     "max-w-md": size === "small",
                     "max-w-xl": size === "medium",

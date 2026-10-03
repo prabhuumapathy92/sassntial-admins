@@ -51,23 +51,25 @@ const Register = ({ setCurrentView, redirectTo }: Props) => {
           />
         </div>
 
-        <AuthField
-          label="Email"
-          name="email"
-          type="email"
-          placeholder="you@company.com"
-          autoComplete="email"
-          required
-          data-testid="email-input"
-        />
-        <AuthField
-          label="Phone"
-          name="phone"
-          type="tel"
-          placeholder="Optional"
-          autoComplete="tel"
-          data-testid="phone-input"
-        />
+        <div className="grid gap-4 sm:grid-cols-2">
+          <AuthField
+            label="Email"
+            name="email"
+            type="email"
+            placeholder="you@company.com"
+            autoComplete="email"
+            required
+            data-testid="email-input"
+          />
+          <AuthField
+            label="Phone"
+            name="phone"
+            type="tel"
+            placeholder="Optional"
+            autoComplete="tel"
+            data-testid="phone-input"
+          />
+        </div>
         <AuthField
           label="Password"
           name="password"

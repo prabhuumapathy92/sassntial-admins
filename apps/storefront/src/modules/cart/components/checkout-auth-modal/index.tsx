@@ -31,18 +31,18 @@ const CheckoutAuthModal = ({
 
   return (
     <Modal isOpen={isOpen} close={close} data-testid="checkout-auth-modal">
-      <div className="-mb-2 flex justify-end">
+      <div className="relative px-1 pb-1 pt-2 sm:px-3">
+        {/* Sits beside the heading rather than on a row of its own, which
+            keeps the popup short enough to fit without scrolling. */}
         <button
           type="button"
           onClick={close}
           aria-label="Close"
-          className="p-1 text-slate-500 transition-colors hover:text-brand-navy"
+          className="absolute right-0 top-0 p-1 text-slate-500 transition-colors hover:text-brand-navy"
           data-testid="close-modal-button"
         >
           <X size={20} />
         </button>
-      </div>
-      <div className="px-1 pb-2 sm:px-3">
         {view === LOGIN_VIEW.REGISTER ? (
           <Register setCurrentView={setView} redirectTo={redirectTo} />
         ) : (

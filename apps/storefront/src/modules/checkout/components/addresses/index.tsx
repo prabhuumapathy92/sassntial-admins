@@ -35,7 +35,7 @@ const Addresses = ({
       <div className="mb-8 flex flex-row items-center justify-between gap-4">
         <Heading
           level="h2"
-          className="h1-core font-sans h2-core text-[1.55rem] font-semibold text-slate-950"
+          className="h1-core font-sans h2-core text-[19px] font-semibold text-slate-950"
         >
           Booking Address
           {!isOpen && <CheckCircleSolid />}
@@ -77,7 +77,7 @@ const Addresses = ({
                   className="border border-slate-200 bg-slate-50/70 px-4 py-4"
                   data-testid="shipping-address-summary"
                 >
-                  <Text className="h1-core font-sans h2-core text-[1.55rem] font-semibold text-slate-950">
+                  <Text className="mb-2 font-[family-name:var(--font-tech)] text-[0.68rem] uppercase text-slate-500">
                     Booking Address
                   </Text>
                   <Text className="text-sm leading-7 text-slate-700">

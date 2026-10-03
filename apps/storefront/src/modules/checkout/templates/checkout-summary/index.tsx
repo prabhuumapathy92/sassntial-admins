@@ -19,7 +19,7 @@ const CheckoutSummary = ({ cart }: { cart: any }) => {
           <div className="flex items-center justify-between gap-4">
             <Heading
               level="h2"
-              className="font-sans text-[1.9rem] font-semibold text-slate-950"
+              className="font-sans text-[19px] font-semibold text-slate-950"
             >
               In your Cart
             </Heading>
