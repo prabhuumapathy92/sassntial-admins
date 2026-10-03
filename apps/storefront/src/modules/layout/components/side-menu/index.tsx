@@ -81,6 +81,8 @@ type SideMenuProps = {
   locales: Locale[] | null
   currentLocale: string | null
   cartItemCount?: number
+  /** First name of the signed-in customer, shown beside the account icon. */
+  customerName?: string | null
 }
 
 const MenuToggleIcon = () => {
@@ -103,6 +105,7 @@ const SideMenu = ({
   locales,
   currentLocale,
   cartItemCount = 0,
+  customerName,
 }: SideMenuProps) => {
   void regions
   void locales
@@ -127,10 +130,18 @@ const SideMenu = ({
           <LocalizedClientLink
             href="/account"
             onClick={closeMenu}
-            className="inline-flex h-11 w-11 items-center justify-center text-white/85 transition-colors duration-200 hover:bg-white/10 hover:text-white"
-            aria-label="Account"
+            className={clx(
+              "inline-flex h-11 items-center justify-center text-white/85 transition-colors duration-200 hover:bg-white/10 hover:text-white",
+              customerName ? "max-w-[120px] gap-1.5 px-2" : "w-11"
+            )}
+            aria-label={customerName ? `Account for ${customerName}` : "Sign in"}
           >
-            <User className="h-5 w-5" />
+            <User className="h-5 w-5 shrink-0" />
+            {customerName ? (
+              <span className="truncate text-xs font-semibold">
+                {customerName}
+              </span>
+            ) : null}
           </LocalizedClientLink>
 
           <LocalizedClientLink

@@ -5,9 +5,17 @@ import { notFound } from "next/navigation"
 import { retrieveCustomer } from "@lib/data/customer"
 import { listOrders } from "@lib/data/orders"
 
-export const metadata: Metadata = {
-  title: "Account",
-  description: "Overview of your account activity.",
+export async function generateMetadata(): Promise<Metadata> {
+  // Signed out, the layout shows the sign-in view at this URL instead.
+  const customer = await retrieveCustomer().catch(() => null)
+
+  return customer
+    ? { title: "Account", description: "Overview of your account activity." }
+    : {
+        title: "Sign in",
+        description:
+          "Sign in to book training sessions, reach your recordings and track your orders.",
+      }
 }
 
 export default async function OverviewTemplate() {

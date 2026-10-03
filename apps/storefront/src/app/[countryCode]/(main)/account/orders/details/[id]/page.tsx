@@ -11,8 +11,10 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   const params = await props.params
   const order = await retrieveOrder(params.id).catch(() => null)
 
+  // Signed out, the layout shows the sign-in view here, so a missing order must
+  // not turn the whole page into a 404.
   if (!order) {
-    notFound()
+    return { title: "Order" }
   }
 
   return {

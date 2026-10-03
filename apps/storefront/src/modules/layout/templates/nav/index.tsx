@@ -1,4 +1,5 @@
 import { retrieveCart } from "@lib/data/cart"
+import { retrieveCustomer } from "@lib/data/customer"
 import { listLocales } from "@lib/data/locales"
 import { getLocale } from "@lib/data/locale-actions"
 import { listRegions } from "@lib/data/regions"
@@ -12,12 +13,22 @@ import SideMenu from "@modules/layout/components/side-menu"
 import { listNavigation } from "@lib/data/navigation"
 
 export default async function Nav() {
-  const [regions, locales, currentLocale, mobileCart] = await Promise.all([
-    listRegions().then((regions: StoreRegion[]) => regions).catch(() => null),
-    listLocales().catch(() => null),
-    getLocale().catch(() => null),
-    retrieveCart().catch(() => null),
-  ])
+  const [regions, locales, currentLocale, mobileCart, customer] =
+    await Promise.all([
+      listRegions()
+        .then((regions: StoreRegion[]) => regions)
+        .catch(() => null),
+      listLocales().catch(() => null),
+      getLocale().catch(() => null),
+      retrieveCart().catch(() => null),
+      retrieveCustomer().catch(() => null),
+    ])
+
+  // Shown beside the account icon once signed in; falls back to the part of
+  // the email before the @ for customers who never entered a first name.
+  const customerName = customer
+    ? customer.first_name?.trim() || customer.email?.split("@")[0] || null
+    : null
 
   const mobileCartItemCount =
     mobileCart?.items?.reduce((total, item) => total + item.quantity, 0) || 0
@@ -37,6 +48,7 @@ export default async function Nav() {
             locales={locales}
             currentLocale={currentLocale}
             cartItemCount={mobileCartItemCount}
+            customerName={customerName}
           />
         </div>
 
@@ -54,7 +66,10 @@ export default async function Nav() {
           <DesktopMegaMenu items={navigation.primary} />
 
           <div className="ml-auto flex items-center gap-3">
-            <AccountButton className="inline-flex h-11 w-11 items-center justify-center border border-white/10 bg-white/5 text-white/90 transition-colors duration-200 hover:bg-white/10 hover:text-white" />
+            <AccountButton
+              customerName={customerName}
+              className="inline-flex h-11 w-11 items-center justify-center border border-white/10 bg-white/5 text-white/90 transition-colors duration-200 hover:bg-white/10 hover:text-white"
+            />
             <CartButton
               iconOnly
               linkClassName="relative inline-flex h-11 w-11 items-center justify-center border border-white/10 bg-white/5 text-white/90 transition-colors duration-200 hover:bg-white/10 hover:text-white"
