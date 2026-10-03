@@ -9,10 +9,13 @@ type ShippingDetailsProps = {
 }
 
 const ShippingDetails = ({ order }: ShippingDetailsProps) => {
+  // Webinar orders are placed without a delivery method.
+  const shippingMethod = order.shipping_methods?.[0]
+
   return (
     <div>
       <Heading level="h2" className="h1-core font-sans h2-core text-[1.55rem] font-semibold text-slate-950">
-        Delivery
+        {shippingMethod ? "Delivery" : "Booking details"}
       </Heading>
       <div className="flex items-start gap-x-8">
         <div
@@ -50,20 +53,22 @@ const ShippingDetails = ({ order }: ShippingDetailsProps) => {
           <Text className="txt-medium text-ui-fg-subtle">{order.email}</Text>
         </div>
 
-        <div
-          className="flex flex-col w-1/3"
-          data-testid="shipping-method-summary"
-        >
-          <Text className="txt-medium-plus text-ui-fg-base mb-1">Method</Text>
-          <Text className="txt-medium text-ui-fg-subtle">
-            {(order as any).shipping_methods[0]?.name} (
-            {convertToLocale({
-              amount: order.shipping_methods?.[0].total ?? 0,
-              currency_code: order.currency_code,
-            })}
-            )
-          </Text>
-        </div>
+        {shippingMethod && (
+          <div
+            className="flex flex-col w-1/3"
+            data-testid="shipping-method-summary"
+          >
+            <Text className="txt-medium-plus text-ui-fg-base mb-1">Method</Text>
+            <Text className="txt-medium text-ui-fg-subtle">
+              {shippingMethod.name} (
+              {convertToLocale({
+                amount: shippingMethod.total ?? 0,
+                currency_code: order.currency_code,
+              })}
+              )
+            </Text>
+          </div>
+        )}
       </div>
       <Divider className="mt-8" />
     </div>

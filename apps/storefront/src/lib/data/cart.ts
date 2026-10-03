@@ -425,8 +425,9 @@ export async function setAddresses(currentState: unknown, formData: FormData) {
     return e.message
   }
 
+  // Webinars are never shipped, so there is no delivery step.
   redirect(
-    `/${formData.get("shipping_address.country_code")}/checkout?step=delivery`
+    `/${formData.get("shipping_address.country_code")}/checkout?step=payment`
   )
 }
 
@@ -445,6 +446,13 @@ export async function placeOrder(cartId?: string) {
   const headers = {
     ...(await getAuthHeaders()),
   }
+
+  // Medusa refuses to complete a cart whose items require shipping but which
+  // has no delivery method. Webinars are never shipped, so the backend clears
+  // that flag first; checkout has no delivery step to set a method.
+  await sdk.client
+    .fetch(`/store/carts/${id}/mark-digital`, { method: "POST", headers })
+    .catch(medusaError)
 
   const cartRes = await sdk.store.cart
     .complete(id, {}, headers)

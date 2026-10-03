@@ -60,7 +60,7 @@ const Addresses = ({
               className="mt-2 h-12 bg-slate-950 px-5 text-sm font-medium text-white hover:bg-slate-900"
               data-testid="submit-address-button"
             >
-              Continue to delivery
+              Continue to payment
             </SubmitButton>
             <ErrorMessage
               error={message}

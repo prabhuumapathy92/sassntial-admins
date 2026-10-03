@@ -36,7 +36,7 @@ const CheckoutSummary = ({ cart }: { cart: any }) => {
           <div className="border border-slate-200 bg-slate-50/70 px-4 py-4">
             <div className="flex flex-col gap-y-3 text-sm text-slate-600">
               <div className="flex items-center justify-between gap-4">
-                <span>Subtotal (excl. shipping and taxes)</span>
+                <span>Subtotal (excl. taxes)</span>
                 <span data-testid="cart-subtotal" data-value={itemSubtotal}>
                   {convertToLocale({
                     amount: itemSubtotal,
@@ -44,15 +44,23 @@ const CheckoutSummary = ({ cart }: { cart: any }) => {
                   })}
                 </span>
               </div>
-              <div className="flex items-center justify-between gap-4">
-                <span>Shipping</span>
-                <span data-testid="cart-shipping" data-value={shippingSubtotal}>
-                  {convertToLocale({
-                    amount: shippingSubtotal,
-                    currency_code: cart.currency_code,
-                  })}
-                </span>
-              </div>
+              {/* Webinars carry no shipping. A cart that picked a paid delivery
+                  method before checkout dropped that step still shows it, so
+                  the total adds up. */}
+              {!!shippingSubtotal && (
+                <div className="flex items-center justify-between gap-4">
+                  <span>Shipping</span>
+                  <span
+                    data-testid="cart-shipping"
+                    data-value={shippingSubtotal}
+                  >
+                    {convertToLocale({
+                      amount: shippingSubtotal,
+                      currency_code: cart.currency_code,
+                    })}
+                  </span>
+                </div>
+              )}
               {!!discountSubtotal && (
                 <div className="flex items-center justify-between gap-4">
                   <span>Discount</span>

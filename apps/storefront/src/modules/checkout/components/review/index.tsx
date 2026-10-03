@@ -14,9 +14,7 @@ const Review = ({ cart }: { cart: any }) => {
     cart?.gift_cards && cart?.gift_cards?.length > 0 && cart?.total === 0
 
   const previousStepsCompleted =
-    cart.shipping_address &&
-    cart.shipping_methods.length > 0 &&
-    (cart.payment_collection || paidByGiftcard)
+    cart.shipping_address && (cart.payment_collection || paidByGiftcard)
 
   return (
     <section className="overflow-hidden border border-slate-200 bg-white px-5 py-6 shadow-[0_18px_40px_rgba(15,23,42,0.04)] small:px-7">

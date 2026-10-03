@@ -208,7 +208,13 @@ const isSafeImageUrl = (value: string) =>
   /^https:\/\//i.test(value) ||
   (value.startsWith("/") && !value.startsWith("//"))
 
-export default async function Footer() {
+/**
+ * `compact` keeps only the offices, phone, copyright and legal links. Checkout
+ * uses it so shoppers are not pulled away by the full link columns.
+ */
+export default async function Footer({
+  compact = false,
+}: { compact?: boolean } = {}) {
   const footer = await retrieveFooterConfig()
   const palette = FOOTER_PALETTES[footer.theme] ?? FOOTER_PALETTES.navy
   const year = new Date().getFullYear()
@@ -231,69 +237,73 @@ export default async function Footer() {
   return (
     <footer className={palette.footer}>
       <div className="content-container py-12 sm:py-16">
-        <div className="grid gap-12 sm:grid-cols-2 xl:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)_minmax(0,1fr)_320px]">
-          {groups.map((group, index) => (
-            <FooterLinkColumn
-              key={`${group.title}-${index}`}
-              group={group}
-              palette={palette}
-            />
-          ))}
+        {compact ? null : (
+          <div className="grid gap-12 sm:grid-cols-2 xl:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)_minmax(0,1fr)_320px]">
+            {groups.map((group, index) => (
+              <FooterLinkColumn
+                key={`${group.title}-${index}`}
+                group={group}
+                palette={palette}
+              />
+            ))}
 
-          <div className="flex flex-col items-start gap-6 xl:items-center">
-            <LocalizedClientLink
-              href="/"
-              className="inline-flex min-h-12 items-center"
-            >
-              {logo ? (
-                <Image
-                  src={logo}
-                  alt={footer.logo_alt || "Site logo"}
-                  width={160}
-                  height={64}
-                  unoptimized
-                  className="max-h-16 w-auto object-contain"
-                />
-              ) : (
-                <BrandMark
-                  alt={footer.logo_alt || "Site logo"}
-                  variant={footer.theme === "light" ? "dark" : "light"}
-                  className="scale-[0.92] origin-left xl:origin-center"
-                />
-              )}
-            </LocalizedClientLink>
-
-            {socialLinks.length ? (
-              <div className="flex flex-wrap items-center gap-3">
-                {socialLinks.map((social, index) => (
-                  <FooterAnchor
-                    key={`${social.label}-${index}`}
-                    href={social.href}
-                    className={`inline-flex h-10 w-10 items-center justify-center border transition-colors duration-200 ${palette.social}`}
-                  >
-                    <span className="sr-only">{social.label}</span>
-                    <SocialIcon
-                      platform={social.platform}
-                      label={social.label}
-                    />
-                  </FooterAnchor>
-                ))}
-              </div>
-            ) : null}
-
-            {cta.label.trim() ? (
-              <FooterAnchor
-                href={cta.href}
-                className="inline-flex min-h-11 items-center justify-center bg-gradient-to-r from-[#f3c04f] to-[#e07b4c] px-5 text-[0.88rem] font-bold uppercase text-white shadow-[0_14px_30px_rgba(224,123,76,0.22)] transition-transform duration-200 hover:-translate-y-0.5"
+            <div className="flex flex-col items-start gap-6 xl:items-center">
+              <LocalizedClientLink
+                href="/"
+                className="inline-flex min-h-12 items-center"
               >
-                {cta.label}
-              </FooterAnchor>
-            ) : null}
+                {logo ? (
+                  <Image
+                    src={logo}
+                    alt={footer.logo_alt || "Site logo"}
+                    width={160}
+                    height={64}
+                    unoptimized
+                    className="max-h-16 w-auto object-contain"
+                  />
+                ) : (
+                  <BrandMark
+                    alt={footer.logo_alt || "Site logo"}
+                    variant={footer.theme === "light" ? "dark" : "light"}
+                    className="scale-[0.92] origin-left xl:origin-center"
+                  />
+                )}
+              </LocalizedClientLink>
+
+              {socialLinks.length ? (
+                <div className="flex flex-wrap items-center gap-3">
+                  {socialLinks.map((social, index) => (
+                    <FooterAnchor
+                      key={`${social.label}-${index}`}
+                      href={social.href}
+                      className={`inline-flex h-10 w-10 items-center justify-center border transition-colors duration-200 ${palette.social}`}
+                    >
+                      <span className="sr-only">{social.label}</span>
+                      <SocialIcon
+                        platform={social.platform}
+                        label={social.label}
+                      />
+                    </FooterAnchor>
+                  ))}
+                </div>
+              ) : null}
+
+              {cta.label.trim() ? (
+                <FooterAnchor
+                  href={cta.href}
+                  className="inline-flex min-h-11 items-center justify-center bg-gradient-to-r from-[#f3c04f] to-[#e07b4c] px-5 text-[0.88rem] font-bold uppercase text-white shadow-[0_14px_30px_rgba(224,123,76,0.22)] transition-transform duration-200 hover:-translate-y-0.5"
+                >
+                  {cta.label}
+                </FooterAnchor>
+              ) : null}
+            </div>
           </div>
-        </div>
+        )}
 
         {locations.length ? (
-          <div className={`mt-12 border-t pt-10 ${palette.border}`}>
+          <div
+            className={compact ? "" : `mt-12 border-t pt-10 ${palette.border}`}
+          >
             <div className="grid gap-8 sm:grid-cols-2 xl:grid-cols-4">
               {locations.map((location, index) => (
                 <div
@@ -321,7 +331,11 @@ export default async function Footer() {
         ) : null}
 
         <div
-          className={`mt-12 flex flex-col items-center gap-4 border-t pt-8 text-center ${palette.border}`}
+          className={`flex flex-col items-center gap-4 text-center ${
+            compact && !locations.length
+              ? ""
+              : `mt-12 border-t pt-8 ${palette.border}`
+          }`}
         >
           {footer.phone_label.trim() ? (
             <FooterAnchor
