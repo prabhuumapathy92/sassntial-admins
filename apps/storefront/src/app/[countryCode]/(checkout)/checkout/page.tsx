@@ -4,13 +4,15 @@ import PaymentWrapper from "@modules/checkout/components/payment-wrapper"
 import CheckoutForm from "@modules/checkout/templates/checkout-form"
 import CheckoutSummary from "@modules/checkout/templates/checkout-summary"
 import { Metadata } from "next"
-import { notFound } from "next/navigation"
+import { notFound, redirect } from "next/navigation"
 
 export const metadata: Metadata = {
   title: "Checkout",
 }
 
-export default async function Checkout() {
+export default async function Checkout(props: {
+  params: Promise<{ countryCode: string }>
+}) {
   const cart = await retrieveCart()
 
   if (!cart) {
@@ -18,6 +20,13 @@ export default async function Checkout() {
   }
 
   const customer = await retrieveCustomer()
+
+  // Checkout needs an account. Signed-out visitors go back to the cart, which
+  // opens the sign-in popup and returns here once they are in.
+  if (!customer) {
+    const { countryCode } = await props.params
+    redirect(`/${countryCode}/cart?sign_in=1`)
+  }
 
   return (
     <div className="bg-[linear-gradient(180deg,#f8fbff_0%,#eef4ff_100%)]">

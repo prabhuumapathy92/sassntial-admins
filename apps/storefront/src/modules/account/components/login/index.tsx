@@ -10,9 +10,11 @@ import ErrorMessage from "@modules/checkout/components/error-message"
 
 type Props = {
   setCurrentView: (view: LOGIN_VIEW) => void
+  /** Where to go once signed in; without it the current page re-renders. */
+  redirectTo?: string
 }
 
-const Login = ({ setCurrentView }: Props) => {
+const Login = ({ setCurrentView, redirectTo }: Props) => {
   const [message, formAction] = useActionState(login, null)
 
   return (
@@ -24,6 +26,9 @@ const Login = ({ setCurrentView }: Props) => {
       </p>
 
       <form className="mt-7 flex flex-col gap-y-4" action={formAction}>
+        {redirectTo ? (
+          <input type="hidden" name="redirect_to" value={redirectTo} />
+        ) : null}
         <AuthField
           label="Email"
           name="email"

@@ -59,6 +59,24 @@ export const updateCustomer = async (body: HttpTypes.StoreUpdateCustomer) => {
   return updateRes
 }
 
+/**
+ * Sends the shopper on after signing in when the form names a destination, as
+ * the cart's sign-in popup does with checkout. Only same-site paths are
+ * followed, so the field cannot be used to redirect off the store.
+ */
+function redirectAfterSignIn(formData: FormData) {
+  const destination = formData.get("redirect_to")
+
+  if (
+    typeof destination === "string" &&
+    destination.startsWith("/") &&
+    !destination.startsWith("//") &&
+    !destination.startsWith("/\\")
+  ) {
+    redirect(destination)
+  }
+}
+
 export async function signup(_currentState: unknown, formData: FormData) {
   const password = formData.get("password") as string
   const customerForm = {
@@ -67,6 +85,8 @@ export async function signup(_currentState: unknown, formData: FormData) {
     last_name: formData.get("last_name") as string,
     phone: formData.get("phone") as string,
   }
+
+  let createdCustomer: HttpTypes.StoreCustomer
 
   try {
     const token = await sdk.auth.register("customer", "emailpass", {
@@ -80,11 +100,12 @@ export async function signup(_currentState: unknown, formData: FormData) {
       ...(await getAuthHeaders()),
     }
 
-    const { customer: createdCustomer } = await sdk.store.customer.create(
+    const { customer } = await sdk.store.customer.create(
       customerForm,
       {},
       headers
     )
+    createdCustomer = customer
 
     const loginToken = await sdk.auth.login("customer", "emailpass", {
       email: customerForm.email,
@@ -97,11 +118,14 @@ export async function signup(_currentState: unknown, formData: FormData) {
     revalidateTag(customerCacheTag)
 
     await transferCart()
-
-    return createdCustomer
   } catch (error: any) {
     return error.toString()
   }
+
+  // Outside the try: `redirect` works by throwing, which the catch would eat.
+  redirectAfterSignIn(formData)
+
+  return createdCustomer
 }
 
 export async function login(_currentState: unknown, formData: FormData) {
@@ -125,6 +149,8 @@ export async function login(_currentState: unknown, formData: FormData) {
   } catch (error: any) {
     return error.toString()
   }
+
+  redirectAfterSignIn(formData)
 }
 
 export async function signout(countryCode: string) {

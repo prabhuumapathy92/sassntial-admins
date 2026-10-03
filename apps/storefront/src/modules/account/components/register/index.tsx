@@ -11,9 +11,11 @@ import LocalizedClientLink from "@modules/common/components/localized-client-lin
 
 type Props = {
   setCurrentView: (view: LOGIN_VIEW) => void
+  /** Where to go once the account exists; without it the page re-renders. */
+  redirectTo?: string
 }
 
-const Register = ({ setCurrentView }: Props) => {
+const Register = ({ setCurrentView, redirectTo }: Props) => {
   const [message, formAction] = useActionState(signup, null)
 
   return (
@@ -27,6 +29,9 @@ const Register = ({ setCurrentView }: Props) => {
       </p>
 
       <form className="mt-7 flex flex-col gap-y-4" action={formAction}>
+        {redirectTo ? (
+          <input type="hidden" name="redirect_to" value={redirectTo} />
+        ) : null}
         <div className="grid gap-4 sm:grid-cols-2">
           <AuthField
             label="First name"

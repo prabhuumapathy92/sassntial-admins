@@ -2,7 +2,10 @@
 
 import { convertToLocale } from "@lib/util/money"
 import { Button, Heading } from "@medusajs/ui"
+import { useSearchParams } from "next/navigation"
+import { useState } from "react"
 
+import CheckoutAuthModal from "@modules/cart/components/checkout-auth-modal"
 import DiscountCode from "@modules/checkout/components/discount-code"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import { HttpTypes } from "@medusajs/types"
@@ -11,18 +14,20 @@ type SummaryProps = {
   cart: HttpTypes.StoreCart & {
     promotions: HttpTypes.StorePromotion[]
   }
+  /** Checkout path without the country code, e.g. `/checkout?step=address`. */
+  checkoutPath: string
+  isSignedIn: boolean
 }
 
-function getCheckoutStep(cart: HttpTypes.StoreCart) {
-  if (!cart?.shipping_address?.address_1 || !cart.email) {
-    return "address"
-  } else {
-    return "payment"
-  }
-}
+const checkoutButtonClass =
+  "mt-5 h-12 w-full bg-[linear-gradient(135deg,#0f172a_0%,#1e293b_58%,#38bdf8_190%)] text-sm font-medium text-white"
 
-const Summary = ({ cart }: SummaryProps) => {
-  const step = getCheckoutStep(cart)
+const Summary = ({ cart, checkoutPath, isSignedIn }: SummaryProps) => {
+  // Checkout sends signed-out shoppers back here with `?sign_in=1`.
+  const searchParams = useSearchParams()
+  const [isAuthOpen, setIsAuthOpen] = useState(
+    !isSignedIn && searchParams.get("sign_in") === "1"
+  )
   const itemCount = cart.items?.length ?? 0
   const itemSubtotal = cart.item_subtotal ?? 0
   const shippingSubtotal = cart.shipping_subtotal ?? 0
@@ -116,14 +121,27 @@ const Summary = ({ cart }: SummaryProps) => {
           </div>
         </div>
 
-        <LocalizedClientLink
-          href={"/checkout?step=" + step}
-          data-testid="checkout-button"
-        >
-          <Button className="mt-5 h-12 w-full bg-[linear-gradient(135deg,#0f172a_0%,#1e293b_58%,#38bdf8_190%)] text-sm font-medium text-white">
+        {/* Checkout needs an account: signed out, the button opens the sign-in
+            popup, which continues to checkout once the shopper is in. */}
+        {isSignedIn ? (
+          <LocalizedClientLink href={checkoutPath} data-testid="checkout-button">
+            <Button className={checkoutButtonClass}>Go to checkout</Button>
+          </LocalizedClientLink>
+        ) : (
+          <Button
+            className={checkoutButtonClass}
+            onClick={() => setIsAuthOpen(true)}
+            data-testid="checkout-button"
+          >
             Go to checkout
           </Button>
-        </LocalizedClientLink>
+        )}
+
+        <CheckoutAuthModal
+          isOpen={isAuthOpen}
+          close={() => setIsAuthOpen(false)}
+          checkoutPath={checkoutPath}
+        />
 
         <p className="mt-3 text-center font-[family-name:var(--font-tech)] text-[0.68rem] uppercase text-slate-500">
           Secure checkout
